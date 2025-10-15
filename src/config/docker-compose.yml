@@ -1,0 +1,90 @@
+# ===== anchors =====
+x-common: &common
+  build:
+    context: ../..
+    dockerfile: src/config/.dockerfile
+  env_file:
+    - ../../.env
+  environment:
+    PYTHONUNBUFFERED: "1"
+    MONGO_URL:            http://mongo:5017
+    E5_URL:               http://e5:5003
+    VECTOR_DB_URL:        http://vector_db:5004
+    QUESTION_MODEL_URL:   http://question_model:5005
+    SERVER_URL:           http://server:5002
+  restart: unless-stopped
+  networks: [backend]
+  working_dir: /app
+  volumes:
+    - ../app:/app
+    - ../data:/app/data
+
+# ===== networks/volumes =====
+networks:
+  backend:
+
+volumes:
+  hf_cache:
+
+services:
+
+  # ---------- UI ----------
+  streamlit:
+    <<: *common
+    command: streamlit run web.py --server.port 8501 --server.address 0.0.0.0
+    ports: ["8501:8501"]
+    # streamlit дергает main по имени сервиса
+    environment:
+      FASTAPI_HOST: new_main
+  # ---------- main ----------
+  new_main:
+    <<: *common
+    command: uvicorn new_main:app --reload --host 0.0.0.0 --port 8000
+    ports: ["8000:8000"] 
+
+  # ---------- internal microservices ----------
+  server:
+    <<: *common
+    command: uvicorn server:app --reload --host 0.0.0.0 --port 5002
+    ports: ["5002:5002"] 
+
+  e5:
+    <<: *common
+    command: uvicorn e5:app --reload --host 0.0.0.0 --port 5003
+    ports: ["5003:5003"] 
+    volumes:
+      - ../app:/app
+      - hf_cache:/root/.cache/huggingface
+
+  vector_db:
+    <<: *common
+    command: uvicorn vector_db:app --reload --host 0.0.0.0 --port 5004
+    ports: ["5004:5004"] 
+
+  mongo:
+    <<: *common
+    command: uvicorn mongo:app --reload --host 0.0.0.0 --port 5017
+    ports: ["5017:5017"] 
+    volumes:
+      - ../app:/app
+      - hf_cache:/root/.cache/huggingface
+
+  question_model:
+    <<: *common
+    command: uvicorn question_model:app --reload --host 0.0.0.0 --port 5005
+    ports: ["5005:5005"] 
+    volumes:
+      - ../app:/app
+      - hf_cache:/root/.cache/huggingface
+    healthcheck:
+      test: [ "CMD-SHELL", "if [ -f /tmp/healthy ]; then exit 0; else curl -f http://localhost:5005/health && touch /tmp/healthy; fi" ]
+      # проверяет только первый раз 
+      interval: 2s
+      timeout: 10s
+      retries: 10000
+  notifier:
+    image: alpine
+    depends_on:
+      question_model:
+        condition: service_healthy
+    command: [ "sh", "-c", "echo '✅ Все сервисы готовы'" ]
