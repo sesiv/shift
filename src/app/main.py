@@ -52,14 +52,18 @@ class ConnectionManager:
         self.active_connections[user_id] = websocket
         if user_id not in self.user_states:
             self.user_states[user_id] = UserState()
-        logging.info(f"User {user_id} connected. Total connections: {len(self.active_connections)}")
+        logging.info(
+            f"User {user_id} connected. Total connections: {len(self.active_connections)}"
+        )
 
     def disconnect(self, user_id: str):
         if user_id in self.active_connections:
             del self.active_connections[user_id]
         if user_id in self.user_states:
             del self.user_states[user_id]
-        logging.info(f"User {user_id} disconnected. Total connections: {len(self.active_connections)}")
+        logging.info(
+            f"User {user_id} disconnected. Total connections: {len(self.active_connections)}"
+        )
 
     async def send_personal_message(self, message: dict, user_id: str):
         if user_id in self.active_connections:
@@ -96,7 +100,7 @@ def load_global_calibration() -> List[Tuple[float, float]]:
         with open(CALIBRATION_PATH, "r", encoding="utf-8") as f:
             cal = json.load(f)
         data = cal.get("global_iso", Exception).get("data",Exception)
-        
+
         logging.info("SUCCESS LOADED calibration.json")
         logging.info(f"sorted_pairs {data}")
         return data
@@ -157,9 +161,12 @@ async def chat(websocket: WebSocket, user_id: str):
             elif "button" in data:
                 await handle_button_click(user_id, data["button"])
             else:
-                await manager.send_personal_message({
-                    "error": "Invalid message format. Expected 'message' or 'button' field."
-                }, user_id)
+                await manager.send_personal_message(
+                    {
+                        "error": "Invalid message format. Expected 'message' or 'button' field."
+                    },
+                    user_id,
+                )
 
     except WebSocketDisconnect:
         manager.disconnect(user_id)
@@ -169,7 +176,30 @@ async def chat(websocket: WebSocket, user_id: str):
 
 
 async def handle_user_message(user_id: str, message: str):
-    """Handle user message through WebSocket"""
+    """
+    Обрабатывает пользовательское сообщение через WebSocket и возвращает соответствующий ответ.
+
+    Функция анализирует сообщение пользователя, используя систему классификации с калиброванной уверенностью,
+    и возвращает ответ в зависимости от уровня уверенности:
+    - Высокая уверенность (≥0.83): возвращает документ с кнопками подтверждения
+    - Средняя уверенность (0.5-0.83): предлагает топ-5 категорий на выбор
+    - Низкая уверенность (<0.5): задает уточняющий вопрос
+
+    Args:
+        user_id (str): Уникальный идентификатор пользователя
+        message (str): Текстовое сообщение от пользователя
+
+    Returns:
+        None: Отправляет ответ через WebSocket соединение
+
+    Raises:
+        Exception: Логирует ошибки и отправляет сообщение об ошибке пользователю
+
+    Side Effects:
+        - Обновляет состояние пользователя (chat_history, clarification_count)
+        - Отправляет ответы через WebSocket соединение
+        - Может изменить флаги ожидания уточнений
+    """
     user_state = manager.get_user_state(user_id)
     if not user_state:
         await manager.send_personal_message({"error": "User state not found"}, user_id)
@@ -177,23 +207,28 @@ async def handle_user_message(user_id: str, message: str):
 
     # Добавляем сообщение пользователя в историю
     user_state.add_message("user", message)
-    logging.info(f"User {user_id} message: {message}")
-    # Склеиваем уточнение с предыдущим уточнением
+
+    # Если состояние базовое, сбрасываем счетчик уточнений
+    if user_state.current_state == "baseState":
+        user_state.clarification_count = 0
+
+    # If expecting clarification answer, combine with initial question and model question
     if getattr(user_state, "expecting_clarification", False) and getattr(user_state, "initial_query_for_clarification", None):
         combined_message = (
-            f"{user_state.initial_query_for_clarification}\n"
-            f"{message}"
+            f"Вопрос пользователя: {user_state.initial_query_for_clarification}\n"
+            f"Уточняющий вопрос: {user_state.last_model_question or ''}\n"
+            f"Ответ пользователя: {message}"
         )
         agg = aggregate_nodes(user_state.current_state, combined_message)
-        # Очищаем состояние уточнения
+        # reset clarification flags
         user_state.expecting_clarification = False
         user_state.last_model_question = None
-        # Держим initial_query_for_clarification для контекста, но больше не спрашиваем новый вопрос
+        # держим initial_query_for_clarification для контекста, но больше не спрашиваем новый вопрос
     else:
-
+        # Process message using existing logic
         agg = aggregate_nodes(user_state.current_state, message)
     logging.info(f"Aggregate result: {agg}")
-    
+
     predicted_id = agg.get("predicted_id")
     confidence = agg.get("confidence", 0.0)
     top_categories = agg.get("top_categories", [])
@@ -210,12 +245,15 @@ async def handle_user_message(user_id: str, message: str):
             if doc["guide"] != "":
                 answer = doc["guide"]
             else:
-
-                answer = "Описание категории:\n\n" + doc["description"]+f"""
-                \n\n **Рекомендуем вам оформить** {(doc.get('name_path', '') or '').replace('/', '\n\n ->')[:-3]}
+                answer = (
+                    "Описание категории:\n\n"
+                    + doc["description"]
+                    + f"""
+                \n\n **Рекомендуем вам оформить** {(doc.get("name_path", "") or "").replace("/", "\n\n ->")[:-3]}
                 \nНажмите для подтверждения
                 """
-                #убираем последний ->
+                )
+                # убираем последний ->
 
             buttons = [
                 {"label": "Подтвердить", "value": predicted_id},
@@ -223,25 +261,27 @@ async def handle_user_message(user_id: str, message: str):
             ]
 
             user_state.add_message("assistant", answer)
-            await manager.send_personal_message({
-                "text": answer,
-                "type": "message_response",
-                "new_state": None,
-                "predicted_id": predicted_id,
-                "confidence": confidence,
-                "buttons": buttons,
-            }, user_id)
+            await manager.send_personal_message(
+                {
+                    "text": answer,
+                    "type": "message_response",
+                    "new_state": None,
+                    "predicted_id": predicted_id,
+                    "confidence": confidence,
+                    "buttons": buttons,
+                },
+                user_id,
+            )
 
         elif CONFIDENCE_CONSTANTS[-1] <= confidence < CONFIDENCE_CONSTANTS[0] or user_state.clarification_count >= 1:
             # Средняя уверенность: предлагаем выбрать из топ-5 категорий
             suggestion_buttons = []
             for item in top_categories[:5]:
                 cid = item["id"]
-                
+
                 try:
                     cdoc = requests.get(
-                        f"{MONGO_URL}/document/{cid}",
-                        params={"filter": "name_path"}
+                        f"{MONGO_URL}/document/{cid}", params={"filter": "name_path"}
                     ).json()["data"]
                     label = cdoc.get("name_path")
                     logging.info(label.split("/"))
@@ -253,18 +293,28 @@ async def handle_user_message(user_id: str, message: str):
 
             # Добавляем кнопку "Сброс"
             suggestion_buttons.append({"label": "Сброс", "value": "no_categories"})
+                suggestion_buttons.append({
+                    "label": label_cropped,
+                    "value": f"open_doc:{cid}",
+                })
+
+            # Добавляем кнопку "Нет"
+            suggestion_buttons.append({"label": "Нет", "value": "no_categories"})
 
             prompt_text = "Выберите наиболее подходящую категорию работ"
             user_state.add_message("assistant", prompt_text)
             logging.info(f"Button {suggestion_buttons}")
-            await manager.send_personal_message({
-                "text": prompt_text,
-                "type": "message_response",
-                "new_state": None,
-                "predicted_id": predicted_id,
-                "confidence": confidence,
-                "buttons": suggestion_buttons,
-            }, user_id)
+            await manager.send_personal_message(
+                {
+                    "text": prompt_text,
+                    "type": "message_response",
+                    "new_state": None,
+                    "predicted_id": predicted_id,
+                    "confidence": confidence,
+                    "buttons": suggestion_buttons,
+                },
+                user_id,
+            )
 
         else:
             # Низкая уверенность: генерируем уточняющий вопрос
@@ -276,24 +326,51 @@ async def handle_user_message(user_id: str, message: str):
             user_state.last_model_question = question_text
             user_state.clarification_count += 1
             user_state.add_message("assistant", question_text)
-            await manager.send_personal_message({
-                "text": question_text,
-                "type": "message_response",
-                "new_state": None,
-                "predicted_id": predicted_id,
-                "confidence": confidence,
-                "buttons": [],
-            }, user_id)
+            await manager.send_personal_message(
+                {
+                    "text": question_text,
+                    "type": "message_response",
+                    "new_state": None,
+                    "predicted_id": predicted_id,
+                    "confidence": confidence,
+                    "buttons": [],
+                },
+                user_id,
+            )
 
     except Exception as e:
         logging.error(f"Error processing message for user {user_id}: {e}")
-        await manager.send_personal_message({
-            "error": "Ошибка при обработке сообщения"
-        }, user_id)
+        await manager.send_personal_message(
+            {"error": "Ошибка при обработке сообщения"}, user_id
+        )
 
 
 async def handle_button_click(user_id: str, button: str):
-    """Handle button click through WebSocket"""
+    """
+    Обрабатывает нажатие кнопки пользователем через WebSocket.
+
+    Функция обрабатывает различные типы кнопок:
+    - "no_match": отрицательная обратная связь, сброс состояния
+    - "no_categories": отказ от предложенных категорий
+    - "open_doc:{node_id}": открытие документа по ID узла
+    - Обычный node_id: навигация по дереву категорий
+
+    Args:
+        user_id (str): Уникальный идентификатор пользователя
+        button (str): Значение нажатой кнопки или ID узла
+
+    Returns:
+        None: Отправляет ответ через WebSocket соединение
+
+    Raises:
+        Exception: Логирует ошибки и отправляет сообщение об ошибке пользователю
+
+    Side Effects:
+        - Обновляет состояние пользователя (current_state, chat_history)
+        - Отправляет ответы через WebSocket соединение
+        - Может увеличить счетчик уточнений (clarification_count)
+        - Может сбросить состояние до базового (baseState)
+    """
     user_state = manager.get_user_state(user_id)
     if not user_state:
         await manager.send_personal_message({"error": "User state not found"}, user_id)
@@ -311,7 +388,9 @@ async def handle_button_click(user_id: str, button: str):
         new_state = "baseState"
         user_state.clarification_count += 1  # Увеличиваем счетчик уточнений
         answer = "Извините, что не нашли нужный вариант. Опишите, пожалуйста, задачу другими словами."
-        logging.info(f"Processing 'no_categories' button: answer='{answer}', new_state='{new_state}'")
+        logging.info(
+            f"Processing 'no_categories' button: answer='{answer}', new_state='{new_state}'"
+        )
     else:
         # Вывод гайда
         if isinstance(button, str) and button.startswith("open_doc:"):
@@ -319,36 +398,44 @@ async def handle_button_click(user_id: str, button: str):
             try:
                 doc = requests.get(
                     f"{MONGO_URL}/document/{node_id}",
-                    params={"filter": "guide,description,name_path"}
+                    params={"filter": "guide,description,name_path"},
                 ).json()["data"]
-                
+
                 if doc["guide"] != "":
                     answer = doc["guide"]
                 else:
-
-                    answer = "Описание категории:\n\n" + doc["description"]+f"""
-                    \n\n **Рекомендуем вам оформить** {(doc.get('name_path', '') or '').replace('/', '\n\n ->')[:-3]}
+                    answer = (
+                        "Описание категории:\n\n"
+                        + doc["description"]
+                        + f"""
+                    \n\n **Рекомендуем вам оформить** {(doc.get("name_path", "") or "").replace("/", "\n\n ->")[:-3]}
                     \nНажмите для подтверждения
                     """
-                    
+                    )
+
                 buttons = [
-                    {"label": f"Подтвердить", "value": node_id},
+                    {"label": "Подтвердить", "value": node_id},
                     {"label": "Это мне не подходит", "value": "no_match"},
                 ]
 
 
                 user_state.update_state(node_id)
                 user_state.add_message("assistant", answer)
-                await manager.send_personal_message({
-                    "text": answer,
-                    "type": "button_response",
-                    "new_state": node_id,
-                    "buttons": buttons,
-                }, user_id)
+                await manager.send_personal_message(
+                    {
+                        "text": answer,
+                        "type": "button_response",
+                        "new_state": node_id,
+                        "buttons": buttons,
+                    },
+                    user_id,
+                )
                 return
             except Exception as e:
                 logging.error(f"Error fetching document for node {node_id}: {e}")
-                await manager.send_personal_message({"error": "Ошибка при получении документа"}, user_id)
+                await manager.send_personal_message(
+                    {"error": "Ошибка при получении документа"}, user_id
+                )
                 return
         # Иначе считаем это нажатием на обычную ноду (id)
         # Получаем дочерние ноды для кнопки
@@ -376,21 +463,21 @@ async def handle_button_click(user_id: str, button: str):
     }, user_id)
 
 
-# Обработчик сохранения чата (сохраняем для совместимости)
+# обработчик сохранения чата (сохраняем для совместимости)
 @app.post("/save_chat")
 async def save_chat(chat_data: ChatRequest):
     payload = {
         "user_id": chat_data.user_id,
         "chat_id": chat_data.chat_id,
         "chat": chat_data.chat,
-        "state": chat_data.state
+        "state": chat_data.state,
     }
     response = requests.post(f"{SERVER_URL}/save_chat", json=payload)
     return response.json()["message"]
 
 
 # Вспомогательные функции
-# Классификатор сообщений
+# классификатор сообщений
 def aggregate_nodes(state: str, message: str) -> dict:
     """
     Классифицирует сообщение в один из узлов и вычисляет откалиброванную уверенность.
@@ -410,21 +497,36 @@ def aggregate_nodes(state: str, message: str) -> dict:
 
     if state == "baseState":
         for node in similar_nodes_dict:
-            hits["folder"][node["folder"]] = hits["folder"].get(node["folder"], 0) + node["distance"]
-            hits["slmService"][node["slmService"]] = hits["slmService"].get(node["slmService"], 0) + node["distance"]
-            hits["categoriesWork"][node["categoriesWork"]] = hits["categoriesWork"].get(node["categoriesWork"], 0) + node["distance"]
+            hits["folder"][node["folder"]] = (
+                hits["folder"].get(node["folder"], 0) + node["distance"]
+            )
+            hits["slmService"][node["slmService"]] = (
+                hits["slmService"].get(node["slmService"], 0) + node["distance"]
+            )
+            hits["categoriesWork"][node["categoriesWork"]] = (
+                hits["categoriesWork"].get(node["categoriesWork"], 0) + node["distance"]
+            )
     elif state == "folder":
         for node in similar_nodes_dict:
-            hits["slmService"][node["slmService"]] = hits["slmService"].get(node["slmService"], 0) + node["distance"]
-            hits["categoriesWork"][node["categoriesWork"]] = hits["categoriesWork"].get(node["categoriesWork"], 0) + node["distance"]
+            hits["slmService"][node["slmService"]] = (
+                hits["slmService"].get(node["slmService"], 0) + node["distance"]
+            )
+            hits["categoriesWork"][node["categoriesWork"]] = (
+                hits["categoriesWork"].get(node["categoriesWork"], 0) + node["distance"]
+            )
     elif state == "slmService":
         for node in similar_nodes_dict:
-            hits["categoriesWork"][node["categoriesWork"]] = hits["categoriesWork"].get(node["categoriesWork"], 0) + node["distance"]
+            hits["categoriesWork"][node["categoriesWork"]] = (
+                hits["categoriesWork"].get(node["categoriesWork"], 0) + node["distance"]
+            )
 
     logging.info(f"hits {hits}")
 
-    best = {"folder": {"id": "", "score": 0.0}, "slmService": {"id": "", "score": 0.0},
-            "categoriesWork": {"id": "", "score": 0.0}}
+    best = {
+        "folder": {"id": "", "score": 0.0},
+        "slmService": {"id": "", "score": 0.0},
+        "categoriesWork": {"id": "", "score": 0.0},
+    }
 
     for level in hits:
         for hit in hits[level]:
@@ -449,7 +551,11 @@ def aggregate_nodes(state: str, message: str) -> dict:
         candidate_distances: List[float] = []
         # Собираем дистанции для нод, у которых совпадает predicted_id на любом уровне
         for node in similar_nodes_dict:
-            if node.get("categoriesWork") == predicted_id or node.get("slmService") == predicted_id or node.get("folder") == predicted_id:
+            if (
+                node.get("categoriesWork") == predicted_id
+                or node.get("slmService") == predicted_id
+                or node.get("folder") == predicted_id
+            ):
                 try:
                     candidate_distances.append(float(node["distance"]))
                 except Exception:
@@ -463,11 +569,15 @@ def aggregate_nodes(state: str, message: str) -> dict:
             except Exception:
                 best_distance = None
 
-    confidence = distance_to_confidence(best_distance) if best_distance is not None else 0.0
+    confidence = (
+        distance_to_confidence(best_distance) if best_distance is not None else 0.0
+    )
 
     # Формируем топ категорий (по убыванию агрегированного score) для подсказок
     categories_scores = hits["categoriesWork"]
-    sorted_categories = sorted(categories_scores.items(), key=lambda x: x[1], reverse=True)
+    sorted_categories = sorted(
+        categories_scores.items(), key=lambda x: x[1], reverse=True
+    )
     top_categories = [{"id": cid, "score": score} for cid, score in sorted_categories]
 
     result = {
@@ -479,12 +589,12 @@ def aggregate_nodes(state: str, message: str) -> dict:
     return result
 
 
-SERVICE_PATH = os.path.join("data","services.json")
+SERVICE_PATH = os.path.join("data", "services.json")
 
-# Получение детей ноды
+# получение детей текущей ноды
 def get_children(state: str):
     logging.info(f"Текущая директория: {os.getcwd()}")
-    with open(SERVICE_PATH, 'r', encoding='utf-8') as f:
+    with open(SERVICE_PATH, "r", encoding="utf-8") as f:
         node_map = json.load(f)
 
     categories_name = []
@@ -497,7 +607,7 @@ def get_children(state: str):
 
 def get_node_name(node_id: str) -> Optional[str]:
     try:
-        with open(SERVICE_PATH, 'r', encoding='utf-8') as f:
+        with open(SERVICE_PATH, "r", encoding="utf-8") as f:
             node_map = json.load(f)
         node = node_map.get(node_id)
         if node:
@@ -515,17 +625,21 @@ def get_vector(text: str):
 
 
 def search_similar_nodes(state, vector):
-    response = requests.post(f"{VECTOR_DB_URL}/ticket/search", json={"state": state,
-                                                                   "query_vector": vector})
+    response = requests.post(
+        f"{VECTOR_DB_URL}/ticket/search", json={"state": state, "query_vector": vector}
+    )
     return response.json()
 
 
+# получение уточняющего вопроса
 def get_question(node: str, categories=None):
     if categories is None:
         categories = get_children(node)
     try:
-        response = requests.post(f"{QUESTION_MODEL_URL}/generate-question", json={"categories": categories})
-        return response.json()["choices"][0]["message"]['content']
+        response = requests.post(
+            f"{QUESTION_MODEL_URL}/generate-question", json={"categories": categories}
+        )
+        return response.json()["choices"][0]["message"]["content"]
     except Exception as e:
         logging.error(f"Error generating question: {e}")
         return "Ошибка при генерации вопроса"
@@ -549,7 +663,9 @@ def generate_clarifying_question(user_question: str, category_ids: List[str]) ->
                 labels.append(cid)
 
         payload = {"categories": labels, "question": user_question}
-        response = requests.post(f"{QUESTION_MODEL_URL}/generate-question", json=payload)
+        response = requests.post(
+            f"{QUESTION_MODEL_URL}/generate-question", json=payload
+        )
         return response.json()["choices"][0]["message"]["content"]
     except Exception as e:
         logging.error(f"Error generating clarifying question: {e}")
