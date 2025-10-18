@@ -1,4 +1,3 @@
-import glob
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from pydantic import BaseModel
 import requests
@@ -175,6 +174,10 @@ async def handle_user_message(user_id: str, message: str):
     # Add user message to history
     user_state.add_message("user", message)
 
+    # Если состояние базовое, сбрасываем счетчик уточнений
+    if user_state.current_state == "baseState":
+        user_state.clarification_count = 0
+
     # If expecting clarification answer, combine with initial question and model question
     if getattr(user_state, "expecting_clarification", False) and getattr(user_state, "initial_query_for_clarification", None):
         combined_message = (
@@ -216,7 +219,7 @@ async def handle_user_message(user_id: str, message: str):
                 #убираем последний ->
 
             buttons = [
-                {"label": f"Подтвердить", "value": predicted_id},
+                {"label": "Подтвердить", "value": predicted_id},
                 {"label": "Это мне не подходит", "value": "no_match"},
             ]
 
@@ -248,8 +251,11 @@ async def handle_user_message(user_id: str, message: str):
                 except Exception:
                     label = cid
                 suggestion_buttons.append({"label": label_cropped, "value": f"open_doc:{cid}"})
+            
+            # Добавляем кнопку "Нет"
+            suggestion_buttons.append({"label": "Нет", "value": "no_categories"})
 
-            prompt_text = "Выберите наиболее подходящую категорию работ"
+            prompt_text = "Выберите наиболее подходящую категорию работ"    
             user_state.add_message("assistant", prompt_text)
             logging.info(f"Button {suggestion_buttons}")
             await manager.send_personal_message({
@@ -299,7 +305,14 @@ async def handle_button_click(user_id: str, button: str):
     # Special handling for negative feedback
     if button == "no_match":
         answer = "Извините, что не нашли нужный вариант. Опишите, пожалуйста, задачу другими словами."
-        new_state = manager.get_user_state(user_id).current_state if manager.get_user_state(user_id) else "baseState"
+        new_state = "baseState"  # Сбрасываем состояние до базового
+        user_state.clarification_count += 1  # Увеличиваем счетчик уточнений
+    elif button == "no_categories":
+        # Сбрасываем состояние до базового и увеличиваем счетчик уточнений
+        new_state = "baseState"
+        user_state.clarification_count += 1  # Увеличиваем счетчик уточнений
+        answer = "Извините, что не нашли нужный вариант. Опишите, пожалуйста, задачу другими словами."
+        logging.info(f"Processing 'no_categories' button: answer='{answer}', new_state='{new_state}'")
     else:
         # If the button asks to open a document (from medium-confidence suggestions)
         if isinstance(button, str) and button.startswith("open_doc:"):
@@ -320,7 +333,7 @@ async def handle_button_click(user_id: str, button: str):
                     """
                     
                 buttons = [
-                    {"label": f"Подтвердить", "value": node_id},
+                    {"label": "Подтвердить", "value": node_id},
                     {"label": "Это мне не подходит", "value": "no_match"},
                 ]
 
