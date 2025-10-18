@@ -103,7 +103,7 @@ def load_global_calibration() -> List[Tuple[float, float]]:
 
     except Exception as e:
         logging.error(f"Failed to load calibration mapping from {CALIBRATION_PATH}: {e}")
-        # Дефолтная калибровка 
+        # Дефолтная калибровка
         return [
             (0.0019, 0.9891),
             (0.0449, 0.9710),
@@ -178,7 +178,7 @@ async def handle_user_message(user_id: str, message: str):
     # Добавляем сообщение пользователя в историю
     user_state.add_message("user", message)
     logging.info(f"User {user_id} message: {message}")
-    # Склеиваем уточнение с предыдущим уточнением 
+    # Склеиваем уточнение с предыдущим уточнением
     if getattr(user_state, "expecting_clarification", False) and getattr(user_state, "initial_query_for_clarification", None):
         combined_message = (
             f"{user_state.initial_query_for_clarification}\n"
@@ -218,7 +218,7 @@ async def handle_user_message(user_id: str, message: str):
                 #убираем последний ->
 
             buttons = [
-                {"label": f"Подтвердить", "value": predicted_id},
+                {"label": "Подтвердить", "value": predicted_id},
                 {"label": "Это мне не подходит", "value": "no_match"},
             ]
 
@@ -237,6 +237,7 @@ async def handle_user_message(user_id: str, message: str):
             suggestion_buttons = []
             for item in top_categories[:5]:
                 cid = item["id"]
+                
                 try:
                     cdoc = requests.get(
                         f"{MONGO_URL}/document/{cid}",
@@ -249,6 +250,9 @@ async def handle_user_message(user_id: str, message: str):
                 except Exception:
                     label = cid
                 suggestion_buttons.append({"label": label_cropped, "value": f"open_doc:{cid}"})
+
+            # Добавляем кнопку "Сброс"
+            suggestion_buttons.append({"label": "Сброс", "value": "no_categories"})
 
             prompt_text = "Выберите наиболее подходящую категорию работ"
             user_state.add_message("assistant", prompt_text)
@@ -300,7 +304,14 @@ async def handle_button_click(user_id: str, button: str):
     # Ничего не подошло
     if button == "no_match":
         answer = "Извините, что не нашли нужный вариант. Опишите, пожалуйста, задачу другими словами."
-        new_state = manager.get_user_state(user_id).current_state if manager.get_user_state(user_id) else "baseState"
+        new_state = "baseState"  # Сбрасываем состояние до базового
+        user_state.clarification_count += 1  # Увеличиваем счетчик уточнений
+    elif button == "no_categories":
+        # Сбрасываем состояние до базового и увеличиваем счетчик уточнений
+        new_state = "baseState"
+        user_state.clarification_count += 1  # Увеличиваем счетчик уточнений
+        answer = "Извините, что не нашли нужный вариант. Опишите, пожалуйста, задачу другими словами."
+        logging.info(f"Processing 'no_categories' button: answer='{answer}', new_state='{new_state}'")
     else:
         # Вывод гайда
         if isinstance(button, str) and button.startswith("open_doc:"):
@@ -496,7 +507,7 @@ def get_node_name(node_id: str) -> Optional[str]:
     return None
 
 
-# Внешние функции 
+# Внешние функции
 def get_vector(text: str):
     response = requests.post(f"{E5_URL}/get_vector", json={"query": text})
     return response.json()["vector"]
