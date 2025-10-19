@@ -1,6 +1,6 @@
 # ===== anchors =====
 x-common: &common
-  build:
+  build: &common-build
     context: ../..
     dockerfile: src/config/.dockerfile
   env_file:
@@ -31,25 +31,40 @@ services:
   # ---------- UI ----------
   streamlit:
     <<: *common
+    build:
+      <<: *common-build
+      target: streamlit
     command: streamlit run web.py --server.port 8501 --server.address 0.0.0.0
     ports: ["8501:8501"]
     # streamlit дергает main по имени сервиса
     environment:
-      FASTAPI_HOST: new_main
+      FASTAPI_HOST: main
+    depends_on:
+      - main
   # ---------- main ----------
-  new_main:
+  main:
+    build:
+      <<: *common-build
+      target: main
     <<: *common
-    command: uvicorn new_main:app --reload --host 0.0.0.0 --port 8000
+    command: uvicorn main:app --reload --host 0.0.0.0 --port 8000
+
     ports: ["8000:8000"] 
 
   # ---------- internal microservices ----------
   server:
+    build:
+      <<: *common-build
+      target: server
     <<: *common
     command: uvicorn server:app --reload --host 0.0.0.0 --port 5002
     ports: ["5002:5002"] 
 
   e5:
     <<: *common
+    build:
+      <<: *common-build
+      target: e5
     command: uvicorn e5:app --reload --host 0.0.0.0 --port 5003
     ports: ["5003:5003"] 
     volumes:
@@ -58,11 +73,17 @@ services:
 
   vector_db:
     <<: *common
+    build:
+      <<: *common-build
+      target: vector_db
     command: uvicorn vector_db:app --reload --host 0.0.0.0 --port 5004
     ports: ["5004:5004"] 
 
   mongo:
     <<: *common
+    build:
+      <<: *common-build
+      target: mongo
     command: uvicorn mongo:app --reload --host 0.0.0.0 --port 5017
     ports: ["5017:5017"] 
     volumes:
@@ -71,6 +92,10 @@ services:
 
   question_model:
     <<: *common
+    build:
+      <<: *common-build
+      target: question_model
+
     command: uvicorn question_model:app --reload --host 0.0.0.0 --port 5005
     ports: ["5005:5005"] 
     volumes:
