@@ -6,7 +6,7 @@ import os
 import logging
 import base64
 import requests
-from audiorecorder import audiorecorder
+
 
 logging.basicConfig(level=logging.INFO)
 
@@ -15,7 +15,7 @@ st.set_page_config(layout="wide")
 
 # Конфигурация URL
 
-FASTAPI_HOST = os.getenv("FASTAPI_HOST", "new_main")
+FASTAPI_HOST = os.getenv("FASTAPI_HOST", "main")
 
 # Базовые URL
 fastapi_base_url = f"http://{FASTAPI_HOST}:8000"
@@ -260,9 +260,9 @@ final_user_message = None
 input_container = st.container()
 with input_container:
     col1, col2 = st.columns([1, 8])
-    with col1:
+    #with col1:
         # Используем audio_recorder_key для создания уникального ключа виджета
-        recorded_audio = audiorecorder("🎤", "Запись...", key=f"audio_recorder_{st.session_state.audio_recorder_key}")
+        #recorded_audio = audiorecorder("🎤", "Запись...", key=f"audio_recorder_{st.session_state.audio_recorder_key}")
     with col2:
         text_input = st.text_input(
             "Ваше сообщение...",
@@ -270,6 +270,7 @@ with input_container:
             label_visibility="collapsed"
         )
 
+recorded_audio = b''  # Заглушка для аудио ввода, так как audiorecorder отключен
 # Определение, есть ли новый ввод (текст или аудио)
 if len(recorded_audio) > 0:
     audio_bytes = recorded_audio.export().read()
