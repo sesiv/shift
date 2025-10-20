@@ -22,12 +22,12 @@ SERVER_URL = os.environ.get("SERVER_URL", "http://server:5002")
 app = FastAPI()
 
 
-# User state management
+
 class UserState:
     def __init__(self):
         self.chat_history = []
         self.current_state = "baseState"
-        # Clarification flow state
+        # Уточняющие состояния
         self.expecting_clarification: bool = False
         self.initial_query_for_clarification: Optional[str] = None
         self.last_model_question: Optional[str] = None
@@ -84,7 +84,7 @@ class ChatRequest(BaseModel):
 logging.basicConfig(level=logging.INFO)
 
 
-# Calibration mapping (distance -> P(correct_top1)) loaded once at startup
+# Словарь дистанции в уверенность
 CALIBRATION_PATH = os.path.join("data","calibration.json")
 GLOBAL_CALIBRATION: List[Tuple[float, float]] = []
 
@@ -94,8 +94,6 @@ def load_global_calibration() -> List[Tuple[float, float]]:
         with open(CALIBRATION_PATH, "r", encoding="utf-8") as f:
             cal = json.load(f)
         data = cal.get("global_iso", Exception).get("data",Exception)
-        # Ensure sorted by distance ascending
-        
         
         logging.info("SUCCESS LOADED calibration.json")
         logging.info(f"sorted_pairs {data}")
@@ -103,15 +101,23 @@ def load_global_calibration() -> List[Tuple[float, float]]:
 
     except Exception as e:
         logging.error(f"Failed to load calibration mapping from {CALIBRATION_PATH}: {e}")
-        # Fallback to a coarse default mapping if file missing
+        # Дефолтная калибровка 
         return [
-            (0.0, 1.0),
-            (0.05, 0.9),
-            (0.1, 0.8),
-            (0.15, 0.7),
-            (0.2, 0.6),
-            (0.3, 0.5),
+            (0.0019, 0.9891),
+            (0.0449, 0.9710),
+            (0.0577, 0.9559),
+            (0.0655, 0.9420),
+            (0.0726, 0.8986),
+            (0.1078, 0.8261),
+            (0.1209, 0.8116),
+            (0.1331, 0.8088),
+            (0.1442, 0.7101),
+            (0.1554, 0.6667),
+            (0.1832, 0.5507),
+            (0.2003, 0.4493),
+            (0.2844, 0.3478)
         ]
+
 
 
 GLOBAL_CALIBRATION = load_global_calibration()
@@ -119,9 +125,6 @@ GLOBAL_CALIBRATION = load_global_calibration()
 
 def distance_to_confidence(distance_value: float) -> float:
     if not GLOBAL_CALIBRATION:
-
-
-        
         return 0.0
     distances = [d for d, _ in GLOBAL_CALIBRATION]
     idx = bisect.bisect_left(distances, distance_value)
@@ -133,7 +136,7 @@ def distance_to_confidence(distance_value: float) -> float:
     d2, p2 = GLOBAL_CALIBRATION[idx]
     if d2 == d1:
         return p1
-    # Linear interpolation between points
+    # Линейная интерполяция между точками
     alpha = (distance_value - d1) / (d2 - d1)
     return p1 + alpha * (p2 - p1)
 
@@ -143,11 +146,10 @@ async def chat(websocket: WebSocket, user_id: str):
     await manager.connect(websocket, user_id)
     try:
         while True:
-            # Receive message from client
             data = await websocket.receive_json()
             logging.info(f"Received from user {user_id}: {data}")
 
-            # Handle different message types
+            # Разветвление по типу сообщения
             if "message" in data:
                 await handle_user_message(user_id, data["message"])
             elif "button" in data:
@@ -171,23 +173,22 @@ async def handle_user_message(user_id: str, message: str):
         await manager.send_personal_message({"error": "User state not found"}, user_id)
         return
 
-    # Add user message to history
+    # Добавляем сообщение пользователя в историю
     user_state.add_message("user", message)
-
-    # If expecting clarification answer, combine with initial question and model question
+    logging.info(f"User {user_id} message: {message}")
+    # Склеиваем уточнение с предыдущим уточнением 
     if getattr(user_state, "expecting_clarification", False) and getattr(user_state, "initial_query_for_clarification", None):
         combined_message = (
-            f"Вопрос пользователя: {user_state.initial_query_for_clarification}\n"
-            f"Уточняющий вопрос: {user_state.last_model_question or ''}\n"
-            f"Ответ пользователя: {message}"
+            f"{user_state.initial_query_for_clarification}\n"
+            f"{message}"
         )
         agg = aggregate_nodes(user_state.current_state, combined_message)
-        # reset clarification flags
+        # Очищаем состояние уточнения
         user_state.expecting_clarification = False
         user_state.last_model_question = None
-        # держим initial_query_for_clarification для контекста, но больше не спрашиваем новый вопрос
+        # Держим initial_query_for_clarification для контекста, но больше не спрашиваем новый вопрос
     else:
-        # Process message using existing logic
+
         agg = aggregate_nodes(user_state.current_state, message)
     logging.info(f"Aggregate result: {agg}")
     
@@ -197,7 +198,7 @@ async def handle_user_message(user_id: str, message: str):
     logging.info(f"confidence {confidence}")
     try:
         if confidence >= 0.83 and predicted_id:
-            # High confidence: fetch and return top document, plus two buttons
+            # Высокая уверенность: предоставляем ответ по предсказанной ноде
             doc = requests.get(
                 f"{MONGO_URL}/document/{predicted_id}",
                 params={"filter": "guide,description,name_path"}
@@ -230,7 +231,7 @@ async def handle_user_message(user_id: str, message: str):
             }, user_id)
 
         elif 0.5 <= confidence < 0.83 or user_state.clarification_count >= 1:
-            # Medium confidence: suggest top-5 categories as buttons
+            # Средняя уверенность: предлагаем выбрать из топ-5 категорий
             suggestion_buttons = []
             for item in top_categories[:5]:
                 cid = item["id"]
@@ -260,7 +261,7 @@ async def handle_user_message(user_id: str, message: str):
             }, user_id)
 
         else:
-            # Low confidence: ask a clarifying question using question_model
+            # Низкая уверенность: генерируем уточняющий вопрос
             candidate_ids = [c["id"] for c in top_categories[:5]]
             question_text = generate_clarifying_question(message, candidate_ids)
             user_state.expecting_clarification = True
@@ -294,12 +295,12 @@ async def handle_button_click(user_id: str, button: str):
 
     logging.info(f"Button clicked by user {user_id}: {button}")
 
-    # Special handling for negative feedback
+    # Ничего не подошло
     if button == "no_match":
         answer = "Извините, что не нашли нужный вариант. Опишите, пожалуйста, задачу другими словами."
         new_state = manager.get_user_state(user_id).current_state if manager.get_user_state(user_id) else "baseState"
     else:
-        # If the button asks to open a document (from medium-confidence suggestions)
+        # Вывод гайда
         if isinstance(button, str) and button.startswith("open_doc:"):
             node_id = button.split(":", 1)[1]
             try:
@@ -336,26 +337,25 @@ async def handle_button_click(user_id: str, button: str):
                 logging.error(f"Error fetching document for node {node_id}: {e}")
                 await manager.send_personal_message({"error": "Ошибка при получении документа"}, user_id)
                 return
-
-        # Otherwise treat as a normal node id click
-        # Get children nodes for the button
+        # Иначе считаем это нажатием на обычную ноду (id)
+        # Получаем дочерние ноды для кнопки
         children = get_children(button)
 
         if children:
-            # Generate question for children
+            # Отправляем вопрос для дочерних нод
             question = get_question(button)
             answer = question
             new_state = button
         else:
-            # Leaf node selected – ask for rating 1..10
-            answer = "Спасибо оцените работу"
+            # Выбрана листовая нода — просим оценить работу
+            answer = "Спасибо, оцените работу"
             new_state = button
 
-    # Update user state
+    # Обновляем состояние пользователя
     user_state.update_state(new_state)
     user_state.add_message("assistant", answer)
 
-    # Send response to client
+    # Отправляем ответ клиенту
     await manager.send_personal_message({
         "text": answer,
         "type": "button_response",
@@ -363,7 +363,7 @@ async def handle_button_click(user_id: str, button: str):
     }, user_id)
 
 
-# обработчик сохранения чата (сохраняем для совместимости)
+# Обработчик сохранения чата (сохраняем для совместимости)
 @app.post("/save_chat")
 async def save_chat(chat_data: ChatRequest):
     payload = {
@@ -377,7 +377,7 @@ async def save_chat(chat_data: ChatRequest):
 
 
 # Вспомогательные функции
-# классификатор сообщений
+# Классификатор сообщений
 def aggregate_nodes(state: str, message: str) -> dict:
     """
     Классифицирует сообщение в один из узлов и вычисляет откалиброванную уверенность.
@@ -468,7 +468,7 @@ def aggregate_nodes(state: str, message: str) -> dict:
 
 SERVICE_PATH = os.path.join("data","services.json")
 
-# получение детей текущей ноды
+# Получение детей ноды
 def get_children(state: str):
     logging.info(f"Текущая директория: {os.getcwd()}")
     with open(SERVICE_PATH, 'r', encoding='utf-8') as f:
@@ -494,21 +494,19 @@ def get_node_name(node_id: str) -> Optional[str]:
     return None
 
 
-# Интеграция с другими сервисами
-# векторизация сообщения
+# Внешние функции 
 def get_vector(text: str):
     response = requests.post(f"{E5_URL}/get_vector", json={"query": text})
     return response.json()["vector"]
 
 
-# поиск ближайшей ноды
+
 def search_similar_nodes(state, vector):
     response = requests.post(f"{VECTOR_DB_URL}/ticket/search", json={"state": state,
                                                                    "query_vector": vector})
     return response.json()
 
 
-# получение уточняющего вопроса
 def get_question(node: str, categories=None):
     if categories is None:
         categories = get_children(node)
