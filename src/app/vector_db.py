@@ -9,6 +9,8 @@ import json
 from chromadb.config import Settings
 import os
 
+logging.basicConfig(level=logging.INFO)
+
 client = chromadb.HttpClient(
     host="158.160.17.124",  # IP или домен сервера
     port=8000,              # порт сервера (уточни свой)
@@ -18,58 +20,11 @@ client = chromadb.HttpClient(
     )
 )
 
-
-
 collection=client.get_collection("ticketsTrain09082025")
-
-logging.basicConfig(level=logging.INFO)
-
-THRESHOLD = 0.7
 
 # Инициализация FastAPI
 app = FastAPI()
 
-# Загрузка FAISS индекса и данных
-# Подключаемся к базе
-
-"""
-должен быть metadatas , embeddings, documents, ids 
-documents брать из metadatas[description] 
-
-metadatas пример 
-{'categoriesWork': 'categoriesWork$49302778',
- 'folder': 'folder$1115806',
- 'description': 'Прошу предоставить права локального администратора на срок до (указать дату): 8 нояб. 2024 г., 15:56 Кому необходим доступ (сетевое имя пользователя): Ефимов Антон Владимирович (anefimov) Сетевое имя компьютера: [book1180v8] Внимание!!! Права локального администратора на серверах, в рамках данной услуги, не предоставляются. Обоснование для предоставления прав:для установки и первого запуска XmlPad из ЦПО.',
- 'slmService': 'slmService$1116020',
- 'name': 'Предоставление прав локального администратора на ПК', - categoriesWork - именнованный 
- 'id': '9188'}
-"""
-
-"""
-надо зарефакторить
-/search заменить /ticket +
-
-
-to do : 
-get /ticket - поиск  ,
-post /ticket/{id} - создание 
-delete ticket/{id} -удаление
-
-пример тикета 
-
-должен быть metadatas , embeddings, documents, ids 
-
-documents брать из description 
-ids брать как collections.count()+1 
-
-metadatas пример 
-{'categoriesWork': 'categoriesWork$49302778',
- 'folder': 'folder$1115806',
- 'description': 'Прошу предоставить права локального администратора на срок до (указать дату): 8 нояб. 2024 г., 15:56 Кому необходим доступ (сетевое имя пользователя): Ефимов Антон Владимирович (anefimov) Сетевое имя компьютера: [book1180v8] Внимание!!! Права локального администратора на серверах, в рамках данной услуги, не предоставляются. Обоснование для предоставления прав:для установки и первого запуска XmlPad из ЦПО.',
- 'slmService': 'slmService$1116020',
- 'name': 'Предоставление прав локального администратора на ПК', - categoriesWork - именнованный 
- 'id': '9188'}
-"""
 
 # Модель запроса через Pydantic
 class SearchRequest(BaseModel):
@@ -104,7 +59,6 @@ def get_vector(text: str) -> List[float]:
     """
     Генерация эмбеддинга
     """
-    # response = requests.post("http://e5:5003/get_vector", json={"query": text})
     response = requests.post("http://localhost:5003/get_vector", json={"query": text})
     return response.json()["vector"]
 
@@ -118,7 +72,7 @@ async def search_ticket(query_data: SearchRequest):
         n_results=n_results,
         include=["metadatas","distances","documents"],
     )
-    #logging.info(f"results{results}")
+
     data=[dict() for _ in range(5)]
     # разбираем пути response
     for i,metadata in enumerate(results["metadatas"][0]):
