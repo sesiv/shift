@@ -5,7 +5,7 @@ import os
 import logging
 from dotenv import load_dotenv
 import time
-import threading
+
 
 
 logging.basicConfig(level=logging.INFO)
@@ -15,11 +15,8 @@ app = FastAPI()
 
 # Флаг готовности модели: False, пока загрузка не завершилась
 is_ready = False
-
-# Загружаем модель в отдельном потоке, повторяя попытки до успеха.
-# !pip install llama-cpp-python
-
-
+REPO_ID=os.environ.get("REPO_ID")
+MODEL_FILENAME=os.environ.get("MODEL_FILENAME")
 
 def _load_model():
     global llm, is_ready
@@ -27,8 +24,8 @@ def _load_model():
     try:
         start_time = time.time()
         llm = Llama.from_pretrained(
-            repo_id="unsloth/gemma-3-4b-it-GGUF",
-            filename="gemma-3-4b-it-Q4_K_M.gguf",
+            repo_id=REPO_ID,
+            filename=MODEL_FILENAME,
             set_prefix_caching=True,
             n_threads=1,
             n_ctx=1024,
@@ -40,14 +37,10 @@ def _load_model():
         logging.info(f"[question_model] model loaded in {time.time() - start_time:.1f} seconds")
     except Exception as e:
         logging.exception("[question_model] failed to load model: %s", e)
-        
-
 
 # Запускаем загрузку в фоне при старте приложения
-
 _load_model()
 logging.info(f"[question_model] model loaded")
-
 
 SYSTEM_PROMPT = """Ты ассистент Service‑Desk. Сформулируй ОДИН короткий уточняющий вопрос, 
 который поможет выбрать правильную категорию работ из предложенных. 
@@ -61,22 +54,13 @@ async def health_check():
     # 503 — сервис ещё не готов
     return JSONResponse(status_code=503, content={"status": "loading"})
 
-"""
-Как должен работать /generate-question :
-
-Вызывается на третьем уровне уверенности (70%<) 
-В него передаются найденные ноды со степенью уверенности модели и вопрос пользователя 
-
-Модель просят создать вопрос на основе их связки
-
-На основе этого ответа модель выбирает из предложенных нод ноду пользователя и передает ее в new_main/ws/chat/{user_id}
-
-"""
-
-
-
 @app.post("/generate-question")
 async def generate_question(data: dict):
+    """
+    Вызывается на третьем уровне уверенности (70%<) 
+    В него передаются найденные ноды со степенью уверенности модели и вопрос пользователя 
+    Модель просят создать вопрос на основе их связки
+    На основе этого ответа модель выбирает из предложенных нод ноду пользователя и передает ее в new_main/ws/chat/{user_id}"""
     logging.info(f"[question_model] generate question")
     logging.info(f" received data: {data}")
 
