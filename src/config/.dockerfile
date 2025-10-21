@@ -2,7 +2,7 @@ FROM python:3.12-slim AS base
 WORKDIR /app
 RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
 
-EXPOSE 8501 8000 5002 5003 5004 5005
+EXPOSE 8501 5004 5017
 
 FROM base AS streamlit
 COPY src/config/requirements/web.txt .
