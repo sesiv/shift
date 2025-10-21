@@ -1,31 +1,59 @@
-from fastapi.responses import Response
-from pymongo import MongoClient
-from fastapi import FastAPI, Query, HTTPException
-from pydantic import BaseModel , Field
-from typing import List
+"""
+FastAPI-сервер для работы с документами в MongoDB.
+
+Предоставляет эндпоинты для получения, создания и удаления документов,
+хранящихся в коллекции 'nodes' базы данных 'nodes'.
+"""
 import logging
 import os
+from typing import List ,Annotated, Optional
+
+from fastapi import FastAPI, HTTPException, Query, Response
+from fastapi.responses import JSONResponse
+from pydantic import BaseModel ,Field
+from pymongo import MongoClient
+from pymongo.errors import ConnectionFailure, PyMongoError
+
 
 logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 MONGO_URI = os.getenv("MONGO_URI")
 logging.info(f"Connecting to MongoDB at {MONGO_URI}")
+
 try:
     client = MongoClient(MONGO_URI)
     client.server_info()
     logging.info("Successfully connected to MongoDB.")
 except Exception as e:
     logging.error(f"FATAL: Failed to connect to MongoDB: {e}")
-    raise
+    raise SystemExit("MongoDB connection failed") from e
 
 db = client.get_database("nodes")
-
 collection = db.get_collection("nodes")
 
-app = FastAPI()
+app = FastAPI(
+    title="Document API",
+    description="API для управления документами в MongoDB",
+    version="1.0.0",
+)
 
 
 class Node(BaseModel):
+    """
+    Модель документа (ноды), хранящегося в MongoDB.
+
+    Атрибуты:
+        id (str): Уникальный идентификатор документа.
+        sd_level (str): Уровень категории (например, 'categoriesWork').
+        description (str): Подробное описание категории.
+        guide (str): Инструкция или руководство по работе с категорией.
+        children (list): Список дочерних элементов (обычно пустой).
+        path (str): Путь в иерархии (технический).
+        name_path (str): Человекочитаемый путь.
+        name (str): Название категории.
+    """
+
     id: str = Field(..., example="categoriesWork$48859506")
     sd_level: str = Field(..., example="categoriesWork")
     description: str = Field(
@@ -61,87 +89,147 @@ class Node(BaseModel):
     name: str = Field(..., example="Открытие/изменение овердрафта")
 
 
-
-@app.get("/document/{id}")
-async def getDocument(id, filter: str | None = Query(
-    default=None,
-    description="""
-    Список полей которые нужно передать через запятую
-
-    Если пустой то передаем весь обьект 
+def decode_id(encoded_id: str) -> str:
     """
-)):
-    id = id.replace(r"#24",
-                    "$")  # во время пересыла $ декодируется как специальный символ а как его экранировать я не разобрался
+    Декодирует идентификатор, заменяя специальную последовательность '#24' на '$'.
 
-    logging.info(f"id {id}")
+    Используется для обхода проблем с URL-кодированием символа '$'.
+
+    Args:
+        encoded_id (str): Закодированный идентификатор.
+
+    Returns:
+        str: Декодированный идентификатор.
+    """
+    return encoded_id.replace(r"#24", "$")
+
+
+@app.get("/document/{id}", response_model=dict)
+async def get_document(
+    id: str,
+    filter_fields: Annotated[
+        Optional[str],
+        Query(
+            description=(
+                "Список полей, которые нужно вернуть, через запятую. "
+                "Если не указан — возвращается весь объект."
+            )
+        ),
+    ] = None,
+) -> JSONResponse:
+    """
+    Получает документ по его идентификатору.
+
+    Args:
+        id (str): Идентификатор документа (может содержать '#24' вместо '$').
+        filter_fields (Optional[str]): Список полей для возврата через запятую.
+
+    Returns:
+        JSONResponse: Объект документа с указанными полями или полный объект.
+
+    Raises:
+        HTTPException: 404 если документ не найден.
+    """
+    decoded_id = decode_id(id)
+    logger.info(f"Fetching document with id: {decoded_id}")
+
     try:
-        node_from_mongo = collection.find_one({"id": id})  # type dict
-        logging.info(f"node_from_mongo {node_from_mongo}")
-        node_from_mongo.pop("_id")
+        node_from_mongo = collection.find_one({"id": decoded_id})
+        if not node_from_mongo:
+            logger.warning(f"Document with id '{decoded_id}' not found")
+            raise HTTPException(status_code=404, detail="Document not found")
 
+        # Удаляем служебное поле MongoDB
+        node_from_mongo.pop("_id", None)
 
-    except:
-        logging.info("status404 node not found")
-        return {"status": "404 node not found "}
+        node = Node(**node_from_mongo)
 
-    node = Node(**node_from_mongo)  # type Node(BaseModel)
+        if filter_fields:
+            include_set = set(field.strip() for field in filter_fields.split(","))
+            filtered_data = node.model_dump(include=include_set)
+            return JSONResponse({"status": 200, "data": filtered_data})
 
-    logging.info(f"node.__dict__ {node.__dict__}")
-    if filter:
-        include_set = set(filter.split(","))
-        return {"status": 200, "data": node.model_dump(include=include_set)}
+        return JSONResponse({"status": 200, "data": node.model_dump()})
 
-    return {"status": 200, "data": node}
+    except PyMongoError as e:
+        logger.error(f"Database error while fetching document: {e}")
+        raise HTTPException(status_code=500, detail="Database error") from e
+    except Exception as e:
+        logger.error(f"Unexpected error while fetching document: {e}")
+        raise HTTPException(status_code=500, detail="Internal server error") from e
 
 
 @app.post("/document/{id}", status_code=201)
-async def createDocument(id: str, node: Node):
+async def create_document(id: str, node: Node) -> dict:
     """
-    Создает новый документ с указанным id
+    Создаёт новый документ с указанным идентификатором.
+
+    Args:
+        id (str): Идентификатор документа (может содержать '#24' вместо '$').
+        node (Node): Данные нового документа.
+
+    Returns:
+        dict: Сообщение об успешном создании и идентификатор.
+
+    Raises:
+        HTTPException: 409 если документ с таким id уже существует.
+        HTTPException: 500 при ошибке базы данных.
     """
-    id = id.replace(r"#24", "$")
+    decoded_id = decode_id(id)
+    logger.info(f"Creating document with id: {decoded_id}")
 
-    logging.info(f"Creating document with id: {id}")
-
-    # Проверяем, существует ли уже документ с таким id
-    existing_node = collection.find_one({"id": id})
-    if existing_node:
-        logging.info(f"Document with id {id} already exists")
+    if collection.find_one({"id": decoded_id}):
+        logger.warning(f"Document with id '{decoded_id}' already exists")
         raise HTTPException(status_code=409, detail="Document with this id already exists")
 
     try:
         node_dict = node.model_dump()
-        node_dict["id"] = id  # Убеждаемся, что id соответствует пути
+        node_dict["id"] = decoded_id
 
         result = collection.insert_one(node_dict)
+        logger.info(f"Document inserted with MongoDB _id: {result.inserted_id}")
+        return {"message": "Document created successfully", "id": decoded_id}
 
-        logging.info(f"Document created successfully with MongoDB _id: {result.inserted_id}")
-        return {"message": "Document created successfully", "id": id}
-
+    except PyMongoError as e:
+        logger.error(f"Database error during document creation: {e}")
+        raise HTTPException(status_code=500, detail="Database error") from e
     except Exception as e:
-        logging.error(f"Error creating document: {str(e)}")
-        raise HTTPException(status_code=500, detail=f"Internal server error: {str(e)}")
+        logger.error(f"Unexpected error during document creation: {e}")
+        raise HTTPException(status_code=500, detail="Internal server error") from e
 
 
-@app.delete("/document/{id}")
-async def deleteDocument(id: str):
+@app.delete("/document/{id}", status_code=204)
+async def delete_document(id: str) -> Response:
     """
-    Удаляет документ с указанным id
-    """
-    id = id.replace(r"#24", "$")
+    Удаляет документ по его идентификатору.
 
-    logging.info(f"Deleting document with id: {id}")
+    Args:
+        id (str): Идентификатор документа (может содержать '#24' вместо '$').
+
+    Returns:
+        Response: Пустой ответ с кодом 204 при успехе.
+
+    Raises:
+        HTTPException: 404 если документ не найден.
+        HTTPException: 500 при ошибке базы данных.
+    """
+    decoded_id = decode_id(id)
+    logger.info(f"Deleting document with id: {decoded_id}")
 
     try:
-        result = collection.delete_one({"id": id})
-
+        result = collection.delete_one({"id": decoded_id})
         if result.deleted_count == 0:
-            logging.info(f"Document with id {id} not found")
+            logger.warning(f"Document with id '{decoded_id}' not found for deletion")
             raise HTTPException(status_code=404, detail="Document not found")
-        logging.info(f"Document with id {id} deleted successfully")
+
+        logger.info(f"Document with id '{decoded_id}' deleted successfully")
         return Response(status_code=204)
 
+    except PyMongoError as e:
+        logger.error(f"Database error during document deletion: {e}")
+        raise HTTPException(status_code=500, detail="Database error") from e
     except Exception as e:
-        logging.error(f"Error deleting document: {str(e)}")
-        raise HTTPException(status_code=500, detail=f"Internal server error: {str(e)}")
+        logger.error(f"Unexpected error during document deletion: {e}")
+        raise HTTPException(status_code=500, detail="Internal server error") from e
+
+
