@@ -5,13 +5,17 @@ import numpy as np
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 import requests
+import os
+from dotenv import load_dotenv
 
 # Инициализация FastAPI
 app = FastAPI()
 
 # Загрузка модели
-tokenizer = AutoTokenizer.from_pretrained('intfloat/multilingual-e5-large-instruct')
-model = AutoModel.from_pretrained('intfloat/multilingual-e5-large-instruct')
+load_dotenv()
+EMBEDDING_MODEL = os.getenv("EMBEDDING_MODEL")
+tokenizer = AutoTokenizer.from_pretrained(EMBEDDING_MODEL)
+model = AutoModel.from_pretrained(EMBEDDING_MODEL)
 
 # Функция усреднения эмбеддингов
 def average_pool(last_hidden_states, attention_mask):

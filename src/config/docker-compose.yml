@@ -5,6 +5,7 @@ x-common: &common
     dockerfile: src/config/.dockerfile
   env_file:
     - ../../.env
+    - .public.env
   environment:
     PYTHONUNBUFFERED: "1"
     MONGO_URL:            http://mongo:5017
