@@ -42,10 +42,6 @@ def _load_model():
 _load_model()
 logging.info(f"[question_model] model loaded")
 
-SYSTEM_PROMPT = """Ты ассистент Service‑Desk. Сформулируй ОДИН короткий уточняющий вопрос, 
-который поможет выбрать правильную категорию работ из предложенных. 
-Только вопрос, без пояснений и перечислений вариантов. Коротко и конкретно."""
-
 @app.get("/health")
 async def health_check():
     logging.info(f"[question_model] health check")
