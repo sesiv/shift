@@ -1,0 +1,2942 @@
+{
+    "agreement_1": {
+        "id": "agreement_1",
+        "name": "Базовое соглашение",
+        "parent_id": null,
+        "children_id": [
+            "slmService$605005",
+            "slmService$1116001",
+            "slmService$1116002",
+            "slmService$1116003",
+            "slmService$1116012",
+            "slmService$1116017",
+            "slmService$1116020",
+            "slmService$1116025",
+            "slmService$1116036",
+            "slmService$1116041",
+            "slmService$1116044",
+            "slmService$1116049",
+            "slmService$3364604",
+            "slmService$12031201",
+            "slmService$12031202",
+            "slmService$22519702",
+            "slmService$24876101",
+            "slmService$49303602",
+            "slmService$49303603",
+            "slmService$49303604",
+            "slmService$55823801",
+            "slmService$59501301",
+            "slmService$116676205",
+            "slmService$139336905",
+            "slmService$156792606",
+            "slmService$159845705",
+            "slmService$173883205",
+            "slmService$173883206",
+            "slmService$193412305",
+            "slmService$203541105",
+            "slmService$221165405",
+            "slmService$223361005",
+            "slmService$258337705",
+            "slmService$269564905",
+            "slmService$274092605",
+            "slmService$279404605",
+            "slmService$305483005",
+            "slmService$308012005",
+            "slmService$308012006",
+            "slmService$308012008",
+            "slmService$308265505",
+            "slmService$308265506",
+            "slmService$308265507",
+            "slmService$308265508",
+            "slmService$308265509",
+            "slmService$308358505",
+            "slmService$312068205",
+            "slmService$363287605",
+            "slmService$372334605",
+            "slmService$410277605",
+            "slmService$422209705",
+            "slmService$434456305",
+            "slmService$455505405",
+            "slmService$478941405",
+            "slmService$478941406",
+            "slmService$540809505",
+            "slmService$579829205",
+            "slmService$579829206",
+            "slmService$579829207",
+            "slmService$579829208",
+            "slmService$579829209",
+            "slmService$603112705",
+            "slmService$603112706",
+            "slmService$603112709",
+            "slmService$603112710",
+            "slmService$603112711",
+            "slmService$603112712",
+            "slmService$603112713",
+            "slmService$603112714",
+            "slmService$603112715",
+            "slmService$603112716",
+            "slmService$603112717",
+            "slmService$603112718",
+            "slmService$603112719",
+            "slmService$621091505",
+            "slmService$621091506",
+            "slmService$621091508",
+            "slmService$630342006",
+            "slmService$647780105",
+            "slmService$664305405",
+            "slmService$723417005",
+            "slmService$760167505",
+            "slmService$767917605",
+            "slmService$798186905"
+        ]
+    },
+    "slmService$605005": {
+        "id": "slmService$605005",
+        "name": "Сервис-Деск",
+        "parent_id": "agreement_1",
+        "children_id": [
+            "categoriesWork$49302701",
+            "categoriesWork$49302702",
+            "categoriesWork$49302703",
+            "categoriesWork$49302707",
+            "categoriesWork$49302708",
+            "categoriesWork$286162907"
+        ]
+    },
+    "slmService$1116001": {
+        "id": "slmService$1116001",
+        "name": "Кадровый учет",
+        "parent_id": "agreement_1",
+        "children_id": [
+            "categoriesWork$48859501",
+            "categoriesWork$48859502",
+            "categoriesWork$48859503",
+            "categoriesWork$48859504",
+            "categoriesWork$48859505"
+        ]
+    },
+    "slmService$1116002": {
+        "id": "slmService$1116002",
+        "name": "Финансы (Справки о доходах, отпускные, расчетный лист, овердрафт)",
+        "parent_id": "agreement_1",
+        "children_id": [
+            "categoriesWork$48859506",
+            "categoriesWork$48859507",
+            "categoriesWork$48859508",
+            "categoriesWork$48859509",
+            "categoriesWork$50517902",
+            "categoriesWork$61340301"
+        ]
+    },
+    "slmService$1116003": {
+        "id": "slmService$1116003",
+        "name": "Социальная программа - ДМС",
+        "parent_id": "agreement_1",
+        "children_id": [
+            "categoriesWork$49302756",
+            "categoriesWork$164600705",
+            "categoriesWork$164600706",
+            "categoriesWork$164600707",
+            "categoriesWork$164600708",
+            "categoriesWork$662284205",
+            "categoriesWork$662284206"
+        ]
+    },
+    "slmService$1116012": {
+        "id": "slmService$1116012",
+        "name": "Юридическое сопровождение",
+        "parent_id": "agreement_1",
+        "children_id": [
+            "categoriesWork$49302761",
+            "categoriesWork$49302762"
+        ]
+    },
+    "slmService$1116017": {
+        "id": "slmService$1116017",
+        "name": "Снабжение и эксплуатация офисов",
+        "parent_id": "agreement_1",
+        "children_id": [
+            "categoriesWork$49302769",
+            "categoriesWork$701050905",
+            "categoriesWork$701050906",
+            "categoriesWork$701050907",
+            "categoriesWork$701050908",
+            "categoriesWork$701050909",
+            "categoriesWork$707242705"
+        ]
+    },
+    "slmService$1116020": {
+        "id": "slmService$1116020",
+        "name": "Рабочее место пользователя IT",
+        "parent_id": "agreement_1",
+        "children_id": [
+            "categoriesWork$49302766",
+            "categoriesWork$49302768",
+            "categoriesWork$49302772",
+            "categoriesWork$49302774",
+            "categoriesWork$49302775",
+            "categoriesWork$49302778",
+            "categoriesWork$49302780",
+            "categoriesWork$49302782",
+            "categoriesWork$49302800",
+            "categoriesWork$50517901",
+            "categoriesWork$78707605",
+            "categoriesWork$83152706",
+            "categoriesWork$108775605",
+            "categoriesWork$112120205",
+            "categoriesWork$152279105",
+            "categoriesWork$198702605",
+            "categoriesWork$241440105",
+            "categoriesWork$292758807",
+            "categoriesWork$303875105",
+            "categoriesWork$447360305",
+            "categoriesWork$611821305",
+            "categoriesWork$635022808"
+        ]
+    },
+    "slmService$1116025": {
+        "id": "slmService$1116025",
+        "name": "Телефония",
+        "parent_id": "agreement_1",
+        "children_id": [
+            "categoriesWork$49302710",
+            "categoriesWork$49302712",
+            "categoriesWork$49302713",
+            "categoriesWork$49302715",
+            "categoriesWork$132714407"
+        ]
+    },
+    "slmService$1116036": {
+        "id": "slmService$1116036",
+        "name": "Электронная почта",
+        "parent_id": "agreement_1",
+        "children_id": [
+            "categoriesWork$49302704",
+            "categoriesWork$49302706",
+            "categoriesWork$49302709",
+            "categoriesWork$49302798",
+            "categoriesWork$49302799",
+            "categoriesWork$558233305"
+        ]
+    },
+    "slmService$1116041": {
+        "id": "slmService$1116041",
+        "name": "Интернет",
+        "parent_id": "agreement_1",
+        "children_id": [
+            "categoriesWork$49302719"
+        ]
+    },
+    "slmService$1116044": {
+        "id": "slmService$1116044",
+        "name": "Обеспечение работы ЦОД(обслуживание), Критичных и Технических помещений",
+        "parent_id": "agreement_1",
+        "children_id": [
+            "categoriesWork$49302795",
+            "categoriesWork$49302796",
+            "categoriesWork$49302797",
+            "categoriesWork$53461801",
+            "categoriesWork$133410705",
+            "categoriesWork$158751405"
+        ]
+    },
+    "slmService$1116049": {
+        "id": "slmService$1116049",
+        "name": "Бюджетирование",
+        "parent_id": "agreement_1",
+        "children_id": [
+            "categoriesWork$49302752",
+            "categoriesWork$83152705",
+            "categoriesWork$91989305",
+            "categoriesWork$847749505"
+        ]
+    },
+    "slmService$3364604": {
+        "id": "slmService$3364604",
+        "name": "01.01.02 CRM",
+        "parent_id": "agreement_1",
+        "children_id": [
+            "categoriesWork$76309505",
+            "categoriesWork$76309508",
+            "categoriesWork$76309509",
+            "categoriesWork$76309512",
+            "categoriesWork$76309514",
+            "categoriesWork$76309515",
+            "categoriesWork$76309516",
+            "categoriesWork$76309517"
+        ]
+    },
+    "slmService$12031201": {
+        "id": "slmService$12031201",
+        "name": "Информационная безопасность",
+        "parent_id": "agreement_1",
+        "children_id": [
+            "categoriesWork$49302773",
+            "categoriesWork$49302777",
+            "categoriesWork$49302779",
+            "categoriesWork$91753005",
+            "categoriesWork$109936005",
+            "categoriesWork$124466905",
+            "categoriesWork$158132305",
+            "categoriesWork$158132306",
+            "categoriesWork$264949805"
+        ]
+    },
+    "slmService$12031202": {
+        "id": "slmService$12031202",
+        "name": "10.03.05. Поддержка дистрибутива и выдача лицензий для Систем на Платформе развития",
+        "parent_id": "agreement_1",
+        "children_id": [
+            "categoriesWork$49302751",
+            "categoriesWork$579831811",
+            "categoriesWork$682072605"
+        ]
+    },
+    "slmService$22519702": {
+        "id": "slmService$22519702",
+        "name": "1.Обслуживание корпоративных Unix'like серверов",
+        "parent_id": "agreement_1",
+        "children_id": [
+            "categoriesWork$48681617",
+            "categoriesWork$48681618",
+            "categoriesWork$48681619",
+            "categoriesWork$48681620",
+            "categoriesWork$48681621",
+            "categoriesWork$48681622",
+            "categoriesWork$48681623",
+            "categoriesWork$48681624",
+            "categoriesWork$48681625",
+            "categoriesWork$49302716",
+            "categoriesWork$49302718",
+            "categoriesWork$49302721"
+        ]
+    },
+    "slmService$24876101": {
+        "id": "slmService$24876101",
+        "name": "Видео-конференц-связь (ВКС)",
+        "parent_id": "agreement_1",
+        "children_id": [
+            "categoriesWork$49302720",
+            "categoriesWork$49302722",
+            "categoriesWork$49302723",
+            "categoriesWork$49302724",
+            "categoriesWork$49302725",
+            "categoriesWork$49302727",
+            "categoriesWork$56659102"
+        ]
+    },
+    "slmService$49303602": {
+        "id": "slmService$49303602",
+        "name": "Аутсорсинг. Общее",
+        "parent_id": "agreement_1",
+        "children_id": [
+            "categoriesWork$49302747",
+            "categoriesWork$49302748",
+            "categoriesWork$49302749",
+            "categoriesWork$49302750",
+            "categoriesWork$147688505",
+            "categoriesWork$147688506",
+            "categoriesWork$149545305",
+            "categoriesWork$568895005"
+        ]
+    },
+    "slmService$49303603": {
+        "id": "slmService$49303603",
+        "name": "Печать (МФУ, принтеры, копиры, сканеры)",
+        "parent_id": "agreement_1",
+        "children_id": [
+            "categoriesWork$49302783",
+            "categoriesWork$49302784",
+            "categoriesWork$49302785",
+            "categoriesWork$49302786",
+            "categoriesWork$49302787"
+        ]
+    },
+    "slmService$49303604": {
+        "id": "slmService$49303604",
+        "name": "Мониторинг систем и сервисов",
+        "parent_id": "agreement_1",
+        "children_id": [
+            "categoriesWork$49302788",
+            "categoriesWork$49302789",
+            "categoriesWork$49302790",
+            "categoriesWork$49302791",
+            "categoriesWork$49302792",
+            "categoriesWork$49302793"
+        ]
+    },
+    "slmService$55823801": {
+        "id": "slmService$55823801",
+        "name": "Контакт-Центр",
+        "parent_id": "agreement_1",
+        "children_id": [
+            "categoriesWork$49302714",
+            "categoriesWork$142316105",
+            "categoriesWork$239107405",
+            "categoriesWork$430274005"
+        ]
+    },
+    "slmService$59501301": {
+        "id": "slmService$59501301",
+        "name": "01.01.06 Процессинговые сервисы ( jira.korona.net, jira.ftc.ru, virgo.ftc.ru, stash.ftc.ru, bamboo.ftc.ru, stash.korona.net,confluence.korona.net)",
+        "parent_id": "agreement_1",
+        "children_id": [
+            "categoriesWork$59501701",
+            "categoriesWork$59501702",
+            "categoriesWork$59501704",
+            "categoriesWork$59501705",
+            "categoriesWork$59501708",
+            "categoriesWork$140680105",
+            "categoriesWork$140680107"
+        ]
+    },
+    "slmService$116676205": {
+        "id": "slmService$116676205",
+        "name": "Антивирусная защита",
+        "parent_id": "agreement_1",
+        "children_id": [
+            "categoriesWork$116676905",
+            "categoriesWork$116676906",
+            "categoriesWork$116676907",
+            "categoriesWork$116692705",
+            "categoriesWork$141843005",
+            "categoriesWork$257431805"
+        ]
+    },
+    "slmService$139336905": {
+        "id": "slmService$139336905",
+        "name": "Заказ визиток",
+        "parent_id": "agreement_1",
+        "children_id": [
+            "categoriesWork$139338105"
+        ]
+    },
+    "slmService$156792606": {
+        "id": "slmService$156792606",
+        "name": "Пропускная система(Обслуживание пропусков)",
+        "parent_id": "agreement_1",
+        "children_id": [
+            "categoriesWork$49302765",
+            "categoriesWork$49302767",
+            "categoriesWork$71567005",
+            "categoriesWork$111462305"
+        ]
+    },
+    "slmService$159845705": {
+        "id": "slmService$159845705",
+        "name": "Архивация данных на оптических дисках",
+        "parent_id": "agreement_1",
+        "children_id": [
+            "categoriesWork$160419705"
+        ]
+    },
+    "slmService$173883205": {
+        "id": "slmService$173883205",
+        "name": "Кипр. Обслуживание Windows серверов",
+        "parent_id": "agreement_1",
+        "children_id": [
+            "categoriesWork$173883805",
+            "categoriesWork$173883806",
+            "categoriesWork$173883808",
+            "categoriesWork$173883810",
+            "categoriesWork$173883811",
+            "categoriesWork$173883812",
+            "categoriesWork$173883813",
+            "categoriesWork$173883814",
+            "categoriesWork$173883815",
+            "categoriesWork$173883817"
+        ]
+    },
+    "slmService$173883206": {
+        "id": "slmService$173883206",
+        "name": "04.03.09. Кипр. Обслуживание сетей и каналов передачи данных",
+        "parent_id": "agreement_1",
+        "children_id": [
+            "categoriesWork$173883818",
+            "categoriesWork$173883819",
+            "categoriesWork$173883820"
+        ]
+    },
+    "slmService$193412305": {
+        "id": "slmService$193412305",
+        "name": "01.01.11 Контекстное информирование \"КЛО-онлайн\"",
+        "parent_id": "agreement_1",
+        "children_id": [
+            "categoriesWork$193412605",
+            "categoriesWork$193412606"
+        ]
+    },
+    "slmService$203541105": {
+        "id": "slmService$203541105",
+        "name": "01.01.20 Teams",
+        "parent_id": "agreement_1",
+        "children_id": [
+            "categoriesWork$203477106",
+            "categoriesWork$203477107"
+        ]
+    },
+    "slmService$221165405": {
+        "id": "slmService$221165405",
+        "name": "10.03.04. Запрос данных с архивных дисков ОПД",
+        "parent_id": "agreement_1",
+        "children_id": [
+            "categoriesWork$221165705",
+            "categoriesWork$221165706",
+            "categoriesWork$254826605"
+        ]
+    },
+    "slmService$223361005": {
+        "id": "slmService$223361005",
+        "name": "Обслуживание учетных записей",
+        "parent_id": "agreement_1",
+        "children_id": [
+            "categoriesWork$223361505",
+            "categoriesWork$223361506",
+            "categoriesWork$223361507",
+            "categoriesWork$223361508",
+            "categoriesWork$223361509",
+            "categoriesWork$223361510",
+            "categoriesWork$266809305",
+            "categoriesWork$268230705",
+            "categoriesWork$268894605",
+            "categoriesWork$579831810",
+            "categoriesWork$589690206",
+            "categoriesWork$635022807"
+        ]
+    },
+    "slmService$258337705": {
+        "id": "slmService$258337705",
+        "name": "Контакт-Центр. Страна Экспресс",
+        "parent_id": "agreement_1",
+        "children_id": [
+            "categoriesWork$258338505"
+        ]
+    },
+    "slmService$269564905": {
+        "id": "slmService$269564905",
+        "name": "Система бронирования рабочих мест",
+        "parent_id": "agreement_1",
+        "children_id": [
+            "categoriesWork$296998905",
+            "categoriesWork$296998906",
+            "categoriesWork$296998907"
+        ]
+    },
+    "slmService$274092605": {
+        "id": "slmService$274092605",
+        "name": "Контакт-Центр. Чат-центр",
+        "parent_id": "agreement_1",
+        "children_id": [
+            "categoriesWork$274061207",
+            "categoriesWork$620284205"
+        ]
+    },
+    "slmService$279404605": {
+        "id": "slmService$279404605",
+        "name": "01.01.12 Мультипоиск (multisearch.ftc.ru)",
+        "parent_id": "agreement_1",
+        "children_id": [
+            "categoriesWork$279404805",
+            "categoriesWork$279404806",
+            "categoriesWork$313368505"
+        ]
+    },
+    "slmService$305483005": {
+        "id": "slmService$305483005",
+        "name": "Система управления учетными данными и доступами ( IDM )",
+        "parent_id": "agreement_1",
+        "children_id": [
+            "categoriesWork$305483505",
+            "categoriesWork$305483506"
+        ]
+    },
+    "slmService$308012005": {
+        "id": "slmService$308012005",
+        "name": "01.01.01 1С бухгалтерия",
+        "parent_id": "agreement_1",
+        "children_id": [
+            "categoriesWork$306537107"
+        ]
+    },
+    "slmService$308012006": {
+        "id": "slmService$308012006",
+        "name": "01.01.04 ERP-системы",
+        "parent_id": "agreement_1",
+        "children_id": [
+            "categoriesWork$306537108",
+            "categoriesWork$586025805",
+            "categoriesWork$683535505"
+        ]
+    },
+    "slmService$308012008": {
+        "id": "slmService$308012008",
+        "name": "01.01.05 Jira & Confluence Банковских систем (clients.cft.ru, clients.cft.ru/jira, jirabs.ftc.ru, confbs.ftc.ru)",
+        "parent_id": "agreement_1",
+        "children_id": [
+            "categoriesWork$163640605",
+            "categoriesWork$306537110",
+            "categoriesWork$306537111",
+            "categoriesWork$306537112",
+            "categoriesWork$306537113",
+            "categoriesWork$308265811"
+        ]
+    },
+    "slmService$308265505": {
+        "id": "slmService$308265505",
+        "name": "01.01.09 TSR, учет производственной деятельности",
+        "parent_id": "agreement_1",
+        "children_id": [
+            "categoriesWork$308265805"
+        ]
+    },
+    "slmService$308265506": {
+        "id": "slmService$308265506",
+        "name": "01.01.03 DocsVision",
+        "parent_id": "agreement_1",
+        "children_id": [
+            "categoriesWork$308265806"
+        ]
+    },
+    "slmService$308265507": {
+        "id": "slmService$308265507",
+        "name": "01.01.10 Sharepoint",
+        "parent_id": "agreement_1",
+        "children_id": [
+            "categoriesWork$308265807"
+        ]
+    },
+    "slmService$308265508": {
+        "id": "slmService$308265508",
+        "name": "01.01.15 Корпоративный портал (portal.cft.ru)",
+        "parent_id": "agreement_1",
+        "children_id": [
+            "categoriesWork$308265808",
+            "categoriesWork$478941707",
+            "categoriesWork$478941708",
+            "categoriesWork$603126812"
+        ]
+    },
+    "slmService$308265509": {
+        "id": "slmService$308265509",
+        "name": "01.01.08 ЦФТ-КОРП",
+        "parent_id": "agreement_1",
+        "children_id": [
+            "categoriesWork$308265809",
+            "categoriesWork$308265810"
+        ]
+    },
+    "slmService$308358505": {
+        "id": "slmService$308358505",
+        "name": "01.01.17 Корпоративныя социальная сеть ( life.cft.ru )",
+        "parent_id": "agreement_1",
+        "children_id": [
+            "categoriesWork$308358705",
+            "categoriesWork$308358706"
+        ]
+    },
+    "slmService$312068205": {
+        "id": "slmService$312068205",
+        "name": "Реестр ПО ГК ЦФТ",
+        "parent_id": "agreement_1",
+        "children_id": [
+            "categoriesWork$312070205",
+            "categoriesWork$312070206",
+            "categoriesWork$312070207",
+            "categoriesWork$315056405",
+            "categoriesWork$664124112",
+            "categoriesWork$664124113",
+            "categoriesWork$745778505"
+        ]
+    },
+    "slmService$363287605": {
+        "id": "slmService$363287605",
+        "name": "10.02.01.1.2 Создание/Изменение групп виртуальных машин (БС)",
+        "parent_id": "agreement_1",
+        "children_id": [
+            "categoriesWork$363384905",
+            "categoriesWork$363384906",
+            "categoriesWork$363384907"
+        ]
+    },
+    "slmService$372334605": {
+        "id": "slmService$372334605",
+        "name": "SCCM",
+        "parent_id": "agreement_1",
+        "children_id": [
+            "categoriesWork$372334905",
+            "categoriesWork$372334906"
+        ]
+    },
+    "slmService$410277605": {
+        "id": "slmService$410277605",
+        "name": "01.01.21 Система доставки корреспонденции ( pochta.ftc.ru )",
+        "parent_id": "agreement_1",
+        "children_id": [
+            "categoriesWork$410277805",
+            "categoriesWork$410277806"
+        ]
+    },
+    "slmService$422209705": {
+        "id": "slmService$422209705",
+        "name": "Заявка на изменение/удаление временных ресурсов",
+        "parent_id": "agreement_1",
+        "children_id": [
+            "categoriesWork$422210005",
+            "categoriesWork$422210006"
+        ]
+    },
+    "slmService$434456305": {
+        "id": "slmService$434456305",
+        "name": "10.02.03.03. Прочие работы и консультации с сервисом Rundeck на сервере автоматизации bs-ci-ops",
+        "parent_id": "agreement_1",
+        "children_id": [
+            "categoriesWork$434457205",
+            "categoriesWork$434457206"
+        ]
+    },
+    "slmService$455505405": {
+        "id": "slmService$455505405",
+        "name": "10.03.07. Прикладное администрирование и сопровождение Nexus для внешних клиентов",
+        "parent_id": "agreement_1",
+        "children_id": [
+            "categoriesWork$455515005",
+            "categoriesWork$455515006",
+            "categoriesWork$455515007",
+            "categoriesWork$455515008",
+            "categoriesWork$455515009"
+        ]
+    },
+    "slmService$478941405": {
+        "id": "slmService$478941405",
+        "name": "01.01.22 Учебный центр ( https://etutor.cft.ru/ )",
+        "parent_id": "agreement_1",
+        "children_id": [
+            "categoriesWork$478941705",
+            "categoriesWork$478941706"
+        ]
+    },
+    "slmService$478941406": {
+        "id": "slmService$478941406",
+        "name": "01.01.23 Сайт ЦФТ tema: tema.cft.ru",
+        "parent_id": "agreement_1",
+        "children_id": [
+            "categoriesWork$478941709",
+            "categoriesWork$638101005",
+            "categoriesWork$638101006"
+        ]
+    },
+    "slmService$540809505": {
+        "id": "slmService$540809505",
+        "name": "01.01.01.1 1С БИТ: Управление задолженностью",
+        "parent_id": "agreement_1",
+        "children_id": [
+            "categoriesWork$540188907"
+        ]
+    },
+    "slmService$579829205": {
+        "id": "slmService$579829205",
+        "name": "Сервис подписывания хранилищ ( signing.ftc.ru )",
+        "parent_id": "agreement_1",
+        "children_id": [
+            "categoriesWork$579831805"
+        ]
+    },
+    "slmService$579829206": {
+        "id": "slmService$579829206",
+        "name": "Сервер производственной отчетности ( reports.ftc.ru )",
+        "parent_id": "agreement_1",
+        "children_id": [
+            "categoriesWork$579831806"
+        ]
+    },
+    "slmService$579829207": {
+        "id": "slmService$579829207",
+        "name": "Система управления проектами Project Server ( ps.ftc.ru/pwa )",
+        "parent_id": "agreement_1",
+        "children_id": [
+            "categoriesWork$579831807"
+        ]
+    },
+    "slmService$579829208": {
+        "id": "slmService$579829208",
+        "name": "Система управления тестированием ( testrail.ftc.ru )",
+        "parent_id": "agreement_1",
+        "children_id": [
+            "categoriesWork$579831808"
+        ]
+    },
+    "slmService$579829209": {
+        "id": "slmService$579829209",
+        "name": "Система управления тестированием ( testrailbs.ftc.ru )",
+        "parent_id": "agreement_1",
+        "children_id": [
+            "categoriesWork$579831809"
+        ]
+    },
+    "slmService$603112705": {
+        "id": "slmService$603112705",
+        "name": "01.01.16 ЭССД (ssd.ftc.ru)",
+        "parent_id": "agreement_1",
+        "children_id": [
+            "categoriesWork$603126805",
+            "categoriesWork$603126806",
+            "categoriesWork$603126807",
+            "categoriesWork$603126808",
+            "categoriesWork$603126809",
+            "categoriesWork$603126810",
+            "categoriesWork$603126811"
+        ]
+    },
+    "slmService$603112706": {
+        "id": "slmService$603112706",
+        "name": "01.01.18 ЦФТ ГИС (gis.ftc.ru)",
+        "parent_id": "agreement_1",
+        "children_id": [
+            "categoriesWork$603126813",
+            "categoriesWork$603126814",
+            "categoriesWork$603126815"
+        ]
+    },
+    "slmService$603112709": {
+        "id": "slmService$603112709",
+        "name": "01.01.28 Профиль должности (jobdescription.ftc.ru/jobprofile)",
+        "parent_id": "agreement_1",
+        "children_id": [
+            "categoriesWork$603126818",
+            "categoriesWork$603126819",
+            "categoriesWork$603126820"
+        ]
+    },
+    "slmService$603112710": {
+        "id": "slmService$603112710",
+        "name": "01.01.27 Должностная инструкция (jobdescription.ftc.ru/myjobs)",
+        "parent_id": "agreement_1",
+        "children_id": [
+            "categoriesWork$603126821",
+            "categoriesWork$603126822",
+            "categoriesWork$603126823"
+        ]
+    },
+    "slmService$603112711": {
+        "id": "slmService$603112711",
+        "name": "Оценка соответствия уровню должности (skillsrate.ftc.ru)",
+        "parent_id": "agreement_1",
+        "children_id": [
+            "categoriesWork$603126824",
+            "categoriesWork$603126825",
+            "categoriesWork$603126826"
+        ]
+    },
+    "slmService$603112712": {
+        "id": "slmService$603112712",
+        "name": "Оценка 90 (90.ftc.ru)",
+        "parent_id": "agreement_1",
+        "children_id": [
+            "categoriesWork$603126827",
+            "categoriesWork$603126828",
+            "categoriesWork$603126829"
+        ]
+    },
+    "slmService$603112713": {
+        "id": "slmService$603112713",
+        "name": "Оценка 360 (360.ftc.ru)",
+        "parent_id": "agreement_1",
+        "children_id": [
+            "categoriesWork$603126830",
+            "categoriesWork$603126831",
+            "categoriesWork$603126832"
+        ]
+    },
+    "slmService$603112714": {
+        "id": "slmService$603112714",
+        "name": "Оценка работы сотрудника (eva.ftc.ru)",
+        "parent_id": "agreement_1",
+        "children_id": [
+            "categoriesWork$603126833",
+            "categoriesWork$603126834",
+            "categoriesWork$603126835"
+        ]
+    },
+    "slmService$603112715": {
+        "id": "slmService$603112715",
+        "name": "Сбор зарплатных ведомостей (paybill.ftc.ru/Salary)",
+        "parent_id": "agreement_1",
+        "children_id": [
+            "categoriesWork$603126836",
+            "categoriesWork$603126837",
+            "categoriesWork$603126838"
+        ]
+    },
+    "slmService$603112716": {
+        "id": "slmService$603112716",
+        "name": "Учёт неявок (paybill.ftc.ru/AbsencesTracking)",
+        "parent_id": "agreement_1",
+        "children_id": [
+            "categoriesWork$603126839",
+            "categoriesWork$603126840",
+            "categoriesWork$603126841"
+        ]
+    },
+    "slmService$603112717": {
+        "id": "slmService$603112717",
+        "name": "Учёт рабочего времени (paybill.ftc.ru/TimeTracking)",
+        "parent_id": "agreement_1",
+        "children_id": [
+            "categoriesWork$603126842",
+            "categoriesWork$603126843",
+            "categoriesWork$603126844"
+        ]
+    },
+    "slmService$603112718": {
+        "id": "slmService$603112718",
+        "name": "План адаптации",
+        "parent_id": "agreement_1",
+        "children_id": [
+            "categoriesWork$603126845",
+            "categoriesWork$603126846",
+            "categoriesWork$603126847"
+        ]
+    },
+    "slmService$603112719": {
+        "id": "slmService$603112719",
+        "name": "Индивидуальный план развития (ИПР)",
+        "parent_id": "agreement_1",
+        "children_id": [
+            "categoriesWork$603126848",
+            "categoriesWork$603126849",
+            "categoriesWork$603126850"
+        ]
+    },
+    "slmService$621091505": {
+        "id": "slmService$621091505",
+        "name": "01.01.24 ДМС, Страховки и вакцинации (dms.ftc.ru)",
+        "parent_id": "agreement_1",
+        "children_id": [
+            "categoriesWork$620284206",
+            "categoriesWork$620284207",
+            "categoriesWork$620284208"
+        ]
+    },
+    "slmService$621091506": {
+        "id": "slmService$621091506",
+        "name": "01.01.25 Транспортный сайт ЦФТ (transport.ftc.ru)",
+        "parent_id": "agreement_1",
+        "children_id": [
+            "categoriesWork$620284209",
+            "categoriesWork$620284210",
+            "categoriesWork$620284211"
+        ]
+    },
+    "slmService$621091508": {
+        "id": "slmService$621091508",
+        "name": "01.01.28 Управление Корпоративных Сервисов (Прочие вопросы к УКС)",
+        "parent_id": "agreement_1",
+        "children_id": [
+            "categoriesWork$620284214"
+        ]
+    },
+    "slmService$630342006": {
+        "id": "slmService$630342006",
+        "name": "01.01.29 eXpress",
+        "parent_id": "agreement_1",
+        "children_id": [
+            "categoriesWork$630318219",
+            "categoriesWork$804108605"
+        ]
+    },
+    "slmService$647780105": {
+        "id": "slmService$647780105",
+        "name": "Создание системы/сервиса на портале сопровождения support.cft.ru",
+        "parent_id": "agreement_1",
+        "children_id": [
+            "categoriesWork$647780405",
+            "categoriesWork$647780406"
+        ]
+    },
+    "slmService$664305405": {
+        "id": "slmService$664305405",
+        "name": "01.01.13 Отпуск (otpusk.ftc.ru)",
+        "parent_id": "agreement_1",
+        "children_id": [
+            "categoriesWork$664308205",
+            "categoriesWork$664308206",
+            "categoriesWork$664308207"
+        ]
+    },
+    "slmService$723417005": {
+        "id": "slmService$723417005",
+        "name": "01.01.01.2 Отчетность в 1С МФО СЭ",
+        "parent_id": "agreement_1",
+        "children_id": [
+            "categoriesWork$723418205"
+        ]
+    },
+    "slmService$760167505": {
+        "id": "slmService$760167505",
+        "name": "01.01.30 Система персональных данных",
+        "parent_id": "agreement_1",
+        "children_id": [
+            "categoriesWork$760168705",
+            "categoriesWork$760168706"
+        ]
+    },
+    "slmService$767917605": {
+        "id": "slmService$767917605",
+        "name": "Поддержка операционных систем и базового ПО",
+        "parent_id": "agreement_1",
+        "children_id": [
+            "categoriesWork$659129205",
+            "categoriesWork$767918105",
+            "categoriesWork$767918106",
+            "categoriesWork$767918107",
+            "categoriesWork$767918108",
+            "categoriesWork$767918109"
+        ]
+    },
+    "slmService$798186905": {
+        "id": "slmService$798186905",
+        "name": "01.01.31 Кандидат",
+        "parent_id": "agreement_1",
+        "children_id": [
+            "categoriesWork$798187905"
+        ]
+    },
+    "categoriesWork$49302701": {
+        "id": "categoriesWork$49302701",
+        "name": "Администрирование ServiceDesk",
+        "parent_id": "slmService$605005",
+        "children_id": []
+    },
+    "categoriesWork$49302702": {
+        "id": "categoriesWork$49302702",
+        "name": "Предложения по работе системы",
+        "parent_id": "slmService$605005",
+        "children_id": []
+    },
+    "categoriesWork$49302703": {
+        "id": "categoriesWork$49302703",
+        "name": "Консультации по работе системы ServiceDesk",
+        "parent_id": "slmService$605005",
+        "children_id": []
+    },
+    "categoriesWork$49302707": {
+        "id": "categoriesWork$49302707",
+        "name": "Обновление данных на портале",
+        "parent_id": "slmService$605005",
+        "children_id": []
+    },
+    "categoriesWork$49302708": {
+        "id": "categoriesWork$49302708",
+        "name": "Прочие вопросы",
+        "parent_id": "slmService$605005",
+        "children_id": []
+    },
+    "categoriesWork$286162907": {
+        "id": "categoriesWork$286162907",
+        "name": "Добавление новых компонентов/ролей в Сервис-Деск",
+        "parent_id": "slmService$605005",
+        "children_id": []
+    },
+    "categoriesWork$48859501": {
+        "id": "categoriesWork$48859501",
+        "name": "Изменение данных",
+        "parent_id": "slmService$1116001",
+        "children_id": []
+    },
+    "categoriesWork$48859502": {
+        "id": "categoriesWork$48859502",
+        "name": "Копия трудовой книжки",
+        "parent_id": "slmService$1116001",
+        "children_id": []
+    },
+    "categoriesWork$48859503": {
+        "id": "categoriesWork$48859503",
+        "name": "Отсутствие сотрудника",
+        "parent_id": "slmService$1116001",
+        "children_id": []
+    },
+    "categoriesWork$48859504": {
+        "id": "categoriesWork$48859504",
+        "name": "Предоставление справок с места работы",
+        "parent_id": "slmService$1116001",
+        "children_id": []
+    },
+    "categoriesWork$48859505": {
+        "id": "categoriesWork$48859505",
+        "name": "Кадры прочее",
+        "parent_id": "slmService$1116001",
+        "children_id": []
+    },
+    "categoriesWork$48859506": {
+        "id": "categoriesWork$48859506",
+        "name": "Открытие/изменение овердрафта",
+        "parent_id": "slmService$1116002",
+        "children_id": []
+    },
+    "categoriesWork$48859507": {
+        "id": "categoriesWork$48859507",
+        "name": "Перечисление отпускных",
+        "parent_id": "slmService$1116002",
+        "children_id": []
+    },
+    "categoriesWork$48859508": {
+        "id": "categoriesWork$48859508",
+        "name": "Справки о доходах",
+        "parent_id": "slmService$1116002",
+        "children_id": []
+    },
+    "categoriesWork$48859509": {
+        "id": "categoriesWork$48859509",
+        "name": "Финансы прочее",
+        "parent_id": "slmService$1116002",
+        "children_id": []
+    },
+    "categoriesWork$50517902": {
+        "id": "categoriesWork$50517902",
+        "name": "Начисление заработной платы",
+        "parent_id": "slmService$1116002",
+        "children_id": []
+    },
+    "categoriesWork$61340301": {
+        "id": "categoriesWork$61340301",
+        "name": "Предоставление справки для Шенгена",
+        "parent_id": "slmService$1116002",
+        "children_id": []
+    },
+    "categoriesWork$49302756": {
+        "id": "categoriesWork$49302756",
+        "name": "Прочие вопросы",
+        "parent_id": "slmService$1116003",
+        "children_id": []
+    },
+    "categoriesWork$164600705": {
+        "id": "categoriesWork$164600705",
+        "name": "Восстановление полиса/смена фамилии",
+        "parent_id": "slmService$1116003",
+        "children_id": []
+    },
+    "categoriesWork$164600706": {
+        "id": "categoriesWork$164600706",
+        "name": "Подключение к ДМС",
+        "parent_id": "slmService$1116003",
+        "children_id": []
+    },
+    "categoriesWork$164600707": {
+        "id": "categoriesWork$164600707",
+        "name": "Сбор документов для налоговой инспекции",
+        "parent_id": "slmService$1116003",
+        "children_id": []
+    },
+    "categoriesWork$164600708": {
+        "id": "categoriesWork$164600708",
+        "name": "Жалобы/претензии",
+        "parent_id": "slmService$1116003",
+        "children_id": []
+    },
+    "categoriesWork$662284205": {
+        "id": "categoriesWork$662284205",
+        "name": "Полис выезжающих за рубеж (ВЗР)",
+        "parent_id": "slmService$1116003",
+        "children_id": []
+    },
+    "categoriesWork$662284206": {
+        "id": "categoriesWork$662284206",
+        "name": "Добавление нового ЛПУ/региона в программу ДМС",
+        "parent_id": "slmService$1116003",
+        "children_id": []
+    },
+    "categoriesWork$49302761": {
+        "id": "categoriesWork$49302761",
+        "name": "Транспортная карта",
+        "parent_id": "slmService$1116012",
+        "children_id": []
+    },
+    "categoriesWork$49302762": {
+        "id": "categoriesWork$49302762",
+        "name": "Юридическое сопровождение",
+        "parent_id": "slmService$1116012",
+        "children_id": []
+    },
+    "categoriesWork$49302769": {
+        "id": "categoriesWork$49302769",
+        "name": "Пропуска на парковку для личного транспорта",
+        "parent_id": "slmService$1116017",
+        "children_id": []
+    },
+    "categoriesWork$701050905": {
+        "id": "categoriesWork$701050905",
+        "name": "Электрика, климат, сантехника",
+        "parent_id": "slmService$1116017",
+        "children_id": []
+    },
+    "categoriesWork$701050906": {
+        "id": "categoriesWork$701050906",
+        "name": "Охранная и пожарная система",
+        "parent_id": "slmService$1116017",
+        "children_id": []
+    },
+    "categoriesWork$701050907": {
+        "id": "categoriesWork$701050907",
+        "name": "Порядок в офисе (мелкий ремонт и мебель)",
+        "parent_id": "slmService$1116017",
+        "children_id": []
+    },
+    "categoriesWork$701050908": {
+        "id": "categoriesWork$701050908",
+        "name": "Закупки (канцтовары, оборудование, вода и т.д.)",
+        "parent_id": "slmService$1116017",
+        "children_id": []
+    },
+    "categoriesWork$701050909": {
+        "id": "categoriesWork$701050909",
+        "name": "Мероприятия",
+        "parent_id": "slmService$1116017",
+        "children_id": []
+    },
+    "categoriesWork$707242705": {
+        "id": "categoriesWork$707242705",
+        "name": "Мероприятие на Николаева 12/1",
+        "parent_id": "slmService$1116017",
+        "children_id": []
+    },
+    "categoriesWork$49302766": {
+        "id": "categoriesWork$49302766",
+        "name": "Поддержка операционных систем и базового ПО",
+        "parent_id": "slmService$1116020",
+        "children_id": []
+    },
+    "categoriesWork$49302768": {
+        "id": "categoriesWork$49302768",
+        "name": "Предоставление нового рабочего места",
+        "parent_id": "slmService$1116020",
+        "children_id": []
+    },
+    "categoriesWork$49302772": {
+        "id": "categoriesWork$49302772",
+        "name": "Коммутация розеток",
+        "parent_id": "slmService$1116020",
+        "children_id": []
+    },
+    "categoriesWork$49302774": {
+        "id": "categoriesWork$49302774",
+        "name": "Поддержка/обновление дополнительного ПО",
+        "parent_id": "slmService$1116020",
+        "children_id": []
+    },
+    "categoriesWork$49302775": {
+        "id": "categoriesWork$49302775",
+        "name": "Поддержка оборудования рабочих мест",
+        "parent_id": "slmService$1116020",
+        "children_id": []
+    },
+    "categoriesWork$49302778": {
+        "id": "categoriesWork$49302778",
+        "name": "Предоставление прав локального администратора на ПК",
+        "parent_id": "slmService$1116020",
+        "children_id": []
+    },
+    "categoriesWork$49302780": {
+        "id": "categoriesWork$49302780",
+        "name": "Проблема со входом в Windows(сброс пароля, блокировка у.з.)",
+        "parent_id": "slmService$1116020",
+        "children_id": []
+    },
+    "categoriesWork$49302782": {
+        "id": "categoriesWork$49302782",
+        "name": "РНКО. Поддержка пользователей",
+        "parent_id": "slmService$1116020",
+        "children_id": []
+    },
+    "categoriesWork$49302800": {
+        "id": "categoriesWork$49302800",
+        "name": "Учет оборудования на сотрудниках",
+        "parent_id": "slmService$1116020",
+        "children_id": []
+    },
+    "categoriesWork$50517901": {
+        "id": "categoriesWork$50517901",
+        "name": "Прочее",
+        "parent_id": "slmService$1116020",
+        "children_id": []
+    },
+    "categoriesWork$78707605": {
+        "id": "categoriesWork$78707605",
+        "name": "Предоставление прав на работу с макросами",
+        "parent_id": "slmService$1116020",
+        "children_id": []
+    },
+    "categoriesWork$83152706": {
+        "id": "categoriesWork$83152706",
+        "name": "Поддержка пользователей доменов WELL и КартСтандарт",
+        "parent_id": "slmService$1116020",
+        "children_id": []
+    },
+    "categoriesWork$108775605": {
+        "id": "categoriesWork$108775605",
+        "name": "ФСГ. Поддержка пользователей",
+        "parent_id": "slmService$1116020",
+        "children_id": []
+    },
+    "categoriesWork$112120205": {
+        "id": "categoriesWork$112120205",
+        "name": "Уход в декрет или длительное отсутствие на рабочем месте",
+        "parent_id": "slmService$1116020",
+        "children_id": []
+    },
+    "categoriesWork$152279105": {
+        "id": "categoriesWork$152279105",
+        "name": "Подключение к Гостевой Wi-Fi сети",
+        "parent_id": "slmService$1116020",
+        "children_id": []
+    },
+    "categoriesWork$198702605": {
+        "id": "categoriesWork$198702605",
+        "name": "Сброс методов MFA",
+        "parent_id": "slmService$1116020",
+        "children_id": []
+    },
+    "categoriesWork$241440105": {
+        "id": "categoriesWork$241440105",
+        "name": "Отзыв прав локального администратора на ПК",
+        "parent_id": "slmService$1116020",
+        "children_id": []
+    },
+    "categoriesWork$292758807": {
+        "id": "categoriesWork$292758807",
+        "name": "Поддержка виртуальных машин VDI Horizon (FTC, WELL)",
+        "parent_id": "slmService$1116020",
+        "children_id": []
+    },
+    "categoriesWork$303875105": {
+        "id": "categoriesWork$303875105",
+        "name": "Доступ с Well на FTC по RDP",
+        "parent_id": "slmService$1116020",
+        "children_id": []
+    },
+    "categoriesWork$447360305": {
+        "id": "categoriesWork$447360305",
+        "name": "Вопросы по ИБП",
+        "parent_id": "slmService$1116020",
+        "children_id": []
+    },
+    "categoriesWork$611821305": {
+        "id": "categoriesWork$611821305",
+        "name": "Техническое обслуживание оборудования",
+        "parent_id": "slmService$1116020",
+        "children_id": []
+    },
+    "categoriesWork$635022808": {
+        "id": "categoriesWork$635022808",
+        "name": "Сообщить о проблеме с подключением к сети",
+        "parent_id": "slmService$1116020",
+        "children_id": []
+    },
+    "categoriesWork$49302710": {
+        "id": "categoriesWork$49302710",
+        "name": "Переадресация вызовов",
+        "parent_id": "slmService$1116025",
+        "children_id": []
+    },
+    "categoriesWork$49302712": {
+        "id": "categoriesWork$49302712",
+        "name": "Проблемы с исходящими звонками",
+        "parent_id": "slmService$1116025",
+        "children_id": []
+    },
+    "categoriesWork$49302713": {
+        "id": "categoriesWork$49302713",
+        "name": "Добавить номер на портал, изменить имя",
+        "parent_id": "slmService$1116025",
+        "children_id": []
+    },
+    "categoriesWork$49302715": {
+        "id": "categoriesWork$49302715",
+        "name": "Корпоративная сотовая связь",
+        "parent_id": "slmService$1116025",
+        "children_id": []
+    },
+    "categoriesWork$132714407": {
+        "id": "categoriesWork$132714407",
+        "name": "Установить новый телефон, заменить аппарат",
+        "parent_id": "slmService$1116025",
+        "children_id": []
+    },
+    "categoriesWork$49302704": {
+        "id": "categoriesWork$49302704",
+        "name": "Фильтрация почты, антиспам",
+        "parent_id": "slmService$1116036",
+        "children_id": []
+    },
+    "categoriesWork$49302706": {
+        "id": "categoriesWork$49302706",
+        "name": "Вопросы по доставке почтовых сообщений",
+        "parent_id": "slmService$1116036",
+        "children_id": []
+    },
+    "categoriesWork$49302709": {
+        "id": "categoriesWork$49302709",
+        "name": "Создание/изменение почтовых ящиков, групп рассылок",
+        "parent_id": "slmService$1116036",
+        "children_id": []
+    },
+    "categoriesWork$49302798": {
+        "id": "categoriesWork$49302798",
+        "name": "Прочее",
+        "parent_id": "slmService$1116036",
+        "children_id": []
+    },
+    "categoriesWork$49302799": {
+        "id": "categoriesWork$49302799",
+        "name": "Настройка почтовых клиентов",
+        "parent_id": "slmService$1116036",
+        "children_id": []
+    },
+    "categoriesWork$558233305": {
+        "id": "categoriesWork$558233305",
+        "name": "Создание списков рассылки",
+        "parent_id": "slmService$1116036",
+        "children_id": []
+    },
+    "categoriesWork$49302719": {
+        "id": "categoriesWork$49302719",
+        "name": "Прочее",
+        "parent_id": "slmService$1116041",
+        "children_id": []
+    },
+    "categoriesWork$49302795": {
+        "id": "categoriesWork$49302795",
+        "name": "Подключение серверов к сети электропитания",
+        "parent_id": "slmService$1116044",
+        "children_id": []
+    },
+    "categoriesWork$49302796": {
+        "id": "categoriesWork$49302796",
+        "name": "Подключение серверов к сети передачи данных",
+        "parent_id": "slmService$1116044",
+        "children_id": []
+    },
+    "categoriesWork$49302797": {
+        "id": "categoriesWork$49302797",
+        "name": "Обслуживание помещений ЦОД",
+        "parent_id": "slmService$1116044",
+        "children_id": []
+    },
+    "categoriesWork$53461801": {
+        "id": "categoriesWork$53461801",
+        "name": "Учет оборудования ЦОД в 1С",
+        "parent_id": "slmService$1116044",
+        "children_id": []
+    },
+    "categoriesWork$133410705": {
+        "id": "categoriesWork$133410705",
+        "name": "Заявка на внос/вынос оборудования в/из ЦОД",
+        "parent_id": "slmService$1116044",
+        "children_id": []
+    },
+    "categoriesWork$158751405": {
+        "id": "categoriesWork$158751405",
+        "name": "Дополнительные работы",
+        "parent_id": "slmService$1116044",
+        "children_id": []
+    },
+    "categoriesWork$49302752": {
+        "id": "categoriesWork$49302752",
+        "name": "Закупка оборудования",
+        "parent_id": "slmService$1116049",
+        "children_id": []
+    },
+    "categoriesWork$83152705": {
+        "id": "categoriesWork$83152705",
+        "name": "Утилизация оборудования",
+        "parent_id": "slmService$1116049",
+        "children_id": []
+    },
+    "categoriesWork$91989305": {
+        "id": "categoriesWork$91989305",
+        "name": "Квартальный бюджет",
+        "parent_id": "slmService$1116049",
+        "children_id": []
+    },
+    "categoriesWork$847749505": {
+        "id": "categoriesWork$847749505",
+        "name": "IT бюджет на 2025 г.",
+        "parent_id": "slmService$1116049",
+        "children_id": []
+    },
+    "categoriesWork$76309505": {
+        "id": "categoriesWork$76309505",
+        "name": "Создание организации",
+        "parent_id": "slmService$3364604",
+        "children_id": []
+    },
+    "categoriesWork$76309508": {
+        "id": "categoriesWork$76309508",
+        "name": "Заведение МФО",
+        "parent_id": "slmService$3364604",
+        "children_id": []
+    },
+    "categoriesWork$76309509": {
+        "id": "categoriesWork$76309509",
+        "name": "Смена Наименования/Контактных данных организации",
+        "parent_id": "slmService$3364604",
+        "children_id": []
+    },
+    "categoriesWork$76309512": {
+        "id": "categoriesWork$76309512",
+        "name": "Создание/деактивация Контакта",
+        "parent_id": "slmService$3364604",
+        "children_id": []
+    },
+    "categoriesWork$76309514": {
+        "id": "categoriesWork$76309514",
+        "name": "Поздравления с Днем Рождения",
+        "parent_id": "slmService$3364604",
+        "children_id": []
+    },
+    "categoriesWork$76309515": {
+        "id": "categoriesWork$76309515",
+        "name": "Маркетинговые списки",
+        "parent_id": "slmService$3364604",
+        "children_id": []
+    },
+    "categoriesWork$76309516": {
+        "id": "categoriesWork$76309516",
+        "name": "Указание ответственного по организации",
+        "parent_id": "slmService$3364604",
+        "children_id": []
+    },
+    "categoriesWork$76309517": {
+        "id": "categoriesWork$76309517",
+        "name": "Прочее CRM",
+        "parent_id": "slmService$3364604",
+        "children_id": []
+    },
+    "categoriesWork$49302773": {
+        "id": "categoriesWork$49302773",
+        "name": "Информационная безопасность",
+        "parent_id": "slmService$12031201",
+        "children_id": []
+    },
+    "categoriesWork$49302777": {
+        "id": "categoriesWork$49302777",
+        "name": "Видеонаблюдение",
+        "parent_id": "slmService$12031201",
+        "children_id": []
+    },
+    "categoriesWork$49302779": {
+        "id": "categoriesWork$49302779",
+        "name": "Охрана офисов",
+        "parent_id": "slmService$12031201",
+        "children_id": []
+    },
+    "categoriesWork$91753005": {
+        "id": "categoriesWork$91753005",
+        "name": "Допуск сотрудников в офис Московского филиала в нерабочие дни",
+        "parent_id": "slmService$12031201",
+        "children_id": []
+    },
+    "categoriesWork$109936005": {
+        "id": "categoriesWork$109936005",
+        "name": "События QRADAR",
+        "parent_id": "slmService$12031201",
+        "children_id": []
+    },
+    "categoriesWork$124466905": {
+        "id": "categoriesWork$124466905",
+        "name": "Разблокировка почтового вложения",
+        "parent_id": "slmService$12031201",
+        "children_id": []
+    },
+    "categoriesWork$158132305": {
+        "id": "categoriesWork$158132305",
+        "name": "Несанкционированная установка ПО",
+        "parent_id": "slmService$12031201",
+        "children_id": []
+    },
+    "categoriesWork$158132306": {
+        "id": "categoriesWork$158132306",
+        "name": "Подключение нового источника логов",
+        "parent_id": "slmService$12031201",
+        "children_id": []
+    },
+    "categoriesWork$264949805": {
+        "id": "categoriesWork$264949805",
+        "name": "Контроль за учетной записью",
+        "parent_id": "slmService$12031201",
+        "children_id": []
+    },
+    "categoriesWork$49302751": {
+        "id": "categoriesWork$49302751",
+        "name": "Предоставление дистрибутива",
+        "parent_id": "slmService$12031202",
+        "children_id": []
+    },
+    "categoriesWork$579831811": {
+        "id": "categoriesWork$579831811",
+        "name": "Заявка на Лицензию IDE",
+        "parent_id": "slmService$12031202",
+        "children_id": []
+    },
+    "categoriesWork$682072605": {
+        "id": "categoriesWork$682072605",
+        "name": "Продление лицензии на схеме",
+        "parent_id": "slmService$12031202",
+        "children_id": []
+    },
+    "categoriesWork$48681617": {
+        "id": "categoriesWork$48681617",
+        "name": "Upgrade сервера(ов)",
+        "parent_id": "slmService$22519702",
+        "children_id": []
+    },
+    "categoriesWork$48681618": {
+        "id": "categoriesWork$48681618",
+        "name": "Изменение настроек системного ПО, требующее ROOT",
+        "parent_id": "slmService$22519702",
+        "children_id": []
+    },
+    "categoriesWork$48681619": {
+        "id": "categoriesWork$48681619",
+        "name": "Обновление ОС на сервере",
+        "parent_id": "slmService$22519702",
+        "children_id": []
+    },
+    "categoriesWork$48681620": {
+        "id": "categoriesWork$48681620",
+        "name": "Определение причин снижения производительности серверов",
+        "parent_id": "slmService$22519702",
+        "children_id": []
+    },
+    "categoriesWork$48681621": {
+        "id": "categoriesWork$48681621",
+        "name": "Подготовка сервера к установке и развертывание",
+        "parent_id": "slmService$22519702",
+        "children_id": []
+    },
+    "categoriesWork$48681622": {
+        "id": "categoriesWork$48681622",
+        "name": "Другие работы",
+        "parent_id": "slmService$22519702",
+        "children_id": []
+    },
+    "categoriesWork$48681623": {
+        "id": "categoriesWork$48681623",
+        "name": "Регистрация пользователя/групп на сервере",
+        "parent_id": "slmService$22519702",
+        "children_id": []
+    },
+    "categoriesWork$48681624": {
+        "id": "categoriesWork$48681624",
+        "name": "Снятие и восстановление системы из snapshot",
+        "parent_id": "slmService$22519702",
+        "children_id": []
+    },
+    "categoriesWork$48681625": {
+        "id": "categoriesWork$48681625",
+        "name": "Установка/обновление системного ПО на серверах",
+        "parent_id": "slmService$22519702",
+        "children_id": []
+    },
+    "categoriesWork$49302716": {
+        "id": "categoriesWork$49302716",
+        "name": "Выделение/удаление статического IP",
+        "parent_id": "slmService$22519702",
+        "children_id": []
+    },
+    "categoriesWork$49302718": {
+        "id": "categoriesWork$49302718",
+        "name": "Вопросы по корпоративным системам Unix, Прокси",
+        "parent_id": "slmService$22519702",
+        "children_id": []
+    },
+    "categoriesWork$49302721": {
+        "id": "categoriesWork$49302721",
+        "name": "Восстановление данных (backup)",
+        "parent_id": "slmService$22519702",
+        "children_id": []
+    },
+    "categoriesWork$49302720": {
+        "id": "categoriesWork$49302720",
+        "name": "Подключение/создания конференции",
+        "parent_id": "slmService$24876101",
+        "children_id": []
+    },
+    "categoriesWork$49302722": {
+        "id": "categoriesWork$49302722",
+        "name": "Поведение мастер-класса",
+        "parent_id": "slmService$24876101",
+        "children_id": []
+    },
+    "categoriesWork$49302723": {
+        "id": "categoriesWork$49302723",
+        "name": "Вопросы/консультации по созданию ВКС",
+        "parent_id": "slmService$24876101",
+        "children_id": []
+    },
+    "categoriesWork$49302724": {
+        "id": "categoriesWork$49302724",
+        "name": "Техническое сопровождение мероприятий",
+        "parent_id": "slmService$24876101",
+        "children_id": []
+    },
+    "categoriesWork$49302725": {
+        "id": "categoriesWork$49302725",
+        "name": "ВКС через LYNC",
+        "parent_id": "slmService$24876101",
+        "children_id": []
+    },
+    "categoriesWork$49302727": {
+        "id": "categoriesWork$49302727",
+        "name": "ВКС прочее",
+        "parent_id": "slmService$24876101",
+        "children_id": []
+    },
+    "categoriesWork$56659102": {
+        "id": "categoriesWork$56659102",
+        "name": "Аудио конференция для сотовых",
+        "parent_id": "slmService$24876101",
+        "children_id": []
+    },
+    "categoriesWork$49302747": {
+        "id": "categoriesWork$49302747",
+        "name": "Администрирование Oracle",
+        "parent_id": "slmService$49303602",
+        "children_id": []
+    },
+    "categoriesWork$49302748": {
+        "id": "categoriesWork$49302748",
+        "name": "Администрирование Unix",
+        "parent_id": "slmService$49303602",
+        "children_id": []
+    },
+    "categoriesWork$49302749": {
+        "id": "categoriesWork$49302749",
+        "name": "Администрирование Windows",
+        "parent_id": "slmService$49303602",
+        "children_id": []
+    },
+    "categoriesWork$49302750": {
+        "id": "categoriesWork$49302750",
+        "name": "Сетевое администрирование",
+        "parent_id": "slmService$49303602",
+        "children_id": []
+    },
+    "categoriesWork$147688505": {
+        "id": "categoriesWork$147688505",
+        "name": "Ошибка подключения",
+        "parent_id": "slmService$49303602",
+        "children_id": []
+    },
+    "categoriesWork$147688506": {
+        "id": "categoriesWork$147688506",
+        "name": "Аудит доступа",
+        "parent_id": "slmService$49303602",
+        "children_id": []
+    },
+    "categoriesWork$149545305": {
+        "id": "categoriesWork$149545305",
+        "name": "Аудит доступа на Схемах Аутсорсинга",
+        "parent_id": "slmService$49303602",
+        "children_id": []
+    },
+    "categoriesWork$568895005": {
+        "id": "categoriesWork$568895005",
+        "name": "Предоставление пароля от УЗ",
+        "parent_id": "slmService$49303602",
+        "children_id": []
+    },
+    "categoriesWork$49302783": {
+        "id": "categoriesWork$49302783",
+        "name": "Обслуживание принтера",
+        "parent_id": "slmService$49303603",
+        "children_id": []
+    },
+    "categoriesWork$49302784": {
+        "id": "categoriesWork$49302784",
+        "name": "Проблемы с печатью",
+        "parent_id": "slmService$49303603",
+        "children_id": []
+    },
+    "categoriesWork$49302785": {
+        "id": "categoriesWork$49302785",
+        "name": "Установка принтера",
+        "parent_id": "slmService$49303603",
+        "children_id": []
+    },
+    "categoriesWork$49302786": {
+        "id": "categoriesWork$49302786",
+        "name": "Подключение принтера",
+        "parent_id": "slmService$49303603",
+        "children_id": []
+    },
+    "categoriesWork$49302787": {
+        "id": "categoriesWork$49302787",
+        "name": "Добавление в адресную книгу",
+        "parent_id": "slmService$49303603",
+        "children_id": []
+    },
+    "categoriesWork$49302788": {
+        "id": "categoriesWork$49302788",
+        "name": "(Xymon) Настройка оповещений по срабатыванию тестов мониторинга",
+        "parent_id": "slmService$49303604",
+        "children_id": []
+    },
+    "categoriesWork$49302789": {
+        "id": "categoriesWork$49302789",
+        "name": "(Xymon) Создание и удаление хостов и тестов мониторинга",
+        "parent_id": "slmService$49303604",
+        "children_id": []
+    },
+    "categoriesWork$49302790": {
+        "id": "categoriesWork$49302790",
+        "name": "(Zabbix) Предоставление доступа",
+        "parent_id": "slmService$49303604",
+        "children_id": []
+    },
+    "categoriesWork$49302791": {
+        "id": "categoriesWork$49302791",
+        "name": "(Zabbix) Создание и удаление хостов и тестов мониторинга",
+        "parent_id": "slmService$49303604",
+        "children_id": []
+    },
+    "categoriesWork$49302792": {
+        "id": "categoriesWork$49302792",
+        "name": "Изменение порядка оповещения оператором службы мониторинга",
+        "parent_id": "slmService$49303604",
+        "children_id": []
+    },
+    "categoriesWork$49302793": {
+        "id": "categoriesWork$49302793",
+        "name": "Отключение и включение тестов мониторинга оператором службы мониторинга",
+        "parent_id": "slmService$49303604",
+        "children_id": []
+    },
+    "categoriesWork$49302714": {
+        "id": "categoriesWork$49302714",
+        "name": "Проблемы в работе Контакт-Центра",
+        "parent_id": "slmService$55823801",
+        "children_id": []
+    },
+    "categoriesWork$142316105": {
+        "id": "categoriesWork$142316105",
+        "name": "Предоставление записи звонков",
+        "parent_id": "slmService$55823801",
+        "children_id": []
+    },
+    "categoriesWork$239107405": {
+        "id": "categoriesWork$239107405",
+        "name": "Внесение изменений в IVR (сервисы ДП, ДП онлайн, ПК, ПК онлайн, Страна Экспресс, Телемаркетинг)",
+        "parent_id": "slmService$55823801",
+        "children_id": []
+    },
+    "categoriesWork$430274005": {
+        "id": "categoriesWork$430274005",
+        "name": "Внесение изменений в IVR (прочие сервисы)",
+        "parent_id": "slmService$55823801",
+        "children_id": []
+    },
+    "categoriesWork$59501701": {
+        "id": "categoriesWork$59501701",
+        "name": "Вопросы по JIRA.KORONA.NET / JIRA.KORONA.NET/CFT / JIRA.KORONA.NET/HISTORY / JIRA.KORONA.NET/CROWD",
+        "parent_id": "slmService$59501301",
+        "children_id": []
+    },
+    "categoriesWork$59501702": {
+        "id": "categoriesWork$59501702",
+        "name": "Вопросы по JIRA.FTC.RU",
+        "parent_id": "slmService$59501301",
+        "children_id": []
+    },
+    "categoriesWork$59501704": {
+        "id": "categoriesWork$59501704",
+        "name": "Вопросы по VIRGO.FTC.RU",
+        "parent_id": "slmService$59501301",
+        "children_id": []
+    },
+    "categoriesWork$59501705": {
+        "id": "categoriesWork$59501705",
+        "name": "Вопросы по STASH.FTC.RU",
+        "parent_id": "slmService$59501301",
+        "children_id": []
+    },
+    "categoriesWork$59501708": {
+        "id": "categoriesWork$59501708",
+        "name": "Вопросы по CONFLUENCE.KORONA.NET",
+        "parent_id": "slmService$59501301",
+        "children_id": []
+    },
+    "categoriesWork$140680105": {
+        "id": "categoriesWork$140680105",
+        "name": "Вопросы по BAMBOO.FTC.RU",
+        "parent_id": "slmService$59501301",
+        "children_id": []
+    },
+    "categoriesWork$140680107": {
+        "id": "categoriesWork$140680107",
+        "name": "Вопросы по STASH.KORONA.NET",
+        "parent_id": "slmService$59501301",
+        "children_id": []
+    },
+    "categoriesWork$116676905": {
+        "id": "categoriesWork$116676905",
+        "name": "Антивирусная защита рабочих станций",
+        "parent_id": "slmService$116676205",
+        "children_id": []
+    },
+    "categoriesWork$116676906": {
+        "id": "categoriesWork$116676906",
+        "name": "Антивирусная защита серверов",
+        "parent_id": "slmService$116676205",
+        "children_id": []
+    },
+    "categoriesWork$116676907": {
+        "id": "categoriesWork$116676907",
+        "name": "Блокировка веб-страниц на рабочих станциях",
+        "parent_id": "slmService$116676205",
+        "children_id": []
+    },
+    "categoriesWork$116692705": {
+        "id": "categoriesWork$116692705",
+        "name": "Блокировка запуска ПО на рабочих станциях",
+        "parent_id": "slmService$116676205",
+        "children_id": []
+    },
+    "categoriesWork$141843005": {
+        "id": "categoriesWork$141843005",
+        "name": "Блокировка устройств на рабочих станциях",
+        "parent_id": "slmService$116676205",
+        "children_id": []
+    },
+    "categoriesWork$257431805": {
+        "id": "categoriesWork$257431805",
+        "name": "Внесение носителей в перечень доверенных устройств",
+        "parent_id": "slmService$116676205",
+        "children_id": []
+    },
+    "categoriesWork$139338105": {
+        "id": "categoriesWork$139338105",
+        "name": "Изготовление визитных карточек",
+        "parent_id": "slmService$139336905",
+        "children_id": []
+    },
+    "categoriesWork$49302765": {
+        "id": "categoriesWork$49302765",
+        "name": "Пропуска в офис: Выдача/Замена",
+        "parent_id": "slmService$156792606",
+        "children_id": []
+    },
+    "categoriesWork$49302767": {
+        "id": "categoriesWork$49302767",
+        "name": "Обслуживание пропускной системы(ключницы/считыватели/турникеты)",
+        "parent_id": "slmService$156792606",
+        "children_id": []
+    },
+    "categoriesWork$71567005": {
+        "id": "categoriesWork$71567005",
+        "name": "Вопросы по пропускам и видеонаблюдению в Московском филиале",
+        "parent_id": "slmService$156792606",
+        "children_id": []
+    },
+    "categoriesWork$111462305": {
+        "id": "categoriesWork$111462305",
+        "name": "Допуск сотрудников в офис Московского филиала в нерабочие дни",
+        "parent_id": "slmService$156792606",
+        "children_id": []
+    },
+    "categoriesWork$160419705": {
+        "id": "categoriesWork$160419705",
+        "name": "Подключение сервера логов к станции записи",
+        "parent_id": "slmService$159845705",
+        "children_id": []
+    },
+    "categoriesWork$173883805": {
+        "id": "categoriesWork$173883805",
+        "name": "Upgrade сервера(ов)",
+        "parent_id": "slmService$173883205",
+        "children_id": []
+    },
+    "categoriesWork$173883806": {
+        "id": "categoriesWork$173883806",
+        "name": "Другие работы",
+        "parent_id": "slmService$173883205",
+        "children_id": []
+    },
+    "categoriesWork$173883808": {
+        "id": "categoriesWork$173883808",
+        "name": "Установка ПО на сервер не считающегося прикладным",
+        "parent_id": "slmService$173883205",
+        "children_id": []
+    },
+    "categoriesWork$173883810": {
+        "id": "categoriesWork$173883810",
+        "name": "Доступ к папкам на файловых серверах",
+        "parent_id": "slmService$173883205",
+        "children_id": []
+    },
+    "categoriesWork$173883811": {
+        "id": "categoriesWork$173883811",
+        "name": "Создание/изменение/блокирование учетных записей в AD",
+        "parent_id": "slmService$173883205",
+        "children_id": []
+    },
+    "categoriesWork$173883812": {
+        "id": "categoriesWork$173883812",
+        "name": "Установка и обновление ПО на терминальных серверах и серверах приложений",
+        "parent_id": "slmService$173883205",
+        "children_id": []
+    },
+    "categoriesWork$173883813": {
+        "id": "categoriesWork$173883813",
+        "name": "Проблемы и ошибки в работе терминальных серверов и серверов приложений",
+        "parent_id": "slmService$173883205",
+        "children_id": []
+    },
+    "categoriesWork$173883814": {
+        "id": "categoriesWork$173883814",
+        "name": "Создание домашней директории для сотрудников",
+        "parent_id": "slmService$173883205",
+        "children_id": []
+    },
+    "categoriesWork$173883815": {
+        "id": "categoriesWork$173883815",
+        "name": "Восстановление данных (backup)",
+        "parent_id": "slmService$173883205",
+        "children_id": []
+    },
+    "categoriesWork$173883817": {
+        "id": "categoriesWork$173883817",
+        "name": "Создание новых каталогов на файловых серверах",
+        "parent_id": "slmService$173883205",
+        "children_id": []
+    },
+    "categoriesWork$173883818": {
+        "id": "categoriesWork$173883818",
+        "name": "Настройка VPN канала через интернет с шифрованием Ipsec",
+        "parent_id": "slmService$173883206",
+        "children_id": []
+    },
+    "categoriesWork$173883819": {
+        "id": "categoriesWork$173883819",
+        "name": "Настройка, установка системного сетевого ПО",
+        "parent_id": "slmService$173883206",
+        "children_id": []
+    },
+    "categoriesWork$173883820": {
+        "id": "categoriesWork$173883820",
+        "name": "Настройка сетевого оборудования/настройка каналов",
+        "parent_id": "slmService$173883206",
+        "children_id": []
+    },
+    "categoriesWork$193412605": {
+        "id": "categoriesWork$193412605",
+        "name": "Обслуживание баз данных",
+        "parent_id": "slmService$193412305",
+        "children_id": []
+    },
+    "categoriesWork$193412606": {
+        "id": "categoriesWork$193412606",
+        "name": "Обслуживание web-сервиса",
+        "parent_id": "slmService$193412305",
+        "children_id": []
+    },
+    "categoriesWork$203477106": {
+        "id": "categoriesWork$203477106",
+        "name": "Проблемы при работе в Teams",
+        "parent_id": "slmService$203541105",
+        "children_id": []
+    },
+    "categoriesWork$203477107": {
+        "id": "categoriesWork$203477107",
+        "name": "Консультация при работе в Teams",
+        "parent_id": "slmService$203541105",
+        "children_id": []
+    },
+    "categoriesWork$221165705": {
+        "id": "categoriesWork$221165705",
+        "name": "Документация",
+        "parent_id": "slmService$221165405",
+        "children_id": []
+    },
+    "categoriesWork$221165706": {
+        "id": "categoriesWork$221165706",
+        "name": "Каталог",
+        "parent_id": "slmService$221165405",
+        "children_id": []
+    },
+    "categoriesWork$254826605": {
+        "id": "categoriesWork$254826605",
+        "name": "Дамп",
+        "parent_id": "slmService$221165405",
+        "children_id": []
+    },
+    "categoriesWork$223361505": {
+        "id": "categoriesWork$223361505",
+        "name": "Разблокировка\\Сброс пароля в домене FTC",
+        "parent_id": "slmService$223361005",
+        "children_id": []
+    },
+    "categoriesWork$223361506": {
+        "id": "categoriesWork$223361506",
+        "name": "Разблокировка\\Сброс пароля в домене WELL",
+        "parent_id": "slmService$223361005",
+        "children_id": []
+    },
+    "categoriesWork$223361507": {
+        "id": "categoriesWork$223361507",
+        "name": "Разблокировка\\Сброс пароля в домене CS",
+        "parent_id": "slmService$223361005",
+        "children_id": []
+    },
+    "categoriesWork$223361508": {
+        "id": "categoriesWork$223361508",
+        "name": "Разблокировка\\Сброс пароля в домене ZK",
+        "parent_id": "slmService$223361005",
+        "children_id": []
+    },
+    "categoriesWork$223361509": {
+        "id": "categoriesWork$223361509",
+        "name": "Разблокировка\\Сброс пароля в домене DM",
+        "parent_id": "slmService$223361005",
+        "children_id": []
+    },
+    "categoriesWork$223361510": {
+        "id": "categoriesWork$223361510",
+        "name": "Разблокировка\\Сброс пароля в домене Koronapay",
+        "parent_id": "slmService$223361005",
+        "children_id": []
+    },
+    "categoriesWork$266809305": {
+        "id": "categoriesWork$266809305",
+        "name": "Разблокировка\\Сброс пароля в домене EXTBS",
+        "parent_id": "slmService$223361005",
+        "children_id": []
+    },
+    "categoriesWork$268230705": {
+        "id": "categoriesWork$268230705",
+        "name": "Разблокировка\\Сброс пароля в домене EBS",
+        "parent_id": "slmService$223361005",
+        "children_id": []
+    },
+    "categoriesWork$268894605": {
+        "id": "categoriesWork$268894605",
+        "name": "Разблокировка\\Сброс пароля в домене DP( dp.ftc.ru )",
+        "parent_id": "slmService$223361005",
+        "children_id": []
+    },
+    "categoriesWork$579831810": {
+        "id": "categoriesWork$579831810",
+        "name": "Разблокировка\\Сброс пароля в домене SOC",
+        "parent_id": "slmService$223361005",
+        "children_id": []
+    },
+    "categoriesWork$589690206": {
+        "id": "categoriesWork$589690206",
+        "name": "Разблокировка\\Сброс пароля в домене RMT2 (терминальный сервер)",
+        "parent_id": "slmService$223361005",
+        "children_id": []
+    },
+    "categoriesWork$635022807": {
+        "id": "categoriesWork$635022807",
+        "name": "Разблокировка\\Сброс пароля в домене KG",
+        "parent_id": "slmService$223361005",
+        "children_id": []
+    },
+    "categoriesWork$258338505": {
+        "id": "categoriesWork$258338505",
+        "name": "Поддержка контакт-центра",
+        "parent_id": "slmService$258337705",
+        "children_id": []
+    },
+    "categoriesWork$296998905": {
+        "id": "categoriesWork$296998905",
+        "name": "Проблема с IT-оборудованием",
+        "parent_id": "slmService$269564905",
+        "children_id": []
+    },
+    "categoriesWork$296998906": {
+        "id": "categoriesWork$296998906",
+        "name": "Проблема с бронированием",
+        "parent_id": "slmService$269564905",
+        "children_id": []
+    },
+    "categoriesWork$296998907": {
+        "id": "categoriesWork$296998907",
+        "name": "Проблема с мебелью на рабочем месте",
+        "parent_id": "slmService$269564905",
+        "children_id": []
+    },
+    "categoriesWork$274061207": {
+        "id": "categoriesWork$274061207",
+        "name": "Создать чат-бот Золотая Корона",
+        "parent_id": "slmService$274092605",
+        "children_id": []
+    },
+    "categoriesWork$620284205": {
+        "id": "categoriesWork$620284205",
+        "name": "Создать чат-бот Страна Экспресс",
+        "parent_id": "slmService$274092605",
+        "children_id": []
+    },
+    "categoriesWork$279404805": {
+        "id": "categoriesWork$279404805",
+        "name": "Добавить новый источник данных",
+        "parent_id": "slmService$279404605",
+        "children_id": []
+    },
+    "categoriesWork$279404806": {
+        "id": "categoriesWork$279404806",
+        "name": "Прочее",
+        "parent_id": "slmService$279404605",
+        "children_id": []
+    },
+    "categoriesWork$313368505": {
+        "id": "categoriesWork$313368505",
+        "name": "Вопросы по Поиску информации",
+        "parent_id": "slmService$279404605",
+        "children_id": []
+    },
+    "categoriesWork$305483505": {
+        "id": "categoriesWork$305483505",
+        "name": "Создание/изменение учетных записей FTC",
+        "parent_id": "slmService$305483005",
+        "children_id": []
+    },
+    "categoriesWork$305483506": {
+        "id": "categoriesWork$305483506",
+        "name": "Прочее",
+        "parent_id": "slmService$305483005",
+        "children_id": []
+    },
+    "categoriesWork$306537107": {
+        "id": "categoriesWork$306537107",
+        "name": "Прочее",
+        "parent_id": "slmService$308012005",
+        "children_id": []
+    },
+    "categoriesWork$306537108": {
+        "id": "categoriesWork$306537108",
+        "name": "Прочее",
+        "parent_id": "slmService$308012006",
+        "children_id": []
+    },
+    "categoriesWork$586025805": {
+        "id": "categoriesWork$586025805",
+        "name": "Аудит системы",
+        "parent_id": "slmService$308012006",
+        "children_id": []
+    },
+    "categoriesWork$683535505": {
+        "id": "categoriesWork$683535505",
+        "name": "Корректировка трудозатрат в закрытом периоде",
+        "parent_id": "slmService$308012006",
+        "children_id": []
+    },
+    "categoriesWork$163640605": {
+        "id": "categoriesWork$163640605",
+        "name": "Корректировка трудозатрат в закрытом периоде",
+        "parent_id": "slmService$308012008",
+        "children_id": []
+    },
+    "categoriesWork$306537110": {
+        "id": "categoriesWork$306537110",
+        "name": "Вопросы по confbs.ftc.ru",
+        "parent_id": "slmService$308012008",
+        "children_id": []
+    },
+    "categoriesWork$306537111": {
+        "id": "categoriesWork$306537111",
+        "name": "Вопросы по clients.cft.ru",
+        "parent_id": "slmService$308012008",
+        "children_id": []
+    },
+    "categoriesWork$306537112": {
+        "id": "categoriesWork$306537112",
+        "name": "Вопросы по jirabs.ftc.ru",
+        "parent_id": "slmService$308012008",
+        "children_id": []
+    },
+    "categoriesWork$306537113": {
+        "id": "categoriesWork$306537113",
+        "name": "Вопросы по clients.cft.ru/jira",
+        "parent_id": "slmService$308012008",
+        "children_id": []
+    },
+    "categoriesWork$308265811": {
+        "id": "categoriesWork$308265811",
+        "name": "Прочее",
+        "parent_id": "slmService$308012008",
+        "children_id": []
+    },
+    "categoriesWork$308265805": {
+        "id": "categoriesWork$308265805",
+        "name": "Прочее",
+        "parent_id": "slmService$308265505",
+        "children_id": []
+    },
+    "categoriesWork$308265806": {
+        "id": "categoriesWork$308265806",
+        "name": "Прочее",
+        "parent_id": "slmService$308265506",
+        "children_id": []
+    },
+    "categoriesWork$308265807": {
+        "id": "categoriesWork$308265807",
+        "name": "Прочее",
+        "parent_id": "slmService$308265507",
+        "children_id": []
+    },
+    "categoriesWork$308265808": {
+        "id": "categoriesWork$308265808",
+        "name": "Прочее",
+        "parent_id": "slmService$308265508",
+        "children_id": []
+    },
+    "categoriesWork$478941707": {
+        "id": "categoriesWork$478941707",
+        "name": "Проблемы с доступом",
+        "parent_id": "slmService$308265508",
+        "children_id": []
+    },
+    "categoriesWork$478941708": {
+        "id": "categoriesWork$478941708",
+        "name": "Технические проблемы (изменение данных профиля, функционал сервиса)",
+        "parent_id": "slmService$308265508",
+        "children_id": []
+    },
+    "categoriesWork$603126812": {
+        "id": "categoriesWork$603126812",
+        "name": "Вопросы по контенту (новости, информационные разделы)",
+        "parent_id": "slmService$308265508",
+        "children_id": []
+    },
+    "categoriesWork$308265809": {
+        "id": "categoriesWork$308265809",
+        "name": "Проблемы с подписанием документов",
+        "parent_id": "slmService$308265509",
+        "children_id": []
+    },
+    "categoriesWork$308265810": {
+        "id": "categoriesWork$308265810",
+        "name": "Прочее",
+        "parent_id": "slmService$308265509",
+        "children_id": []
+    },
+    "categoriesWork$308358705": {
+        "id": "categoriesWork$308358705",
+        "name": "Проблема с доступом",
+        "parent_id": "slmService$308358505",
+        "children_id": []
+    },
+    "categoriesWork$308358706": {
+        "id": "categoriesWork$308358706",
+        "name": "Прочее",
+        "parent_id": "slmService$308358505",
+        "children_id": []
+    },
+    "categoriesWork$312070205": {
+        "id": "categoriesWork$312070205",
+        "name": "Актуализация ПО",
+        "parent_id": "slmService$312068205",
+        "children_id": []
+    },
+    "categoriesWork$312070206": {
+        "id": "categoriesWork$312070206",
+        "name": "Новое ПО",
+        "parent_id": "slmService$312068205",
+        "children_id": []
+    },
+    "categoriesWork$312070207": {
+        "id": "categoriesWork$312070207",
+        "name": "Перенос в архив ПО",
+        "parent_id": "slmService$312068205",
+        "children_id": []
+    },
+    "categoriesWork$315056405": {
+        "id": "categoriesWork$315056405",
+        "name": "Модификация ПО",
+        "parent_id": "slmService$312068205",
+        "children_id": []
+    },
+    "categoriesWork$664124112": {
+        "id": "categoriesWork$664124112",
+        "name": "Изменение Реестра РПО",
+        "parent_id": "slmService$312068205",
+        "children_id": []
+    },
+    "categoriesWork$664124113": {
+        "id": "categoriesWork$664124113",
+        "name": "Добавление ПО в Реестр РПО",
+        "parent_id": "slmService$312068205",
+        "children_id": []
+    },
+    "categoriesWork$745778505": {
+        "id": "categoriesWork$745778505",
+        "name": "Модернизация ПО",
+        "parent_id": "slmService$312068205",
+        "children_id": []
+    },
+    "categoriesWork$363384905": {
+        "id": "categoriesWork$363384905",
+        "name": "10.02.01.1.2.1. Создание объекта группа виртуальных машин (БС)",
+        "parent_id": "slmService$363287605",
+        "children_id": []
+    },
+    "categoriesWork$363384906": {
+        "id": "categoriesWork$363384906",
+        "name": "10.02.01.1.2.2. Изменение объекта группа виртуальных машин (БС)",
+        "parent_id": "slmService$363287605",
+        "children_id": []
+    },
+    "categoriesWork$363384907": {
+        "id": "categoriesWork$363384907",
+        "name": "10.02.01.1.2.3. Удаление объекта группа виртуальных машин (БС)",
+        "parent_id": "slmService$363287605",
+        "children_id": []
+    },
+    "categoriesWork$372334905": {
+        "id": "categoriesWork$372334905",
+        "name": "Прочее",
+        "parent_id": "slmService$372334605",
+        "children_id": []
+    },
+    "categoriesWork$372334906": {
+        "id": "categoriesWork$372334906",
+        "name": "Заливка образов",
+        "parent_id": "slmService$372334605",
+        "children_id": []
+    },
+    "categoriesWork$410277805": {
+        "id": "categoriesWork$410277805",
+        "name": "Консультация по работе с системой",
+        "parent_id": "slmService$410277605",
+        "children_id": []
+    },
+    "categoriesWork$410277806": {
+        "id": "categoriesWork$410277806",
+        "name": "Вопросы по доставке корреспонденции",
+        "parent_id": "slmService$410277605",
+        "children_id": []
+    },
+    "categoriesWork$422210005": {
+        "id": "categoriesWork$422210005",
+        "name": "Продление ресурсов",
+        "parent_id": "slmService$422209705",
+        "children_id": []
+    },
+    "categoriesWork$422210006": {
+        "id": "categoriesWork$422210006",
+        "name": "Удаление ресурсов",
+        "parent_id": "slmService$422209705",
+        "children_id": []
+    },
+    "categoriesWork$434457205": {
+        "id": "categoriesWork$434457205",
+        "name": "Произвести работы на сервисе Rundeck УОПП (сервер bs-ci-ops)",
+        "parent_id": "slmService$434456305",
+        "children_id": []
+    },
+    "categoriesWork$434457206": {
+        "id": "categoriesWork$434457206",
+        "name": "Консультация по работе сервиса Rundeck УОПП (сервер bs-ci-ops)",
+        "parent_id": "slmService$434456305",
+        "children_id": []
+    },
+    "categoriesWork$455515005": {
+        "id": "categoriesWork$455515005",
+        "name": "001.Создание Репозитория.",
+        "parent_id": "slmService$455505405",
+        "children_id": []
+    },
+    "categoriesWork$455515006": {
+        "id": "categoriesWork$455515006",
+        "name": "002.Изменение атрибутов Репозитория (кроме срока действия).",
+        "parent_id": "slmService$455505405",
+        "children_id": []
+    },
+    "categoriesWork$455515007": {
+        "id": "categoriesWork$455515007",
+        "name": "003.Изменение срока действия Репозитория.",
+        "parent_id": "slmService$455505405",
+        "children_id": []
+    },
+    "categoriesWork$455515008": {
+        "id": "categoriesWork$455515008",
+        "name": "004.Удаление Репозитория.",
+        "parent_id": "slmService$455505405",
+        "children_id": []
+    },
+    "categoriesWork$455515009": {
+        "id": "categoriesWork$455515009",
+        "name": "005. Консультации и прочие работы по Nexus для внешних клиентов.",
+        "parent_id": "slmService$455505405",
+        "children_id": []
+    },
+    "categoriesWork$478941705": {
+        "id": "categoriesWork$478941705",
+        "name": "Проблемы с входом",
+        "parent_id": "slmService$478941405",
+        "children_id": []
+    },
+    "categoriesWork$478941706": {
+        "id": "categoriesWork$478941706",
+        "name": "Прочее",
+        "parent_id": "slmService$478941405",
+        "children_id": []
+    },
+    "categoriesWork$478941709": {
+        "id": "categoriesWork$478941709",
+        "name": "Прочее",
+        "parent_id": "slmService$478941406",
+        "children_id": []
+    },
+    "categoriesWork$638101005": {
+        "id": "categoriesWork$638101005",
+        "name": "Технические проблемы (проблемы с доступом, ошибки системы и пр.)",
+        "parent_id": "slmService$478941406",
+        "children_id": []
+    },
+    "categoriesWork$638101006": {
+        "id": "categoriesWork$638101006",
+        "name": "Консультация по работе сервиса",
+        "parent_id": "slmService$478941406",
+        "children_id": []
+    },
+    "categoriesWork$540188907": {
+        "id": "categoriesWork$540188907",
+        "name": "Прочее",
+        "parent_id": "slmService$540809505",
+        "children_id": []
+    },
+    "categoriesWork$579831805": {
+        "id": "categoriesWork$579831805",
+        "name": "Прочее",
+        "parent_id": "slmService$579829205",
+        "children_id": []
+    },
+    "categoriesWork$579831806": {
+        "id": "categoriesWork$579831806",
+        "name": "Прочее",
+        "parent_id": "slmService$579829206",
+        "children_id": []
+    },
+    "categoriesWork$579831807": {
+        "id": "categoriesWork$579831807",
+        "name": "Прочее",
+        "parent_id": "slmService$579829207",
+        "children_id": []
+    },
+    "categoriesWork$579831808": {
+        "id": "categoriesWork$579831808",
+        "name": "Прочее",
+        "parent_id": "slmService$579829208",
+        "children_id": []
+    },
+    "categoriesWork$579831809": {
+        "id": "categoriesWork$579831809",
+        "name": "Прочее",
+        "parent_id": "slmService$579829209",
+        "children_id": []
+    },
+    "categoriesWork$603126805": {
+        "id": "categoriesWork$603126805",
+        "name": "Не обновился согласующий документа",
+        "parent_id": "slmService$603112705",
+        "children_id": []
+    },
+    "categoriesWork$603126806": {
+        "id": "categoriesWork$603126806",
+        "name": "Проблема с открытием / обновлением / сохранением документа",
+        "parent_id": "slmService$603112705",
+        "children_id": []
+    },
+    "categoriesWork$603126807": {
+        "id": "categoriesWork$603126807",
+        "name": "Замещение",
+        "parent_id": "slmService$603112705",
+        "children_id": []
+    },
+    "categoriesWork$603126808": {
+        "id": "categoriesWork$603126808",
+        "name": "Ошибки \"Ваше подключение не является закрытым\" / \"Подключение не защищено\"",
+        "parent_id": "slmService$603112705",
+        "children_id": []
+    },
+    "categoriesWork$603126809": {
+        "id": "categoriesWork$603126809",
+        "name": "Создание тематики",
+        "parent_id": "slmService$603112705",
+        "children_id": []
+    },
+    "categoriesWork$603126810": {
+        "id": "categoriesWork$603126810",
+        "name": "Обновление тематики",
+        "parent_id": "slmService$603112705",
+        "children_id": []
+    },
+    "categoriesWork$603126811": {
+        "id": "categoriesWork$603126811",
+        "name": "Прочее",
+        "parent_id": "slmService$603112705",
+        "children_id": []
+    },
+    "categoriesWork$603126813": {
+        "id": "categoriesWork$603126813",
+        "name": "Консультация по работе сервиса",
+        "parent_id": "slmService$603112706",
+        "children_id": []
+    },
+    "categoriesWork$603126814": {
+        "id": "categoriesWork$603126814",
+        "name": "Технические проблемы (проблемы с доступом, ошибки системы и пр.)",
+        "parent_id": "slmService$603112706",
+        "children_id": []
+    },
+    "categoriesWork$603126815": {
+        "id": "categoriesWork$603126815",
+        "name": "Прочее",
+        "parent_id": "slmService$603112706",
+        "children_id": []
+    },
+    "categoriesWork$603126818": {
+        "id": "categoriesWork$603126818",
+        "name": "Консультация по работе сервиса",
+        "parent_id": "slmService$603112709",
+        "children_id": []
+    },
+    "categoriesWork$603126819": {
+        "id": "categoriesWork$603126819",
+        "name": "Технические проблемы (проблемы с доступом, ошибки системы и пр.)",
+        "parent_id": "slmService$603112709",
+        "children_id": []
+    },
+    "categoriesWork$603126820": {
+        "id": "categoriesWork$603126820",
+        "name": "Прочее",
+        "parent_id": "slmService$603112709",
+        "children_id": []
+    },
+    "categoriesWork$603126821": {
+        "id": "categoriesWork$603126821",
+        "name": "Консультация по работе сервиса",
+        "parent_id": "slmService$603112710",
+        "children_id": []
+    },
+    "categoriesWork$603126822": {
+        "id": "categoriesWork$603126822",
+        "name": "Технические проблемы (проблемы с доступом, ошибки системы и пр.)",
+        "parent_id": "slmService$603112710",
+        "children_id": []
+    },
+    "categoriesWork$603126823": {
+        "id": "categoriesWork$603126823",
+        "name": "Прочее",
+        "parent_id": "slmService$603112710",
+        "children_id": []
+    },
+    "categoriesWork$603126824": {
+        "id": "categoriesWork$603126824",
+        "name": "Консультация по работе сервиса",
+        "parent_id": "slmService$603112711",
+        "children_id": []
+    },
+    "categoriesWork$603126825": {
+        "id": "categoriesWork$603126825",
+        "name": "Технические проблемы (проблемы с доступом, ошибки системы и пр.)",
+        "parent_id": "slmService$603112711",
+        "children_id": []
+    },
+    "categoriesWork$603126826": {
+        "id": "categoriesWork$603126826",
+        "name": "Прочее",
+        "parent_id": "slmService$603112711",
+        "children_id": []
+    },
+    "categoriesWork$603126827": {
+        "id": "categoriesWork$603126827",
+        "name": "Консультация по работе сервиса",
+        "parent_id": "slmService$603112712",
+        "children_id": []
+    },
+    "categoriesWork$603126828": {
+        "id": "categoriesWork$603126828",
+        "name": "Технические проблемы (проблемы с доступом, ошибки системы и пр.)",
+        "parent_id": "slmService$603112712",
+        "children_id": []
+    },
+    "categoriesWork$603126829": {
+        "id": "categoriesWork$603126829",
+        "name": "Прочее",
+        "parent_id": "slmService$603112712",
+        "children_id": []
+    },
+    "categoriesWork$603126830": {
+        "id": "categoriesWork$603126830",
+        "name": "Консультация по работе сервиса",
+        "parent_id": "slmService$603112713",
+        "children_id": []
+    },
+    "categoriesWork$603126831": {
+        "id": "categoriesWork$603126831",
+        "name": "Технические проблемы (проблемы с доступом, ошибки системы и пр.)",
+        "parent_id": "slmService$603112713",
+        "children_id": []
+    },
+    "categoriesWork$603126832": {
+        "id": "categoriesWork$603126832",
+        "name": "Прочее",
+        "parent_id": "slmService$603112713",
+        "children_id": []
+    },
+    "categoriesWork$603126833": {
+        "id": "categoriesWork$603126833",
+        "name": "Консультация по работе сервиса",
+        "parent_id": "slmService$603112714",
+        "children_id": []
+    },
+    "categoriesWork$603126834": {
+        "id": "categoriesWork$603126834",
+        "name": "Технические проблемы (проблемы с доступом, ошибки системы и пр.)",
+        "parent_id": "slmService$603112714",
+        "children_id": []
+    },
+    "categoriesWork$603126835": {
+        "id": "categoriesWork$603126835",
+        "name": "Прочее",
+        "parent_id": "slmService$603112714",
+        "children_id": []
+    },
+    "categoriesWork$603126836": {
+        "id": "categoriesWork$603126836",
+        "name": "Консультация по работе сервиса",
+        "parent_id": "slmService$603112715",
+        "children_id": []
+    },
+    "categoriesWork$603126837": {
+        "id": "categoriesWork$603126837",
+        "name": "Технические проблемы (проблемы с доступом, ошибки системы и пр.)",
+        "parent_id": "slmService$603112715",
+        "children_id": []
+    },
+    "categoriesWork$603126838": {
+        "id": "categoriesWork$603126838",
+        "name": "Прочее",
+        "parent_id": "slmService$603112715",
+        "children_id": []
+    },
+    "categoriesWork$603126839": {
+        "id": "categoriesWork$603126839",
+        "name": "Консультация по работе сервиса",
+        "parent_id": "slmService$603112716",
+        "children_id": []
+    },
+    "categoriesWork$603126840": {
+        "id": "categoriesWork$603126840",
+        "name": "Технические проблемы (проблемы с доступом, ошибки системы и пр.)",
+        "parent_id": "slmService$603112716",
+        "children_id": []
+    },
+    "categoriesWork$603126841": {
+        "id": "categoriesWork$603126841",
+        "name": "Прочее",
+        "parent_id": "slmService$603112716",
+        "children_id": []
+    },
+    "categoriesWork$603126842": {
+        "id": "categoriesWork$603126842",
+        "name": "Консультация по работе сервиса",
+        "parent_id": "slmService$603112717",
+        "children_id": []
+    },
+    "categoriesWork$603126843": {
+        "id": "categoriesWork$603126843",
+        "name": "Технические проблемы (проблемы с доступом, ошибки системы и пр.)",
+        "parent_id": "slmService$603112717",
+        "children_id": []
+    },
+    "categoriesWork$603126844": {
+        "id": "categoriesWork$603126844",
+        "name": "Прочее",
+        "parent_id": "slmService$603112717",
+        "children_id": []
+    },
+    "categoriesWork$603126845": {
+        "id": "categoriesWork$603126845",
+        "name": "Консультация по работе сервиса",
+        "parent_id": "slmService$603112718",
+        "children_id": []
+    },
+    "categoriesWork$603126846": {
+        "id": "categoriesWork$603126846",
+        "name": "Технические проблемы (проблемы с доступом, ошибки системы и пр.)",
+        "parent_id": "slmService$603112718",
+        "children_id": []
+    },
+    "categoriesWork$603126847": {
+        "id": "categoriesWork$603126847",
+        "name": "Прочее",
+        "parent_id": "slmService$603112718",
+        "children_id": []
+    },
+    "categoriesWork$603126848": {
+        "id": "categoriesWork$603126848",
+        "name": "Консультация по работе сервиса",
+        "parent_id": "slmService$603112719",
+        "children_id": []
+    },
+    "categoriesWork$603126849": {
+        "id": "categoriesWork$603126849",
+        "name": "Технические проблемы (проблемы с доступом, ошибки системы и пр.)",
+        "parent_id": "slmService$603112719",
+        "children_id": []
+    },
+    "categoriesWork$603126850": {
+        "id": "categoriesWork$603126850",
+        "name": "Прочее",
+        "parent_id": "slmService$603112719",
+        "children_id": []
+    },
+    "categoriesWork$620284206": {
+        "id": "categoriesWork$620284206",
+        "name": "Консультация по работе сервиса",
+        "parent_id": "slmService$621091505",
+        "children_id": []
+    },
+    "categoriesWork$620284207": {
+        "id": "categoriesWork$620284207",
+        "name": "Технические проблемы (проблемы с доступом, ошибки системы и пр.)",
+        "parent_id": "slmService$621091505",
+        "children_id": []
+    },
+    "categoriesWork$620284208": {
+        "id": "categoriesWork$620284208",
+        "name": "Прочее",
+        "parent_id": "slmService$621091505",
+        "children_id": []
+    },
+    "categoriesWork$620284209": {
+        "id": "categoriesWork$620284209",
+        "name": "Консультация по работе сервиса",
+        "parent_id": "slmService$621091506",
+        "children_id": []
+    },
+    "categoriesWork$620284210": {
+        "id": "categoriesWork$620284210",
+        "name": "Технические проблемы (проблемы с доступом, ошибки системы и пр.)",
+        "parent_id": "slmService$621091506",
+        "children_id": []
+    },
+    "categoriesWork$620284211": {
+        "id": "categoriesWork$620284211",
+        "name": "Прочее",
+        "parent_id": "slmService$621091506",
+        "children_id": []
+    },
+    "categoriesWork$620284214": {
+        "id": "categoriesWork$620284214",
+        "name": "Прочие вопросы",
+        "parent_id": "slmService$621091508",
+        "children_id": []
+    },
+    "categoriesWork$630318219": {
+        "id": "categoriesWork$630318219",
+        "name": "Прочее",
+        "parent_id": "slmService$630342006",
+        "children_id": []
+    },
+    "categoriesWork$804108605": {
+        "id": "categoriesWork$804108605",
+        "name": "Техническое сопровождение Express",
+        "parent_id": "slmService$630342006",
+        "children_id": []
+    },
+    "categoriesWork$647780405": {
+        "id": "categoriesWork$647780405",
+        "name": "Создать систему",
+        "parent_id": "slmService$647780105",
+        "children_id": []
+    },
+    "categoriesWork$647780406": {
+        "id": "categoriesWork$647780406",
+        "name": "Создать роли к репозиторию для существующей системы",
+        "parent_id": "slmService$647780105",
+        "children_id": []
+    },
+    "categoriesWork$664308205": {
+        "id": "categoriesWork$664308205",
+        "name": "Вопросы по оформлению отпуска (статус оформления, обновление данных)",
+        "parent_id": "slmService$664305405",
+        "children_id": []
+    },
+    "categoriesWork$664308206": {
+        "id": "categoriesWork$664308206",
+        "name": "Технические проблемы (проблемы с доступом, ошибки системы и пр.)",
+        "parent_id": "slmService$664305405",
+        "children_id": []
+    },
+    "categoriesWork$664308207": {
+        "id": "categoriesWork$664308207",
+        "name": "Прочее",
+        "parent_id": "slmService$664305405",
+        "children_id": []
+    },
+    "categoriesWork$723418205": {
+        "id": "categoriesWork$723418205",
+        "name": "Доступ к отчетам",
+        "parent_id": "slmService$723417005",
+        "children_id": []
+    },
+    "categoriesWork$760168705": {
+        "id": "categoriesWork$760168705",
+        "name": "Технические проблемы",
+        "parent_id": "slmService$760167505",
+        "children_id": []
+    },
+    "categoriesWork$760168706": {
+        "id": "categoriesWork$760168706",
+        "name": "Консультация по работе системы",
+        "parent_id": "slmService$760167505",
+        "children_id": []
+    },
+    "categoriesWork$659129205": {
+        "id": "categoriesWork$659129205",
+        "name": "Переход на AstraLinux",
+        "parent_id": "slmService$767917605",
+        "children_id": []
+    },
+    "categoriesWork$767918105": {
+        "id": "categoriesWork$767918105",
+        "name": "Windows (Поддержка)",
+        "parent_id": "slmService$767917605",
+        "children_id": []
+    },
+    "categoriesWork$767918106": {
+        "id": "categoriesWork$767918106",
+        "name": "Mac OS (Поддержка)",
+        "parent_id": "slmService$767917605",
+        "children_id": []
+    },
+    "categoriesWork$767918107": {
+        "id": "categoriesWork$767918107",
+        "name": "Astra Linux (Поддержка)",
+        "parent_id": "slmService$767917605",
+        "children_id": []
+    },
+    "categoriesWork$767918108": {
+        "id": "categoriesWork$767918108",
+        "name": "Ubuntu (Поддержка)",
+        "parent_id": "slmService$767917605",
+        "children_id": []
+    },
+    "categoriesWork$767918109": {
+        "id": "categoriesWork$767918109",
+        "name": "Установка Ubuntu (через согласование с ДИБ)",
+        "parent_id": "slmService$767917605",
+        "children_id": []
+    },
+    "categoriesWork$798187905": {
+        "id": "categoriesWork$798187905",
+        "name": "Прочее",
+        "parent_id": "slmService$798186905",
+        "children_id": []
+    }
+}
