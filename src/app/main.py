@@ -18,6 +18,8 @@ E5_URL = os.environ.get("E5_URL", "http://e5:5003")
 VECTOR_DB_URL = os.environ.get("VECTOR_DB_URL", "http://vector_db:5004")
 QUESTION_MODEL_URL = os.environ.get("QUESTION_MODEL_URL", "http://question_model:5005")
 SERVER_URL = os.environ.get("SERVER_URL", "http://server:5002")
+CONFIDENCE_CONSTANTS = os.environ.get("CONFIDENCE_CONSTANTS")
+CONFIDENCE_CONSTANTS=[float(x) for x in CONFIDENCE_CONSTANTS.split(",")] if CONFIDENCE_CONSTANTS else [0.83,0.5]
 
 app = FastAPI()
 
@@ -197,7 +199,7 @@ async def handle_user_message(user_id: str, message: str):
     top_categories = agg.get("top_categories", [])
     logging.info(f"confidence {confidence}")
     try:
-        if confidence >= 0.83 and predicted_id:
+        if confidence >= CONFIDENCE_CONSTANTS[0] and predicted_id:
             # Высокая уверенность: предоставляем ответ по предсказанной ноде
             doc = requests.get(
                 f"{MONGO_URL}/document/{predicted_id}",
@@ -230,7 +232,7 @@ async def handle_user_message(user_id: str, message: str):
                 "buttons": buttons,
             }, user_id)
 
-        elif 0.5 <= confidence < 0.83 or user_state.clarification_count >= 1:
+        elif CONFIDENCE_CONSTANTS[-1] <= confidence < CONFIDENCE_CONSTANTS[0] or user_state.clarification_count >= 1:
             # Средняя уверенность: предлагаем выбрать из топ-5 категорий
             suggestion_buttons = []
             for item in top_categories[:5]:
