@@ -202,10 +202,6 @@ async def handle_user_message(user_id: str, message: str):
     # Add user message to history
     user_state.add_message("user", message)
 
-    # Если состояние базовое, сбрасываем счетчик уточнений
-    if user_state.current_state == "baseState" and not user_state.expecting_clarification:
-        user_state.clarification_count = 0
-
     # If expecting clarification answer, combine with initial question and model question
     if getattr(user_state, "expecting_clarification", False) and getattr(
         user_state, "initial_query_for_clarification", None
