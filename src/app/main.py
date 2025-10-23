@@ -209,7 +209,7 @@ async def handle_user_message(user_id: str, message: str):
     user_state.add_message("user", message)
 
     # Если состояние базовое, сбрасываем счетчик уточнений
-    if user_state.current_state == "baseState":
+    if user_state.current_state == "baseState" and not user_state.expecting_clarification:
         user_state.clarification_count = 0
 
     # If expecting clarification answer, combine with initial question and model question
@@ -298,8 +298,8 @@ async def handle_user_message(user_id: str, message: str):
                     "value": f"open_doc:{cid}",
                 })
 
-            # Добавляем кнопку "Нет"
-            suggestion_buttons.append({"label": "Нет", "value": "no_categories"})
+            # Добавляем кнопку "Сброс"
+            suggestion_buttons.append({"label": "Сброс", "value": "no_categories"})
 
             prompt_text = "Выберите наиболее подходящую категорию работ"
             user_state.add_message("assistant", prompt_text)
@@ -337,7 +337,6 @@ async def handle_user_message(user_id: str, message: str):
                 },
                 user_id,
             )
-
     except Exception as e:
         logging.error(f"Error processing message for user {user_id}: {e}")
         await manager.send_personal_message(
@@ -377,12 +376,13 @@ async def handle_button_click(user_id: str, button: str):
         return
 
     logging.info(f"Button clicked by user {user_id}: {button}")
+    logging.info(f"Current state user {user_id}: {user_state.current_state}")
 
     # Ничего не подошло
     if button == "no_match":
         answer = "Извините, что не нашли нужный вариант. Опишите, пожалуйста, задачу другими словами."
-        new_state = "baseState"  # Сбрасываем состояние до базового
-        user_state.clarification_count += 1  # Увеличиваем счетчик уточнений
+        new_state = manager.get_user_state(user_id).current_state if manager.get_user_state(user_id) else "baseState"
+
     elif button == "no_categories":
         # Сбрасываем состояние до базового и увеличиваем счетчик уточнений
         new_state = "baseState"
