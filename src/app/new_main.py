@@ -169,16 +169,6 @@ async def chat(websocket: WebSocket, user_id: str):
         manager.disconnect(user_id)
 
 
-def _append_debug_info(original_text: str, user_state: UserState) -> str:
-    """Добавляет отладочную информацию к тексту ответа."""
-    state = user_state.current_state
-    clar_count = user_state.clarification_count
-
-    debug_string = f"\n\n---\n*Debug Info: State = `{state}`, Clarifications = `{clar_count}`*"
-
-    return original_text + debug_string
-
-
 async def handle_user_message(user_id: str, message: str):
     """
     Обрабатывает пользовательское сообщение через WebSocket и возвращает соответствующий ответ.
@@ -212,13 +202,13 @@ async def handle_user_message(user_id: str, message: str):
     # Add user message to history
     user_state.add_message("user", message)
 
-    # # Если состояние базовое, сбрасываем счетчик уточнений
-    # if user_state.current_state == "baseState" and not user_state.expecting_clarification:
-    #     user_state.clarification_count = 0
+    # Если состояние базовое, сбрасываем счетчик уточнений
+    if user_state.current_state == "baseState" and not user_state.expecting_clarification:
+        user_state.clarification_count = 0
 
     # If expecting clarification answer, combine with initial question and model question
     if getattr(user_state, "expecting_clarification", False) and getattr(
-            user_state, "initial_query_for_clarification", None
+        user_state, "initial_query_for_clarification", None
     ):
         combined_message = (
             f"Вопрос пользователя: {user_state.initial_query_for_clarification}\n"
@@ -252,9 +242,9 @@ async def handle_user_message(user_id: str, message: str):
                 answer = doc["guide"]
             else:
                 answer = (
-                        "Описание категории:\n\n"
-                        + doc["description"]
-                        + f"""
+                    "Описание категории:\n\n"
+                    + doc["description"]
+                    + f"""
                 \n\n **Рекомендуем вам оформить** {(doc.get("name_path", "") or "").replace("/", "\n\n ->")[:-3]}
                 \nНажмите для подтверждения
                 """
@@ -265,11 +255,11 @@ async def handle_user_message(user_id: str, message: str):
                 {"label": "Подтвердить", "value": predicted_id},
                 {"label": "Это мне не подходит", "value": "no_match"},
             ]
-            debug_answer = _append_debug_info(answer, user_state)
+
             user_state.add_message("assistant", answer)
             await manager.send_personal_message(
                 {
-                    "text": debug_answer,
+                    "text": answer,
                     "type": "message_response",
                     "new_state": None,
                     "predicted_id": predicted_id,
@@ -304,12 +294,11 @@ async def handle_user_message(user_id: str, message: str):
             suggestion_buttons.append({"label": "Сброс", "value": "no_categories"})
 
             prompt_text = "Выберите наиболее подходящую категорию работ"
-            debug_prompt_text = _append_debug_info(prompt_text, user_state)
             user_state.add_message("assistant", prompt_text)
             logging.info(f"Button {suggestion_buttons}")
             await manager.send_personal_message(
                 {
-                    "text": debug_prompt_text,
+                    "text": prompt_text,
                     "type": "message_response",
                     "new_state": None,
                     "predicted_id": predicted_id,
@@ -323,7 +312,6 @@ async def handle_user_message(user_id: str, message: str):
             # Low confidence: ask a clarifying question using question_model
             candidate_ids = [c["id"] for c in top_categories[:5]]
             question_text = generate_clarifying_question(message, candidate_ids)
-            debug_question_text = _append_debug_info(question_text, user_state)
             user_state.expecting_clarification = True
             if not user_state.initial_query_for_clarification:
                 user_state.initial_query_for_clarification = message
@@ -332,7 +320,7 @@ async def handle_user_message(user_id: str, message: str):
             user_state.add_message("assistant", question_text)
             await manager.send_personal_message(
                 {
-                    "text": debug_question_text,
+                    "text": question_text,
                     "type": "message_response",
                     "new_state": None,
                     "predicted_id": predicted_id,
@@ -409,9 +397,9 @@ async def handle_button_click(user_id: str, button: str):
                     answer = doc["guide"]
                 else:
                     answer = (
-                            "Описание категории:\n\n"
-                            + doc["description"]
-                            + f"""
+                        "Описание категории:\n\n"
+                        + doc["description"]
+                        + f"""
                     \n\n **Рекомендуем вам оформить** {(doc.get("name_path", "") or "").replace("/", "\n\n ->")[:-3]}
                     \nНажмите для подтверждения
                     """
@@ -424,12 +412,9 @@ async def handle_button_click(user_id: str, button: str):
 
                 user_state.update_state(node_id)
                 user_state.add_message("assistant", answer)
-
-                debug_answer = _append_debug_info(answer, user_state)
-
                 await manager.send_personal_message(
                     {
-                        "text": debug_answer,
+                        "text": answer,
                         "type": "button_response",
                         "new_state": node_id,
                         "buttons": buttons,
@@ -503,26 +488,26 @@ def aggregate_nodes(state: str, message: str) -> dict:
     if state == "baseState":
         for node in similar_nodes_dict:
             hits["folder"][node["folder"]] = (
-                    hits["folder"].get(node["folder"], 0) + node["distance"]
+                hits["folder"].get(node["folder"], 0) + node["distance"]
             )
             hits["slmService"][node["slmService"]] = (
-                    hits["slmService"].get(node["slmService"], 0) + node["distance"]
+                hits["slmService"].get(node["slmService"], 0) + node["distance"]
             )
             hits["categoriesWork"][node["categoriesWork"]] = (
-                    hits["categoriesWork"].get(node["categoriesWork"], 0) + node["distance"]
+                hits["categoriesWork"].get(node["categoriesWork"], 0) + node["distance"]
             )
     elif state == "folder":
         for node in similar_nodes_dict:
             hits["slmService"][node["slmService"]] = (
-                    hits["slmService"].get(node["slmService"], 0) + node["distance"]
+                hits["slmService"].get(node["slmService"], 0) + node["distance"]
             )
             hits["categoriesWork"][node["categoriesWork"]] = (
-                    hits["categoriesWork"].get(node["categoriesWork"], 0) + node["distance"]
+                hits["categoriesWork"].get(node["categoriesWork"], 0) + node["distance"]
             )
     elif state == "slmService":
         for node in similar_nodes_dict:
             hits["categoriesWork"][node["categoriesWork"]] = (
-                    hits["categoriesWork"].get(node["categoriesWork"], 0) + node["distance"]
+                hits["categoriesWork"].get(node["categoriesWork"], 0) + node["distance"]
             )
 
     logging.info(f"hits {hits}")
@@ -557,9 +542,9 @@ def aggregate_nodes(state: str, message: str) -> dict:
         # Собираем дистанции для нод, у которых совпадает predicted_id на любом уровне
         for node in similar_nodes_dict:
             if (
-                    node.get("categoriesWork") == predicted_id
-                    or node.get("slmService") == predicted_id
-                    or node.get("folder") == predicted_id
+                node.get("categoriesWork") == predicted_id
+                or node.get("slmService") == predicted_id
+                or node.get("folder") == predicted_id
             ):
                 try:
                     candidate_distances.append(float(node["distance"]))
