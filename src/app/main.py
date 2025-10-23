@@ -213,7 +213,7 @@ async def handle_user_message(user_id: str, message: str):
 
     # If expecting clarification answer, combine with initial question and model question
     if getattr(user_state, "expecting_clarification", False) and getattr(
-            user_state, "initial_query_for_clarification", None
+        user_state, "initial_query_for_clarification", None
     ):
         combined_message = (
             f"Вопрос пользователя: {user_state.initial_query_for_clarification}\n"
@@ -247,9 +247,9 @@ async def handle_user_message(user_id: str, message: str):
                 answer = doc["guide"]
             else:
                 answer = (
-                        "Описание категории:\n\n"
-                        + doc["description"]
-                        + f"""
+                    "Описание категории:\n\n"
+                    + doc["description"]
+                    + f"""
                 \n\n **Рекомендуем вам оформить** {(doc.get("name_path", "") or "").replace("/", "\n\n ->")[:-3]}
                 \nНажмите для подтверждения
                 """
@@ -406,9 +406,9 @@ async def handle_button_click(user_id: str, button: str):
                     answer = doc["guide"]
                 else:
                     answer = (
-                            "Описание категории:\n\n"
-                            + doc["description"]
-                            + f"""
+                        "Описание категории:\n\n"
+                        + doc["description"]
+                        + f"""
                     \n\n **Рекомендуем вам оформить** {(doc.get("name_path", "") or "").replace("/", "\n\n ->")[:-3]}
                     \nНажмите для подтверждения
                     """
@@ -499,26 +499,26 @@ def aggregate_nodes(state: str, message: str) -> dict:
     if state == "baseState":
         for node in similar_nodes_dict:
             hits["folder"][node["folder"]] = (
-                    hits["folder"].get(node["folder"], 0) + node["distance"]
+                hits["folder"].get(node["folder"], 0) + node["distance"]
             )
             hits["slmService"][node["slmService"]] = (
-                    hits["slmService"].get(node["slmService"], 0) + node["distance"]
+                hits["slmService"].get(node["slmService"], 0) + node["distance"]
             )
             hits["categoriesWork"][node["categoriesWork"]] = (
-                    hits["categoriesWork"].get(node["categoriesWork"], 0) + node["distance"]
+                hits["categoriesWork"].get(node["categoriesWork"], 0) + node["distance"]
             )
     elif state == "folder":
         for node in similar_nodes_dict:
             hits["slmService"][node["slmService"]] = (
-                    hits["slmService"].get(node["slmService"], 0) + node["distance"]
+                hits["slmService"].get(node["slmService"], 0) + node["distance"]
             )
             hits["categoriesWork"][node["categoriesWork"]] = (
-                    hits["categoriesWork"].get(node["categoriesWork"], 0) + node["distance"]
+                hits["categoriesWork"].get(node["categoriesWork"], 0) + node["distance"]
             )
     elif state == "slmService":
         for node in similar_nodes_dict:
             hits["categoriesWork"][node["categoriesWork"]] = (
-                    hits["categoriesWork"].get(node["categoriesWork"], 0) + node["distance"]
+                hits["categoriesWork"].get(node["categoriesWork"], 0) + node["distance"]
             )
 
     logging.info(f"hits {hits}")
@@ -553,9 +553,9 @@ def aggregate_nodes(state: str, message: str) -> dict:
         # Собираем дистанции для нод, у которых совпадает predicted_id на любом уровне
         for node in similar_nodes_dict:
             if (
-                    node.get("categoriesWork") == predicted_id
-                    or node.get("slmService") == predicted_id
-                    or node.get("folder") == predicted_id
+                node.get("categoriesWork") == predicted_id
+                or node.get("slmService") == predicted_id
+                or node.get("folder") == predicted_id
             ):
                 try:
                     candidate_distances.append(float(node["distance"]))
