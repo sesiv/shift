@@ -1,3 +1,4 @@
+import glob
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from pydantic import BaseModel
 import requests
@@ -23,7 +24,7 @@ CONFIDENCE_CONSTANTS=[float(x) for x in CONFIDENCE_CONSTANTS.split(",")] if CONF
 app = FastAPI()
 
 
-
+# User state management
 class UserState:
     def __init__(self):
         self.chat_history = []
@@ -225,7 +226,7 @@ async def handle_user_message(user_id: str, message: str):
         # Process message using existing logic
         agg = aggregate_nodes(user_state.current_state, message)
     logging.info(f"Aggregate result: {agg}")
-
+    
     predicted_id = agg.get("predicted_id")
     confidence = agg.get("confidence", 0.0)
     top_categories = agg.get("top_categories", [])
@@ -235,7 +236,7 @@ async def handle_user_message(user_id: str, message: str):
             # Высокая уверенность: предоставляем ответ по предсказанной ноде
             doc = requests.get(
                 f"{MONGO_URL}/document/{predicted_id}",
-                params={"filter": "guide,description,name_path"}
+                params={"filter": "guide,description,name_path"},
             ).json()["data"]
             logging.info(f"Retrieved document: {doc}")
 
@@ -278,7 +279,8 @@ async def handle_user_message(user_id: str, message: str):
 
                 try:
                     cdoc = requests.get(
-                        f"{MONGO_URL}/document/{cid}", params={"filter": "name_path"}
+                        f"{MONGO_URL}/document/{cid}",
+                        params={"filter": "name_path"}
                     ).json()["data"]
                     label = cdoc.get("name_path")
                     logging.info(label.split("/"))
@@ -432,8 +434,9 @@ async def handle_button_click(user_id: str, button: str):
                     {"error": "Ошибка при получении документа"}, user_id
                 )
                 return
-        # Иначе считаем это нажатием на обычную ноду (id)
-        # Получаем дочерние ноды для кнопки
+
+        # Otherwise treat as a normal node id click
+        # Get children nodes for the button
         children = get_children(button)
 
         if children:
@@ -456,6 +459,10 @@ async def handle_button_click(user_id: str, button: str):
         "type": "button_response",
         "new_state": new_state
     }, user_id)
+    # Send response to client
+    await manager.send_personal_message(
+        {"text": answer, "type": "button_response", "new_state": new_state}, user_id
+    )
 
 
 # обработчик сохранения чата (сохраняем для совместимости)
@@ -585,6 +592,7 @@ def aggregate_nodes(state: str, message: str) -> dict:
 
 
 SERVICE_PATH = os.path.join("data", "services.json")
+
 
 # получение детей текущей ноды
 def get_children(state: str):
