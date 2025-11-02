@@ -288,12 +288,10 @@ async def handle_user_message(user_id: str, message: str):
                     label = cid
                 suggestion_buttons.append({"label": label_cropped, "value": f"open_doc:{cid}"})
 
-            # Добавляем кнопку "Сброс"
-            suggestion_buttons.append({"label": "Сброс", "value": "no_categories"})
-                suggestion_buttons.append({
-                    "label": label_cropped,
-                    "value": f"open_doc:{cid}",
-                })
+            suggestion_buttons.append({
+                "label": label_cropped,
+                "value": f"open_doc:{cid}",
+            })
 
             # Добавляем кнопку "Сброс"
             suggestion_buttons.append({"label": "Сброс", "value": "no_categories"})
