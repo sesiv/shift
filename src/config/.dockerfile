@@ -25,14 +25,6 @@ RUN --mount=type=cache,target=/root/.cache/pip \
 COPY . .
 CMD ["uvicorn", "server:app", "--host", "0.0.0.0", "--port", "5002"]
 
-FROM base AS e5
-RUN apt-get update && apt-get install -y gcc g++ cmake make git && rm -rf /var/lib/apt/lists/*
-COPY src/config/requirements/e5.txt .
-RUN --mount=type=cache,target=/root/.cache/pip \
-    pip install --no-cache-dir -r e5.txt
-COPY . .
-CMD ["uvicorn", "e5:app", "--host", "0.0.0.0", "--port", "5003"]
-
 # Build стадия для компиляции ML зависимостей
 FROM base AS question_model-builder
 RUN apt-get update && apt-get install -y \

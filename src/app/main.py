@@ -490,8 +490,7 @@ def aggregate_nodes(state: str, message: str) -> dict:
     - top_categories: список словарей {id, score}, отсортированных по убыванию score (до всех доступных)
     - best_distance: float | None — минимальная дистанция для предсказанной категории
     """
-    message_vector = get_vector(message)
-    similar_nodes = search_similar_nodes(state, message_vector)
+    similar_nodes = search_similar_nodes(state, message)
     similar_nodes_dict = json.loads(similar_nodes.get("response", "[]"))
     logging.info(f"similar_nodes_dict {similar_nodes_dict}")
 
@@ -627,10 +626,8 @@ def get_vector(text: str):
 
 
 
-def search_similar_nodes(state, vector):
-    response = requests.post(
-        f"{VECTOR_DB_URL}/ticket/search", json={"state": state, "query_vector": vector}
-    )
+def search_similar_nodes(state, message: str):
+    response = requests.post(f"{VECTOR_DB_URL}/ticket/search", json={"message": message})
     return response.json()
 
 
