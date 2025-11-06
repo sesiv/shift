@@ -61,23 +61,15 @@ services:
     command: uvicorn server:app --reload --host 0.0.0.0 --port 5002
     ports: ["5002:5002"] 
 
-  e5:
-    <<: *common
-    build:
-      <<: *common-build
-      target: e5
-    command: uvicorn e5:app --reload --host 0.0.0.0 --port 5003
-    ports: ["5003:5003"] 
-    volumes:
-      - ../app:/app
-      - hf_cache:/root/.cache/huggingface
-
   vector_db:
     <<: *common
     build:
       <<: *common-build
       target: vector_db
     command: uvicorn vector_db:app --reload --host 0.0.0.0 --port 5004
+    volumes:
+      - ../app:/app
+      - hf_cache:/root/.cache/huggingface
     ports: ["5004:5004"] 
 
   mongo:

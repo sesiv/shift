@@ -9,6 +9,8 @@ import json
 from chromadb.config import Settings
 import os
 
+from e5 import generate_vector
+
 logging.basicConfig(level=logging.INFO)
 
 client = chromadb.HttpClient(
@@ -29,7 +31,7 @@ app = FastAPI()
 # Модель запроса через Pydantic
 class SearchRequest(BaseModel):
     """Модель для запроса поиска тикетов."""
-    query_vector: List[float] = Field(..., example=[0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9])
+    message: str = Field(..., example="Прошу предоставить права локального администратора...")
     n_results: int = Field(5, gt=0, le=20, description="Количество возвращаемых результатов")
 
 
@@ -55,17 +57,13 @@ class TicketPayload(BaseModel):
         }
     }
 
-def get_vector(text: str) -> List[float]:
-    """
-    Генерация эмбеддинга
-    """
-    response = requests.post("http://localhost:5003/get_vector", json={"query": text})
-    return response.json()["vector"]
 
 @app.post("/ticket/search")
 async def search_ticket(query_data: SearchRequest):
     n_results = query_data.n_results
-    query_vector = np.array(query_data.query_vector).squeeze()
+    message = query_data.message
+
+    query_vector = generate_vector(message)
 
     results=collection.query(
         query_embeddings=query_vector,
@@ -102,7 +100,7 @@ async def create_ticket(ticket_data: TicketPayload) -> Dict[str, Any]:
 
     document = ticket_data.description
 
-    embedding = get_vector(document)
+    embedding = generate_vector(document)
 
     #добавляем данные в коллекцию
     try:
