@@ -18,7 +18,9 @@ from pymongo.errors import ConnectionFailure, PyMongoError
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-MONGO_URI = os.getenv("MONGO_URI")
+# Скрытые credentials для подключения
+MONGO_URI = os.getenv("MONGO_URI") 
+
 logging.info(f"Connecting to MongoDB at {MONGO_URI}")
 
 try:

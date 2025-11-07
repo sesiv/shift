@@ -5,14 +5,8 @@ x-common: &common
     dockerfile: src/config/.dockerfile
   env_file:
     - ../../.env
-    - .public.env
   environment:
     PYTHONUNBUFFERED: "1"
-    MONGO_URL:            http://mongo:5017
-    E5_URL:               http://e5:5003
-    VECTOR_DB_URL:        http://vector_db:5004
-    QUESTION_MODEL_URL:   http://question_model:5005
-    SERVER_URL:           http://server:5002
   restart: unless-stopped
   networks: [backend]
   working_dir: /app

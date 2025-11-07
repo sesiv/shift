@@ -5,7 +5,7 @@ import os
 import logging
 from dotenv import load_dotenv
 import time
-
+from consts import REPO_ID, MODEL_FILENAME
 
 
 logging.basicConfig(level=logging.INFO)
@@ -15,8 +15,6 @@ app = FastAPI()
 
 # Флаг готовности модели: False, пока загрузка не завершилась
 is_ready = False
-REPO_ID=os.environ.get("REPO_ID")
-MODEL_FILENAME=os.environ.get("MODEL_FILENAME")
 
 def _load_model():
     global llm, is_ready
