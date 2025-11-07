@@ -7,13 +7,14 @@ from pydantic import BaseModel
 import requests
 import os
 from dotenv import load_dotenv
+from consts import EMBEDDING_MODEL
 
 # Инициализация FastAPI
 app = FastAPI()
 
 # Загрузка модели
 load_dotenv()
-EMBEDDING_MODEL = os.getenv("EMBEDDING_MODEL")
+
 tokenizer = AutoTokenizer.from_pretrained(EMBEDDING_MODEL)
 model = AutoModel.from_pretrained(EMBEDDING_MODEL)
 

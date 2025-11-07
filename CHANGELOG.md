@@ -2,6 +2,14 @@
 
 Формат основан на [Keep a Changelog](https://keepachangelog.com/ru/1.1.0/) и следует принципам [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.0] - 2025-11-07
+### Added
+- utils.py - файл с вспомогательными функциями
+- consts.py - файл с константами
+
+### Changed
+- вынесены константы в src/app/consts.py
+- вынесены функции из main.py в utils.py
 
 ## [0.2.0] - 2025-11-02
 
