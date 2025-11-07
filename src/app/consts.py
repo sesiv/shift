@@ -39,3 +39,6 @@ SCORE_DELTA = 0.01
 # Если число уточняющих вопросов >= CLARIFICATION_COUNT_TRESHOLD,
 # то обработать вопрос юзера функцией _handle_medium_confidence_response
 CLARIFICATION_COUNT_TRESHOLD = 1
+
+# Количество возвращаемых результатов из векторной бд
+N_RESULTS = 5

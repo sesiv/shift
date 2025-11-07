@@ -1,15 +1,14 @@
 from typing import List, Dict, Any
 import chromadb
 from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel, Field
-import numpy as np
-import requests
 import logging
 import json
 from chromadb.config import Settings
 import os
-
+from utils import distance_to_confidence
 from e5 import generate_vector
+from consts import SCORE_DELTA, N_RESULTS
+from schemas import TicketPayload
 
 logging.basicConfig(level=logging.INFO)
 
@@ -28,40 +27,7 @@ collection=client.get_collection("ticketsTrain09082025")
 app = FastAPI()
 
 
-# Модель запроса через Pydantic
-class SearchRequest(BaseModel):
-    """Модель для запроса поиска тикетов."""
-    message: str = Field(..., example="Прошу предоставить права локального администратора...")
-    n_results: int = Field(5, gt=0, le=20, description="Количество возвращаемых результатов")
-
-
-class TicketPayload(BaseModel):
-    """
-    Модель для данных, необходимых для создания нового тикета.
-    """
-    categoriesWork: str = Field(..., example="categoriesWork$49302778")
-    folder: str = Field(..., example="folder$1115806")
-    description: str = Field(..., example="Прошу предоставить права локального администратора...")
-    slmService: str = Field(..., example="slmService$1116020")
-    name: str = Field(..., example="Предоставление прав локального администратора на ПК")
-
-    model_config = {
-        "json_schema_extra": {
-            "example": {
-                'categoriesWork': 'categoriesWork$49302778',
-                'folder': 'folder$1115806',
-                'description': 'Прошу предоставить права локального администратора для установки ПО.',
-                'slmService': 'slmService$1116020',
-                'name': 'Предоставление прав локального администратора на ПК',
-            }
-        }
-    }
-
-
-@app.post("/ticket/search")
-async def search_ticket(query_data: SearchRequest):
-    n_results = query_data.n_results
-    message = query_data.message
+def search_ticket(message, n_results):
 
     query_vector = generate_vector(message)
 
@@ -143,6 +109,120 @@ async def delete_ticket(ticket_id: str) -> Dict[str, str]:
         raise HTTPException(status_code=500, detail="An error occurred while deleting the ticket.")
 
 
+@app.post("/aggregate", status_code=200)
+async def aggregate_nodes(state: str, message: str) -> dict:
+    """
+    Классифицирует сообщение в один из узлов и вычисляет откалиброванную уверенность.
+
+    Args:
+        state: Текущее состояние разговора
+        message: Сообщение пользователя для классификации
+
+    Returns:
+        Словарь с ключами:
+        - predicted_id: str | None — предсказанный идентификатор узла
+        - confidence: float в диапазоне [0,1] — уверенность в предсказании
+        - top_categories: список словарей {id, score}, отсортированных по убыванию score
+        - best_distance: float | None — минимальная дистанция для предсказанной категории
+    """
+    similar_nodes = search_ticket(message=message, n_results=N_RESULTS)
+    similar_nodes_dict = json.loads(similar_nodes.get("response", "[]"))
+    logging.info(f"similar_nodes_dict {similar_nodes_dict}")
+
+    hits: dict = {"folder": {}, "slmService": {}, "categoriesWork": {}}
+
+    if state == "baseState":
+        for node in similar_nodes_dict:
+            hits["folder"][node["folder"]] = (
+                hits["folder"].get(node["folder"], 0) + node["distance"]
+            )
+            hits["slmService"][node["slmService"]] = (
+                hits["slmService"].get(node["slmService"], 0) + node["distance"]
+            )
+            hits["categoriesWork"][node["categoriesWork"]] = (
+                hits["categoriesWork"].get(node["categoriesWork"], 0) + node["distance"]
+            )
+    elif state == "folder":
+        for node in similar_nodes_dict:
+            hits["slmService"][node["slmService"]] = (
+                hits["slmService"].get(node["slmService"], 0) + node["distance"]
+            )
+            hits["categoriesWork"][node["categoriesWork"]] = (
+                hits["categoriesWork"].get(node["categoriesWork"], 0) + node["distance"]
+            )
+    elif state == "slmService":
+        for node in similar_nodes_dict:
+            hits["categoriesWork"][node["categoriesWork"]] = (
+                hits["categoriesWork"].get(node["categoriesWork"], 0) + node["distance"]
+            )
+
+    logging.info(f"hits {hits}")
+
+    best = {
+        "folder": {"id": "", "score": 0.0},
+        "slmService": {"id": "", "score": 0.0},
+        "categoriesWork": {"id": "", "score": 0.0},
+    }
+
+    for level in hits:
+        for hit in hits[level]:
+            if best[level]["score"] < hits[level][hit]:
+                best[level]["score"] = hits[level][hit]
+                best[level]["id"] = hit
+
+    max_score = max(best[level]["score"] for level in best)
+    logging.info(f"max score {max_score}")
+    logging.info(f"best {best}")
+
+    predicted_id = None
+    # Приоритетно выбираем id с максимальным score среди уровней: категории работ, услуга, папка
+    for priority in ["categoriesWork", "slmService", "folder"]:
+        if abs(best[priority]["score"] - max_score) < SCORE_DELTA:
+            predicted_id = best[priority]["id"]
+            break
+
+    # Определяем минимальную дистанцию для предсказанной категории для калибровки уверенности
+    best_distance = None
+    if predicted_id:
+        candidate_distances: List[float] = []
+        # Собираем дистанции для нод, у которых совпадает predicted_id на любом уровне
+        for node in similar_nodes_dict:
+            if (
+                node.get("categoriesWork") == predicted_id
+                or node.get("slmService") == predicted_id
+                or node.get("folder") == predicted_id
+            ):
+                try:
+                    candidate_distances.append(float(node["distance"]))
+                except Exception:
+                    pass
+        if candidate_distances:
+            best_distance = min(candidate_distances)
+        else:
+            # Если не найдено — используем минимальную дистанцию среди всех нод
+            try:
+                best_distance = min(float(n["distance"]) for n in similar_nodes_dict)
+            except Exception:
+                best_distance = None
+
+    confidence = (
+        distance_to_confidence(best_distance) if best_distance is not None else 0.0
+    )
+
+    # Формируем топ категорий (по убыванию агрегированного score) для подсказок
+    categories_scores = hits["categoriesWork"]
+    sorted_categories = sorted(
+        categories_scores.items(), key=lambda x: x[1], reverse=True
+    )
+    top_categories = [{"id": cid, "score": score} for cid, score in sorted_categories]
+
+    result = {
+        "predicted_id": predicted_id,
+        "confidence": confidence,
+        "top_categories": top_categories,
+        "best_distance": best_distance,
+    }
+    return result
 
 
 # Для запуска через uvicorn:
