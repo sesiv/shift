@@ -5,7 +5,7 @@
 во всем приложении.
 """
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from typing import Optional, Dict
 from fastapi import FastAPI, WebSocket
 import logging
@@ -88,3 +88,26 @@ class ConnectionManager:
     def get_user_state(self, user_id: str) -> Optional[UserState]:
         """Получить состояние пользователя по заданному ID пользователя."""
         return self.user_states.get(user_id)
+
+
+class TicketPayload(BaseModel):
+    """
+    Модель для данных, необходимых для создания нового тикета.
+    """
+    categoriesWork: str = Field(..., example="categoriesWork$49302778")
+    folder: str = Field(..., example="folder$1115806")
+    description: str = Field(..., example="Прошу предоставить права локального администратора...")
+    slmService: str = Field(..., example="slmService$1116020")
+    name: str = Field(..., example="Предоставление прав локального администратора на ПК")
+
+    model_config = {
+        "json_schema_extra": {
+            "example": {
+                'categoriesWork': 'categoriesWork$49302778',
+                'folder': 'folder$1115806',
+                'description': 'Прошу предоставить права локального администратора для установки ПО.',
+                'slmService': 'slmService$1116020',
+                'name': 'Предоставление прав локального администратора на ПК',
+            }
+        }
+    }

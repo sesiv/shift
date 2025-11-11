@@ -39,3 +39,14 @@ SCORE_DELTA = 0.01
 # Если число уточняющих вопросов >= CLARIFICATION_COUNT_TRESHOLD,
 # то обработать вопрос юзера функцией _handle_medium_confidence_response
 CLARIFICATION_COUNT_TRESHOLD = 1
+
+CHROMA_CLIENT_AUTH_PROVIDER="chromadb.auth.basic_authn.BasicAuthClientProvider"
+CHROMA_SERVER_PORT=8000
+CHROMA_SERVER_HOST="158.160.17.124"
+CHROMA_COLLECTION_NAME="ticketsTrain09082025"
+
+# Количество возвращаемых результатов из векторной бд
+N_RESULTS = 5
+
+
+
