@@ -14,10 +14,9 @@ from schemas import ChatRequest, ConnectionManager
 from consts import  (
     CONFIDENCE_CONSTANTS,
     MONGO_URL, SERVER_URL,
-    QUESTION_MODEL_URL,
+    QUESTION_MODEL_URL, VECTOR_DB_URL,
     CLARIFICATION_COUNT_TRESHOLD
 )
-from utils import aggregate_nodes
 
 # Настройка логирования
 logging.basicConfig(level=logging.INFO)
@@ -91,12 +90,15 @@ async def handle_user_message(user_id: str, message: str):
         user_state.expecting_clarification
     ):
         all_previous_user_messages = " ".join(msg["content"] for msg in user_state.chat_history if msg["role"] == "user")
-        combined_message = all_previous_user_messages + " " + message
-        agg = aggregate_nodes(user_state.current_state, combined_message)
+        message = all_previous_user_messages + " " + message
         # Очистить состояние уточнения
         user_state.expecting_clarification = False
-    else:
-        agg = aggregate_nodes(user_state.current_state, message)
+
+    agg = requests.post(f"{VECTOR_DB_URL}/aggregate",
+                        params={
+                              "state": user_state.current_state,
+                              "message": message}
+                        ).json()
 
     logger.info(f"Aggregate result: {agg}")
 
