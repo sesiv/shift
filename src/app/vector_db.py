@@ -6,8 +6,9 @@ import json
 from chromadb.config import Settings
 import os
 from utils import distance_to_confidence
-from e5 import generate_vector
-from consts import (SCORE_DELTA,
+from e5 import E5Model
+from consts import (
+    SCORE_DELTA,
     N_RESULTS,
     CHROMA_CLIENT_AUTH_PROVIDER,
     CHROMA_SERVER_PORT,
@@ -18,6 +19,16 @@ from schemas import TicketPayload
 
 logging.basicConfig(level=logging.INFO)
 
+# загрузка e5
+e5_instance = E5Model()
+try:
+    "Загрузка e5..."
+    e5_instance.load()
+    "Модель e5 загружена"
+except Exception as e:
+    logging.info(f"Произошла ошибка при загрузке модели e5: {e}")
+
+# подключение к chromadb
 client = chromadb.HttpClient(
     host=CHROMA_SERVER_HOST,  # IP сервера
     port=CHROMA_SERVER_PORT,             
@@ -33,9 +44,9 @@ collection=client.get_collection(CHROMA_COLLECTION_NAME)
 app = FastAPI()
 
 
-def search_ticket(message, n_results):
+async def search_ticket(message, n_results):
 
-    query_vector = generate_vector(message)
+    query_vector = e5_instance.generate_vector(message)
 
     results=collection.query(
         query_embeddings=query_vector,
@@ -72,7 +83,7 @@ async def create_ticket(ticket_data: TicketPayload) -> Dict[str, Any]:
 
     document = ticket_data.description
 
-    embedding = generate_vector(document)
+    embedding = e5_instance.generate_vector(document)
 
     #добавляем данные в коллекцию
     try:
@@ -131,7 +142,7 @@ async def aggregate_nodes(state: str, message: str) -> dict:
         - top_categories: список словарей {id, score}, отсортированных по убыванию score
         - best_distance: float | None — минимальная дистанция для предсказанной категории
     """
-    similar_nodes = search_ticket(message=message, n_results=N_RESULTS)
+    similar_nodes = await search_ticket(message=message, n_results=N_RESULTS)
     similar_nodes_dict = json.loads(similar_nodes.get("response", "[]"))
     logging.info(f"similar_nodes_dict {similar_nodes_dict}")
 
