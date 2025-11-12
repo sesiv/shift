@@ -13,7 +13,6 @@ from consts import (SCORE_DELTA,
     CHROMA_SERVER_PORT,
     CHROMA_SERVER_HOST,
     CHROMA_COLLECTION_NAME,
- 
  )
 from schemas import TicketPayload
 
