@@ -19,26 +19,31 @@ from schemas import TicketPayload
 
 logging.basicConfig(level=logging.INFO)
 
-# загрузка e5
+
+
+# загружаем зависимости при старте
 e5_instance = E5Model()
+collection = None
+
 try:
-    "Загрузка e5..."
+    logging.info("[vector_db] загрузка e5")
     e5_instance.load()
-    "Модель e5 загружена"
-except Exception as e:
-    logging.info(f"Произошла ошибка при загрузке модели e5: {e}")
+    logging.info("[vector_db] e5 загружена")
 
-# подключение к chromadb
-client = chromadb.HttpClient(
-    host=CHROMA_SERVER_HOST,  # IP сервера
-    port=CHROMA_SERVER_PORT,             
-    settings=Settings(
-        chroma_client_auth_provider=CHROMA_CLIENT_AUTH_PROVIDER ,
-        chroma_client_auth_credentials=os.environ["CHROMA_CLIENT_AUTH_CREDENTIALS"]
+    # подключение к chromadb
+    client = chromadb.HttpClient(
+        host=CHROMA_SERVER_HOST,
+        port=CHROMA_SERVER_PORT,
+        settings=Settings(
+            chroma_client_auth_provider=CHROMA_CLIENT_AUTH_PROVIDER,
+            chroma_client_auth_credentials=os.environ["CHROMA_CLIENT_AUTH_CREDENTIALS"],
+        ),
     )
-)
+    collection = client.get_collection(CHROMA_COLLECTION_NAME)
 
-collection=client.get_collection(CHROMA_COLLECTION_NAME)
+    logging.info("[vector_db] сервис готов")
+except Exception as e:
+    logging.exception("[vector_db] ошибка инициализации: %s", e)
 
 # Инициализация FastAPI
 app = FastAPI()
@@ -242,7 +247,16 @@ async def aggregate_nodes(state: str, message: str) -> dict:
     return result
 
 
+@app.get("/health")
+async def health_check():
+    """
+    роверяем, что стартовая инициализация завершилась.
+    """
+    if collection:
+        return {"status": "ok"}
+    raise HTTPException(status_code=503, detail="loading")
+
+
 # Для запуска через uvicorn:
 # uvicorn vector_db:app --host 0.0.0.0 --port 5004 --reload
-
 
