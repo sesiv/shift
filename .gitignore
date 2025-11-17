@@ -10,3 +10,5 @@ poetry.lock
 chat_ratings.db
 
 tz 
+
+.pytest_cache
