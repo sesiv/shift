@@ -153,29 +153,33 @@ async def aggregate_nodes(state: str, message: str) -> dict:
 
     hits: dict = {"folder": {}, "slmService": {}, "categoriesWork": {}}
 
+  
     if state == "baseState":
         for node in similar_nodes_dict:
+            similarity=1 / (1 + node["distance"]) 
             hits["folder"][node["folder"]] = (
-                hits["folder"].get(node["folder"], 0) + node["distance"]
+                hits["folder"].get(node["folder"], 0) +similarity
             )
             hits["slmService"][node["slmService"]] = (
-                hits["slmService"].get(node["slmService"], 0) + node["distance"]
+                hits["slmService"].get(node["slmService"], 0) + similarity
             )
             hits["categoriesWork"][node["categoriesWork"]] = (
-                hits["categoriesWork"].get(node["categoriesWork"], 0) + node["distance"]
+                hits["categoriesWork"].get(node["categoriesWork"], 0) + similarity
             )
     elif state == "folder":
         for node in similar_nodes_dict:
+            similarity=1 / (1 + node["distance"]) 
             hits["slmService"][node["slmService"]] = (
-                hits["slmService"].get(node["slmService"], 0) + node["distance"]
+                hits["slmService"].get(node["slmService"], 0) +similarity
             )
             hits["categoriesWork"][node["categoriesWork"]] = (
-                hits["categoriesWork"].get(node["categoriesWork"], 0) + node["distance"]
+                hits["categoriesWork"].get(node["categoriesWork"], 0) + similarity
             )
     elif state == "slmService":
         for node in similar_nodes_dict:
+            similarity=1 / (1 + node["distance"]) 
             hits["categoriesWork"][node["categoriesWork"]] = (
-                hits["categoriesWork"].get(node["categoriesWork"], 0) + node["distance"]
+                hits["categoriesWork"].get(node["categoriesWork"], 0) +similarity
             )
 
     logging.info(f"hits {hits}")
