@@ -22,11 +22,11 @@ logging.basicConfig(level=logging.INFO)
 # загрузка e5
 e5_instance = E5Model()
 try:
-    "Загрузка e5..."
+    logging.info("Загрузка e5...")
     e5_instance.load()
-    "Модель e5 загружена"
+    logging.info("Модель e5 загружена")
 except Exception as e:
-    logging.info(f"Произошла ошибка при загрузке модели e5: {e}")
+    logging.exception("Произошла ошибка при загрузке модели e5")
 
 # подключение к chromadb
 client = chromadb.HttpClient(

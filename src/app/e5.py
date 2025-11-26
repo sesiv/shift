@@ -6,7 +6,12 @@ import torch
 from transformers import AutoTokenizer, AutoModel
 import torch.nn.functional as F
 from consts import EMBEDDING_MODEL
+import logging
+from consts import MAX_VECTOR_LENGTH
 
+# Настройка логирования
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 class E5Model:
     """
@@ -19,14 +24,14 @@ class E5Model:
 
     def load(self):
         """Загружает модель в память"""
-        print("Загрузка модели E5...")
+        logging.info("Загрузка модели E5...")
         self.tokenizer = AutoTokenizer.from_pretrained(EMBEDDING_MODEL)
         self.model = AutoModel.from_pretrained(EMBEDDING_MODEL)
 
         self.model = torch.quantization.quantize_dynamic(
             self.model, {torch.nn.Linear}, dtype=torch.qint8
         )
-        print("E5 загружена")
+        logging.info("E5 загружена")
 
     @staticmethod
     def average_pool(last_hidden_states, attention_mask):
@@ -43,7 +48,7 @@ class E5Model:
         query_vector = self.tokenizer(
             query,
             return_tensors='pt',
-            max_length=512,
+            max_length=MAX_VECTOR_LENGTH,
             truncation=True,
             padding=True
         )
