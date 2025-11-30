@@ -1,3 +1,10 @@
+"""
+Модуль отвечает за работу с тикетами (запросами)
+- их поиск , добавление новых , удаление устаревших , 
+а также за агрегацию и преобразование похожих тикетов в шкалы уверенности для main.py
+"""
+
+
 from typing import List, Dict, Any
 import chromadb
 from fastapi import FastAPI, HTTPException
@@ -254,7 +261,7 @@ async def aggregate_nodes(state: str, message: str) -> dict:
 @app.get("/health")
 async def health_check():
     """
-    роверяем, что стартовая инициализация завершилась.
+    Проверяем, что стартовая инициализация завершилась.
     """
     if collection:
         return {"status": "ok"}

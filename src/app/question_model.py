@@ -1,3 +1,8 @@
+"""
+Модуль отвечает за написание уточняющих вопросов в LLM стиле
+"""
+
+
 from fastapi import FastAPI
 from fastapi.responses import JSONResponse, Response
 from llama_cpp import Llama
@@ -16,6 +21,7 @@ app = FastAPI()
 # Флаг готовности модели: False, пока загрузка не завершилась
 is_ready = False
 
+# Загрузка LLM
 def _load_model():
     global llm, is_ready
     logging.info("[question_model] loading model")
@@ -42,6 +48,7 @@ logging.info(f"[question_model] model loaded")
 
 @app.get("/health")
 async def health_check():
+    """ Проверка загрузки модели для докера """
     logging.info(f"[question_model] health check")
     if is_ready:
         return {"status": "ok"}
@@ -50,10 +57,12 @@ async def health_check():
 
 @app.post("/generate-question")
 async def generate_question(data: dict):
+    
     """
     Вызывается на третьем уровне уверенности (70%<) 
     В него передаются найденные ноды со степенью уверенности модели и вопрос пользователя 
-    Модель просят создать вопрос на основе их связки"""
+    Модель просят создать вопрос на основе их связки
+    """
     
     logging.info(f"[question_model] generate question")
     logging.info(f" received data: {data}")
