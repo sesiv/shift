@@ -51,11 +51,17 @@ docker compose up --remove-orphans
 ``` 
 
 ## Запуск тестов 
+Для запуска тестов нужно виртуальное окружение с pytest
+``` bash 
+pip install -r src/config/requirements/tests.txt
+```
 
 ``` bash
 cd src/config
 docker compose up
 ```
+Дождитесь уведомления от докера что все загрузилось 
+
 ``` bash
 pytest src/tests/integration/main.py -s
 ```
