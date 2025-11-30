@@ -50,3 +50,15 @@ uvicorn question_model:app --reload
 docker compose up --remove-orphans
 ``` 
 
+## Запуск тестов 
+
+``` bash
+cd src/config
+docker compose up
+```
+``` bash
+pytest src/tests/integration/main.py -s
+```
+
+
+
