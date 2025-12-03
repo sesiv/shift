@@ -1,3 +1,7 @@
+"""
+Модуль отвечает за фронтенд приложения
+"""
+
 import streamlit as st
 import websocket
 import uuid

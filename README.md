@@ -50,3 +50,13 @@ uvicorn question_model:app --reload
 docker compose up --remove-orphans
 ``` 
 
+## Документация 
+Swagger генерирует документацию для открытых http эндпоинтов
+
+``` bash
+http://localhost:8000/docs (главный API),
+http://localhost:5002/docs (server), 
+http://localhost:5004/docs (vector_db), 
+http://localhost:5017/docs (mongo), 
+http://localhost:5005/docs (question_model).
+``` 

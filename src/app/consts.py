@@ -40,6 +40,7 @@ SCORE_DELTA = 0.01
 # то обработать вопрос юзера функцией _handle_medium_confidence_response
 CLARIFICATION_COUNT_TRESHOLD = 1
 
+#Креды для подключения к chroma
 CHROMA_CLIENT_AUTH_PROVIDER="chromadb.auth.basic_authn.BasicAuthClientProvider"
 CHROMA_SERVER_PORT=8000
 CHROMA_SERVER_HOST="158.160.17.124"

@@ -1,3 +1,9 @@
+"""
+Модуль отвечает за работу с чатами пользователей: 
+    сохранение истории чатов между сессиями , поддержку нескольких чатов и прочее 
+"""
+
+
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from sqlalchemy import create_engine, Column, Integer, String, Text, UniqueConstraint
