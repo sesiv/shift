@@ -1,3 +1,10 @@
+"""
+Модуль отвечает за работу с тикетами (запросами)
+- их поиск , добавление новых , удаление устаревших , 
+а также за агрегацию и преобразование похожих тикетов в шкалы уверенности для main.py
+"""
+
+
 from typing import List, Dict, Any
 import chromadb
 from fastapi import FastAPI, HTTPException
@@ -19,8 +26,12 @@ from schemas import TicketPayload
 
 logging.basicConfig(level=logging.INFO)
 
-# загрузка e5
+
+
+# загружаем зависимости при старте
 e5_instance = E5Model()
+collection = None
+
 try:
     logging.info("Загрузка e5...")
     e5_instance.load()
@@ -28,17 +39,20 @@ try:
 except Exception as e:
     logging.exception("Произошла ошибка при загрузке модели e5")
 
-# подключение к chromadb
-client = chromadb.HttpClient(
-    host=CHROMA_SERVER_HOST,  # IP сервера
-    port=CHROMA_SERVER_PORT,             
-    settings=Settings(
-        chroma_client_auth_provider=CHROMA_CLIENT_AUTH_PROVIDER ,
-        chroma_client_auth_credentials=os.environ["CHROMA_CLIENT_AUTH_CREDENTIALS"]
+    # подключение к chromadb
+    client = chromadb.HttpClient(
+        host=CHROMA_SERVER_HOST,
+        port=CHROMA_SERVER_PORT,
+        settings=Settings(
+            chroma_client_auth_provider=CHROMA_CLIENT_AUTH_PROVIDER,
+            chroma_client_auth_credentials=os.environ["CHROMA_CLIENT_AUTH_CREDENTIALS"],
+        ),
     )
-)
+    collection = client.get_collection(CHROMA_COLLECTION_NAME)
 
-collection=client.get_collection(CHROMA_COLLECTION_NAME)
+    logging.info("[vector_db] сервис готов")
+except Exception as e:
+    logging.exception("[vector_db] ошибка инициализации: %s", e)
 
 # Инициализация FastAPI
 app = FastAPI()
@@ -148,29 +162,33 @@ async def aggregate_nodes(state: str, message: str) -> dict:
 
     hits: dict = {"folder": {}, "slmService": {}, "categoriesWork": {}}
 
+  
     if state == "baseState":
         for node in similar_nodes_dict:
+            similarity=1 / (1 + node["distance"]) 
             hits["folder"][node["folder"]] = (
-                hits["folder"].get(node["folder"], 0) + node["distance"]
+                hits["folder"].get(node["folder"], 0) +similarity
             )
             hits["slmService"][node["slmService"]] = (
-                hits["slmService"].get(node["slmService"], 0) + node["distance"]
+                hits["slmService"].get(node["slmService"], 0) + similarity
             )
             hits["categoriesWork"][node["categoriesWork"]] = (
-                hits["categoriesWork"].get(node["categoriesWork"], 0) + node["distance"]
+                hits["categoriesWork"].get(node["categoriesWork"], 0) + similarity
             )
     elif state == "folder":
         for node in similar_nodes_dict:
+            similarity=1 / (1 + node["distance"]) 
             hits["slmService"][node["slmService"]] = (
-                hits["slmService"].get(node["slmService"], 0) + node["distance"]
+                hits["slmService"].get(node["slmService"], 0) +similarity
             )
             hits["categoriesWork"][node["categoriesWork"]] = (
-                hits["categoriesWork"].get(node["categoriesWork"], 0) + node["distance"]
+                hits["categoriesWork"].get(node["categoriesWork"], 0) + similarity
             )
     elif state == "slmService":
         for node in similar_nodes_dict:
+            similarity=1 / (1 + node["distance"]) 
             hits["categoriesWork"][node["categoriesWork"]] = (
-                hits["categoriesWork"].get(node["categoriesWork"], 0) + node["distance"]
+                hits["categoriesWork"].get(node["categoriesWork"], 0) +similarity
             )
 
     logging.info(f"hits {hits}")
@@ -242,7 +260,16 @@ async def aggregate_nodes(state: str, message: str) -> dict:
     return result
 
 
+@app.get("/health")
+async def health_check():
+    """
+    Проверяем, что стартовая инициализация завершилась.
+    """
+    if collection:
+        return {"status": "ok"}
+    raise HTTPException(status_code=503, detail="loading")
+
+
 # Для запуска через uvicorn:
 # uvicorn vector_db:app --host 0.0.0.0 --port 5004 --reload
-
 
