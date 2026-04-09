@@ -1,0 +1,23 @@
+[
+  {
+    "epoch": 1.0,
+    "train_loss": NaN,
+    "validation_loss": NaN,
+    "validation_accuracy": 0.0,
+    "alpha": NaN
+  },
+  {
+    "epoch": 2.0,
+    "train_loss": NaN,
+    "validation_loss": NaN,
+    "validation_accuracy": 0.0,
+    "alpha": NaN
+  },
+  {
+    "epoch": 3.0,
+    "train_loss": NaN,
+    "validation_loss": NaN,
+    "validation_accuracy": 0.0,
+    "alpha": NaN
+  }
+]

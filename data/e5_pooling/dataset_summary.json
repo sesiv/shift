@@ -1,0 +1,40 @@
+{
+  "source": "src/data/ExportSDLab.xlsx",
+  "pooling_mode": "tfidf_weightedmean",
+  "idf_level": "token_id",
+  "model_name": "intfloat/multilingual-e5-large-instruct",
+  "seed": 42,
+  "splits": {
+    "train": {
+      "records": 9249,
+      "classes": 207,
+      "classes_with_at_least_2_examples": 181,
+      "classes_with_at_least_3_examples": 155,
+      "min_class_size": 1,
+      "max_class_size": 902,
+      "pairs": 32988,
+      "triplets": 9223
+    },
+    "validation": {
+      "records": 1150,
+      "classes": 137,
+      "classes_with_at_least_2_examples": 85,
+      "classes_with_at_least_3_examples": 62,
+      "min_class_size": 1,
+      "max_class_size": 113,
+      "pairs": 8720,
+      "triplets": 1098
+    },
+    "test": {
+      "records": 1141,
+      "classes": 128,
+      "classes_with_at_least_2_examples": 85,
+      "classes_with_at_least_3_examples": 62,
+      "min_class_size": 1,
+      "max_class_size": 113,
+      "pairs": 8720,
+      "triplets": 1098
+    }
+  },
+  "idf_tokens": 17688
+}

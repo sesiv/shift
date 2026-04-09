@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "service-desk-shift"
+version = "0.1.0"
+description = "Service Desk application with E5 pooling experiments."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = []
+
+[tool.setuptools]
+py-modules = [
+  "asr",
+  "consts",
+  "e5",
+  "e5_evaluate",
+  "e5_experiment_data",
+  "e5_prepare_data",
+  "e5_train",
+  "main",
+  "modeling_xlm_roberta",
+  "mongo",
+  "question_model",
+  "schemas",
+  "server",
+  "utils",
+  "vector_db",
+  "web",
+  "xlsx_reader",
+]
+
+[tool.setuptools.package-dir]
+"" = "src/app"

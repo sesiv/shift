@@ -1,0 +1,10 @@
+{
+  "best_epoch": 3,
+  "best_validation_accuracy": 0.73,
+  "best_validation_loss": 0.48,
+  "final_alpha": 1.21,
+  "plots": {
+    "png": "data/_tmp_plot_check/plots/training_curves.png",
+    "svg": "data/_tmp_plot_check/plots/training_curves.svg"
+  }
+}

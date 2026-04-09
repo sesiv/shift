@@ -1,0 +1,10 @@
+{
+  "best_epoch": 1,
+  "best_validation_accuracy": 0.0,
+  "best_validation_loss": NaN,
+  "final_alpha": NaN,
+  "plots": {
+    "png": "data/e5_pooling/checkpoints/plots/training_curves.png",
+    "svg": "data/e5_pooling/checkpoints/plots/training_curves.svg"
+  }
+}

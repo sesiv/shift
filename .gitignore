@@ -12,3 +12,5 @@ chat_ratings.db
 tz 
 
 .pytest_cache
+.venv/
+.hf_cache

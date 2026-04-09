@@ -1,4 +1,6 @@
 # Константы конфигурации
+import os
+
 MONGO_URL = "http://mongo:5017"
 E5_URL = "http://e5:5003"
 VECTOR_DB_URL = "http://vector_db:5004"
@@ -12,6 +14,11 @@ MODEL_FILENAME="gemma-3-4b-it-Q4_K_M.gguf"
 
 # e5.py
 EMBEDDING_MODEL="intfloat/multilingual-e5-large-instruct"
+EMBEDDING_POOLING_MODE = os.getenv("EMBEDDING_POOLING_MODE", "mean")
+EMBEDDING_IDF_PATH = os.getenv("EMBEDDING_IDF_PATH", "")
+EMBEDDING_POOLING_CHECKPOINT = os.getenv("EMBEDDING_POOLING_CHECKPOINT", "")
+EMBEDDING_POOLING_ALPHA = float(os.getenv("EMBEDDING_POOLING_ALPHA", "1.0"))
+EMBEDDING_QUANTIZE = os.getenv("EMBEDDING_QUANTIZE", "1").lower() not in {"0", "false", "no"}
 
 # Верхний и нижний пороги уверенности модели
 CONFIDENCE_CONSTANTS = [0.83, 0.5]
@@ -51,6 +58,5 @@ N_RESULTS = 5
 
 # Максимальная длина вектора при генерации для токенайзера e5
 MAX_VECTOR_LENGTH = 512
-
 
 

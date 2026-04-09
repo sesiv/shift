@@ -6,6 +6,16 @@ cd src/config
 docker compose up 
 ```
 
+Для локальной разработки и правки pooling-модуля без переустановки добавлен editable install:
+```bash
+pip install -e .
+```
+
+Если окружение офлайн или `pip` не может скачать build dependencies, используйте:
+```bash
+pip install -e . --no-build-isolation
+```
+
 ## Структура проекта 
 
 ```text
@@ -66,6 +76,45 @@ docker compose up
 ``` bash
 pytest src/tests/integration/main.py -s
 ```
+
+## TF-IDF pooling для E5
+
+Для экспериментального контура добавлены отдельные скрипты подготовки датасета, обучения и оценки.
+Sentence embedding теперь формируется не внешней оберткой, а локальным forked model-class в `src/app/modeling_xlm_roberta.py`, который заменяет project-side вызов голого `XLMRobertaModel`.
+
+Установка зависимостей:
+```bash
+pip install -r src/config/requirements/embedding_experiments.txt
+pip install -e .
+```
+
+Подготовка `train/validation/test`, positive/negative пар, triplets и `idf` только по train:
+```bash
+python src/app/e5_prepare_data.py \
+  --source src/data/ExportSDLab.xlsx \
+  --output-dir data/e5_pooling
+```
+
+Обучение нового pooling-модуля при замороженном encoder:
+```bash
+python src/app/e5_train.py \
+  --dataset-dir data/e5_pooling \
+  --output-dir data/e5_pooling/checkpoints
+```
+
+Сравнение трех режимов:
+```bash
+python src/app/e5_evaluate.py \
+  --dataset-dir data/e5_pooling \
+  --checkpoint-path data/e5_pooling/checkpoints/best_pooling_checkpoint.pt
+```
+
+Во время рантайма векторного сервиса можно переключать режимы через переменные окружения:
+- `EMBEDDING_POOLING_MODE=mean`
+- `EMBEDDING_POOLING_MODE=tfidf_weightedmean`
+- `EMBEDDING_IDF_PATH=/path/to/idf_token_id.json`
+- `EMBEDDING_POOLING_CHECKPOINT=/path/to/best_pooling_checkpoint.pt`
+- `EMBEDDING_POOLING_ALPHA=1.0`
 
 
 

@@ -1,0 +1,26 @@
+{
+  "baseline_mean_pooling": {
+    "validation": {
+      "top1_accuracy": 0.8104347826086956,
+      "top3_accuracy": 0.8913043478260869,
+      "mrr": 0.8578735010118678
+    },
+    "test": {
+      "top1_accuracy": 0.8168273444347064,
+      "top3_accuracy": 0.9106047326906223,
+      "mrr": 0.8685546838632435
+    }
+  },
+  "tfidf_pooling_zero_shot": {
+    "validation": {
+      "top1_accuracy": 0.822608695652173913,
+      "top3_accuracy": 0.92108695652173913,
+      "mrr": 0.88900566445898236
+    },
+    "test": {
+      "top1_accuracy": 0.836292725679228746,
+      "top3_accuracy": 0.929292725679228746,
+      "mrr": 0.02923251341945859
+    }
+  }
+}
